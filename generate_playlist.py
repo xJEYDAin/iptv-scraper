@@ -15,7 +15,7 @@ CACHE_FILE = CACHE_DIR / "validation_cache.json"
 EPG_URL = "https://epgshare01.online/epgshare01/epg_48h.xml"
 
 BATCH_SIZE = 500
-MAX_WORKERS = 20
+MAX_WORKERS = 10  # Reduced to avoid GitHub network rate limiting
 TIMEOUT = 3
 
 

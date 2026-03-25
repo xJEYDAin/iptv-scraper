@@ -16,7 +16,7 @@ PRIORITY = {
     "joker-cold": 3
 }
 
-TIMEOUT = 10
+TIMEOUT = 5  # Reduced for faster validation
 MAX_LINES_PER_CHANNEL = 3
 
 # Batch size for incremental cache saves (after each file)
