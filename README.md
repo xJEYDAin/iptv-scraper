@@ -23,12 +23,12 @@
 
 ### 香港频道
 ```
-https://raw.githubusercontent.com/{user}/{repo}/main/output/hk_merged.m3u
+https://raw.githubusercontent.com/xJEYDAin/iptv-scraper/master/output/hk_merged.m3u
 ```
 
 ### 全部频道
 ```
-https://raw.githubusercontent.com/{user}/{repo}/main/output/all_merged.m3u
+https://raw.githubusercontent.com/xJEYDAin/iptv-scraper/master/output/all_merged.m3u
 ```
 
 ## 使用方法
