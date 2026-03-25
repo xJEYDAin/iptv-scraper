@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """HK IPTV Scraper - Main Entry Point"""
 import sys
-import logging
 from datetime import datetime
 from pathlib import Path
 
@@ -12,23 +11,12 @@ from fetch_sources import main as fetch_main
 from filter_hk import main as filter_main
 from validate_and_merge import main as validate_main
 from generate_playlist import main as generate_main
+from utils import setup_logging
 
 LOG_DIR = Path(__file__).parent / "logs"
 
-def setup_logging():
-    LOG_DIR.mkdir(parents=True, exist_ok=True)
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler(str(LOG_DIR / ("main_" + datetime.now().strftime('%Y%m%d') + ".log"))),
-            logging.StreamHandler(sys.stdout)
-        ]
-    )
-    return logging.getLogger(__name__)
-
 def main():
-    logger = setup_logging()
+    logger = setup_logging(LOG_DIR, "main")
     
     banner = """
 ╔══════════════════════════════════════════════════╗

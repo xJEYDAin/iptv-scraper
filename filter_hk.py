@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-from config import SOURCES_DIR, FILTERED_DIR, LOG_DIR
 """
 IPTV Filter - 筛选香港频道
 """
 import re
-import logging
 import sys
 from datetime import datetime
 from pathlib import Path
+
+from config import SOURCES_DIR, FILTERED_DIR, LOG_DIR
+from utils import setup_logging, parse_m3u
 
 WHITELIST_KEYWORDS = [
     "TVB", "Jade", "Pearl", "翡翠", "明珠", "无线", "新闻台", "J2", 
@@ -40,55 +41,6 @@ FORCE_BLACKLIST = [
     "成人", "18+", "AV", "色情"
 ]
 
-
-def setup_logging():
-    LOG_DIR.mkdir(parents=True, exist_ok=True)
-    today_str = datetime.now().strftime('%Y%m%d')
-    log_file = str(LOG_DIR / ("filter_" + today_str + ".log"))
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler(log_file),
-            logging.StreamHandler(sys.stdout)
-        ]
-    )
-    return logging.getLogger(__name__)
-
-def parse_m3u(content):
-    channels = []
-    lines = content.strip().split('\n')
-    
-    i = 0
-    while i < len(lines):
-        line = lines[i].strip()
-        if line.startswith('#EXTINF:'):
-            match = re.search(r'group-title="([^"]*)"', line)
-            group = match.group(1) if match else ""
-            
-            match = re.search(r'tvg-name="([^"]*)"', line)
-            tvg_name = match.group(1) if match else ""
-            
-            if ',' in line:
-                name = line.split(',', 1)[1].strip()
-            else:
-                name = tvg_name or ""
-            
-            if i + 1 < len(lines):
-                url = lines[i + 1].strip()
-                if url and not url.startswith('#'):
-                    channels.append({
-                        "name": name,
-                        "tvg_name": tvg_name,
-                        "group": group,
-                        "url": url,
-                        "raw_extinf": line
-                    })
-                    i += 2
-                    continue
-        i += 1
-    
-    return channels
 
 def is_hk_channel(channel):
     name = channel["name"].lower()
@@ -157,7 +109,7 @@ def filter_file(filepath, logger):
         return {"file": str(filepath), "success": False, "error": str(e)}
 
 def main():
-    logger = setup_logging()
+    logger = setup_logging(LOG_DIR, "filter")
     logger.info("=" * 50)
     logger.info("Starting HK channel filtering")
     logger.info("=" * 50)

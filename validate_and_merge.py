@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 from config import FILTERED_DIR, OUTPUT_DIR, LOG_DIR, CACHE_DIR, CACHE_FILE
 """IPTV Validator & Merger"""
-import re
 import logging
 import sys
 import json
 from datetime import datetime
 from pathlib import Path
 import requests
+
+from utils import setup_logging, parse_m3u
 
 PRIORITY = {
     "sammy0101": 1,
@@ -17,24 +18,10 @@ PRIORITY = {
 
 TIMEOUT = 10
 MAX_LINES_PER_CHANNEL = 3
-CACHE_FILE = CACHE_DIR / "validation_cache.json"
 
 # Batch size for incremental cache saves (after each file)
 BATCH_SIZE = 500
 
-def setup_logging():
-    LOG_DIR.mkdir(parents=True, exist_ok=True)
-    today_str = datetime.now().strftime('%Y%m%d')
-    log_file = str(LOG_DIR / ("validate_" + today_str + ".log"))
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler(log_file),
-            logging.StreamHandler(sys.stdout)
-        ]
-    )
-    return logging.getLogger(__name__)
 
 def get_source_priority(filename):
     for name, priority in PRIORITY.items():
@@ -42,55 +29,28 @@ def get_source_priority(filename):
             return priority
     return 99
 
-def parse_m3u(content):
-    channels = []
-    lines = content.strip().split('\n')
 
-    i = 0
-    while i < len(lines):
-        line = lines[i].strip()
-        if line.startswith('#EXTINF:'):
-            extinf = line
-
-            if ',' in line:
-                name = line.split(',', 1)[1].strip()
-            else:
-                name = ""
-
-            match = re.search(r'tvg-name="([^"]*)"', line)
-            tvg_name = match.group(1) if match else name
-
-            if i + 1 < len(lines):
-                url = lines[i + 1].strip()
-                if url and not url.startswith('#'):
-                    channels.append({
-                        "name": name,
-                        "tvg_name": tvg_name,
-                        "url": url,
-                        "raw_extinf": extinf
-                    })
-                    i += 2
-                    continue
-        i += 1
-
-    return channels
-
-def validate_url(url, logger, timeout=TIMEOUT):
-    """Validate URL using context managers to avoid resource leaks."""
+def validate_url(url, logger, timeout=TIMEOUT, session=None):
+    """Validate URL using GET directly (P1-7: avoid HEAD→GET fallback delay)."""
+    if session is None:
+        session = requests.Session()
     try:
-        with requests.head(url, timeout=timeout, allow_redirects=True) as response:
-            if response.status_code in [200, 301, 302, 303, 307, 308]:
-                return True
-        # Try GET for streaming servers that don't respond to HEAD
-        with requests.get(url, timeout=timeout) as response:
+        with session.get(url, timeout=timeout, allow_redirects=True) as response:
             return response.status_code == 200
+    except requests.exceptions.Timeout:
+        logger.debug(f"URL validation timeout for {url}")
+        return False
+    except requests.exceptions.ConnectionError:
+        logger.debug(f"URL validation connection error for {url}")
+        return False
     except Exception as e:
         logger.debug(f"URL validation failed for {url}: {e}")
         return False
 
+
 def load_cache():
     """Load validation cache with proper error handling.
-    Corrupted cache files are deleted and重建.
+    Corrupted cache files are deleted and rebuilt.
     """
     if CACHE_FILE.exists():
         try:
@@ -100,6 +60,7 @@ def load_cache():
             CACHE_FILE.unlink()
     return {}
 
+
 def save_cache(cache):
     """Save validation cache atomically."""
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
@@ -107,6 +68,7 @@ def save_cache(cache):
     tmp = CACHE_FILE.with_suffix('.tmp')
     tmp.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding='utf-8')
     tmp.rename(CACHE_FILE)
+
 
 def validate_and_merge(logger):
     logger.info("=" * 50)
@@ -126,9 +88,12 @@ def validate_and_merge(logger):
 
     logger.info("Found " + str(len(filtered_files)) + " files to process")
 
-    # Load validation cache
+    # Load validation cache ONCE at the start
     cache = load_cache()
     logger.info("Loaded cache: " + str(len(cache)) + " entries")
+
+    # P0-3: use requests.Session for connection reuse
+    session = requests.Session()
 
     # Collect all channels by name, with their priority and URLs
     all_channels = {}  # name_key -> [(url, priority, raw_extinf, is_valid), ...]
@@ -162,7 +127,7 @@ def validate_and_merge(logger):
                 if url in cache:
                     is_valid = cache[url]
                 else:
-                    is_valid = validate_url(url, logger)
+                    is_valid = validate_url(url, logger, session=session)
                     cache[url] = is_valid
                     newly_validated += 1
                     batch_count += 1
@@ -225,8 +190,9 @@ def validate_and_merge(logger):
 
     return merged_channels
 
+
 def main():
-    logger = setup_logging()
+    logger = setup_logging(LOG_DIR, "validate")
     merged = validate_and_merge(logger)
 
     if merged:
@@ -247,6 +213,7 @@ def main():
         logger.info("Merge complete -> " + str(output_file))
 
     return merged
+
 
 if __name__ == "__main__":
     main()

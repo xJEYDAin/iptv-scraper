@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-from config import OUTPUT_DIR, FILTERED_DIR, CACHE_DIR, CACHE_FILE
+from config import OUTPUT_DIR, FILTERED_DIR, CACHE_DIR, CACHE_FILE, LOG_DIR
 """IPTV Playlist Generator - Reuses validate_and_merge.py results for HK channels"""
-import re
 import logging
-import sys
 import json
-import time
+import requests
 from datetime import datetime
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+from utils import setup_logging, parse_m3u
 
 CACHE_FILE = CACHE_DIR / "validation_cache.json"
 
@@ -17,49 +17,7 @@ EPG_URL = "https://epgshare01.online/epgshare01/epg_48h.xml"
 BATCH_SIZE = 500
 MAX_WORKERS = 20
 TIMEOUT = 3
-BATCH_DELAY = 1
 
-def setup_logging():
-    LOG_DIR.mkdir(parents=True, exist_ok=True)
-    today_str = datetime.now().strftime('%Y%m%d')
-    log_file = str(LOG_DIR / ("generate_" + today_str + ".log"))
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler(log_file),
-            logging.StreamHandler(sys.stdout)
-        ]
-    )
-    return logging.getLogger(__name__)
-
-def parse_m3u(content):
-    channels = []
-    lines = content.strip().split('\n')
-    i = 0
-    while i < len(lines):
-        line = lines[i].strip()
-        if line.startswith('#EXTINF:'):
-            extinf = line
-            name = line.split(',', 1)[1].strip() if ',' in line else ""
-            tvg_name = re.search(r'tvg-name="([^"]*)"', line)
-            tvg_logo = re.search(r'tvg-logo="([^"]*)"', line)
-            group = re.search(r'group-title="([^"]*)"', line)
-            if i + 1 < len(lines):
-                url = lines[i + 1].strip()
-                if url and not url.startswith('#'):
-                    channels.append({
-                        "name": name,
-                        "tvg_name": tvg_name.group(1) if tvg_name else name,
-                        "tvg_logo": tvg_logo.group(1) if tvg_logo else "",
-                        "group": group.group(1) if group else "HK",
-                        "url": url,
-                        "raw_extinf": extinf
-                    })
-                    i += 2
-                    continue
-        i += 1
-    return channels
 
 def categorize(name, group):
     name_lower, group_lower = name.lower(), (group or "").lower()
@@ -83,14 +41,21 @@ def categorize(name, group):
     if group and group.strip(): return "📺 " + group
     return "🌐 其他"
 
-def check_url(url):
-    """Validate URL with proper resource cleanup (no stream=True needed for HEAD)."""
-    import requests
+
+def check_url(url, session=None):
+    """Validate URL using GET directly (P1-7: avoid HEAD→GET fallback delay)."""
+    if session is None:
+        session = requests.Session()
     try:
-        r = requests.head(url, timeout=TIMEOUT, allow_redirects=True)
+        r = session.get(url, timeout=TIMEOUT, allow_redirects=True)
         return (url, r.status_code in [200, 301, 302, 303, 307, 308])
-    except:
+    except requests.exceptions.Timeout:
         return (url, False)
+    except requests.exceptions.ConnectionError:
+        return (url, False)
+    except Exception:
+        return (url, False)
+
 
 def load_cache():
     """Load validation cache with proper error handling.
@@ -104,6 +69,7 @@ def load_cache():
             CACHE_FILE.unlink()
     return {}
 
+
 def save_cache(cache):
     """Save validation cache atomically."""
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
@@ -111,12 +77,14 @@ def save_cache(cache):
     tmp.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding='utf-8')
     tmp.rename(CACHE_FILE)
 
+
 def get_latest_merged_hk():
     """Find the latest hk_merged_YYYYMMDD.m3u from validate_and_merge.py output."""
     files = sorted(OUTPUT_DIR.glob("hk_merged_*.m3u"), key=lambda p: p.stat().st_mtime, reverse=True)
     if files:
         return files[0]
     return None
+
 
 def batch_validate(all_channels, logger):
     """Validate channels in batches with caching. Saves cache incrementally per URL."""
@@ -146,18 +114,21 @@ def batch_validate(all_channels, logger):
         logger.info("Batch " + str(batch_start//BATCH_SIZE + 1) + "/" + str((total + BATCH_SIZE - 1)//BATCH_SIZE))
         logger.info("  Progress: " + str(batch_end) + "/" + str(total))
 
+        # P0-3: use requests.Session for connection reuse
+        session = requests.Session()
         with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-            futures = {executor.submit(check_url, ch["url"]): ch for ch in batch}
+            futures = {executor.submit(check_url, ch["url"], session): ch for ch in batch}
             for future in as_completed(futures):
                 url, is_valid = future.result()
                 cache[url] = is_valid
-                # P0-4: incremental cache save - update after each URL
-                save_cache(cache)
+                # P0-1: batch cache save every 500 URLs
+                if len(cache) % 500 == 0:
+                    save_cache(cache)
+
+        # P0-1: save cache after each batch
+        save_cache(cache)
 
         logger.info("  Done. Cached total: " + str(len(cache)))
-
-        if batch_end < total:
-            time.sleep(BATCH_DELAY)
 
     # Update channels with validation results
     for ch in all_channels:
@@ -168,6 +139,7 @@ def batch_validate(all_channels, logger):
     logger.info("Validation complete: " + str(valid_count) + "/" + str(len(all_channels)) + " valid")
 
     return all_channels, cache
+
 
 def generate_playlist(logger):
     logger.info("=" * 50)
@@ -293,9 +265,11 @@ def generate_playlist(logger):
         "all": {"file": str(all_file), "channels": total_valid, "groups": len(categorized) + len(categorized_hk), "cache": len(cache)}
     }
 
+
 def main():
-    logger = setup_logging()
+    logger = setup_logging(LOG_DIR, "generate")
     return generate_playlist(logger)
+
 
 if __name__ == "__main__":
     main()

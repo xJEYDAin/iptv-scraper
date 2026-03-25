@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """IPTV Source Fetcher"""
 import requests
-import logging
 import sys
 from datetime import datetime
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Import shared config
 sys.path.insert(0, str(Path(__file__).parent))
 from config import SOURCES_DIR, LOG_DIR
+from utils import setup_logging
 
 SOURCES = [
     {
@@ -35,28 +36,17 @@ SOURCES = [
 
 TIMEOUT = 10
 
-def setup_logging():
-    LOG_DIR.mkdir(parents=True, exist_ok=True)
-    today_str = datetime.now().strftime('%Y%m%d')
-    log_file = str(LOG_DIR / ("fetch_" + today_str + ".log"))
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler(log_file),
-            logging.StreamHandler(sys.stdout)
-        ]
-    )
-    return logging.getLogger(__name__)
-
-def fetch_source(source, logger):
+def fetch_source(source, logger, session=None):
     name = source["name"]
     url = source["url"]
     
     logger.info("Fetching: " + name + " (" + url + ")")
     
+    if session is None:
+        session = requests.Session()
+    
     try:
-        response = requests.get(url, timeout=TIMEOUT)
+        response = session.get(url, timeout=TIMEOUT)
         response.raise_for_status()
         
         content = response.text
@@ -85,17 +75,20 @@ def fetch_source(source, logger):
         return {"name": name, "success": False, "error": str(e)}
 
 def main():
-    logger = setup_logging()
+    logger = setup_logging(LOG_DIR, "fetch")
     logger.info("=" * 50)
     logger.info("Starting IPTV source fetch")
     logger.info("=" * 50)
     
     SOURCES_DIR.mkdir(parents=True, exist_ok=True)
     
+    # P0-2: parallel fetch with shared session (P0-3)
+    session = requests.Session()
     results = []
-    for source in SOURCES:
-        result = fetch_source(source, logger)
-        results.append(result)
+    with ThreadPoolExecutor(max_workers=len(SOURCES)) as executor:
+        futures = {executor.submit(fetch_source, source, logger, session): source for source in SOURCES}
+        for future in as_completed(futures):
+            results.append(future.result())
     
     success_count = sum(1 for r in results if r["success"])
     total_count = sum(r.get("count", 0) for r in results if r["success"])
