@@ -62,12 +62,13 @@ jobs:
           # 只提交输出文件
           git add output/*.m3u
           
-          # 检查是否有更改（git diff --cached --quiet 返回 0 表示有变更，1 表示无变更）
-          if git diff --cached --quiet; then
+          # 检查是否有更改（git diff --cached --exit-code 会在有变更时返回 0，无变更时返回 1）
+          if git diff --cached --exit-code; then
             echo "No changes to commit"
+            exit 0
           else
-            git commit -m "Auto update: $(date +'%Y-%m-%d %H:%M')" || echo "Commit failed (may be empty)"
-            git push || echo "Push failed"
+            git commit -m "Auto update: $(date +'%Y-%m-%d %H:%M')"
+            git push
           fi
       
       - name: Upload cache
