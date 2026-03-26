@@ -198,6 +198,7 @@ def generate_playlist(logger):
 
     # Batch validate non-HK channels (skip if SKIP_VALIDATION=1 or no channels to validate)
     skip_validation = os.getenv("SKIP_VALIDATION") == "1"
+    cache = load_cache()
     if skip_validation:
         logger.info("SKIP_VALIDATION=1, skipping validation - using cached results")
         for ch in non_hk_channels:

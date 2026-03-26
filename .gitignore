@@ -6,6 +6,8 @@ __pycache__/
 # Cache and temporary files
 cache/
 *.log
+# But keep the validation cache in git (for GitHub Actions)
+!cache/validation_cache.json
 sources/*.m3u
 filtered/*.m3u
 output/*.m3u
