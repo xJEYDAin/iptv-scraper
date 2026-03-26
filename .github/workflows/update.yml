@@ -61,17 +61,15 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # 强制添加被 gitignore 的输出文件
-          git add -f output/*.m3u
+          # 强制添加输出文件
+          git add -f output/hk_merged.m3u output/all_merged.m3u
           
-          # 检查是否有更改
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            # 重写 remote URL 使用 token 认证
-            git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/xJEYDAin/iptv-scraper.git"
-            git push origin master
-          fi
+          # 重写 remote URL 使用 token 认证
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/xJEYDAin/iptv-scraper.git"
+          
+          # 总是尝试 commit 并推送
+          git commit -m "Auto update: $(date +'%Y-%m-%d %H:%M')" --allow-empty || true
+          git push origin master
       
       - name: Upload cache
         uses: actions/cache@v4
