@@ -68,8 +68,8 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Auto update: $(date +'%Y-%m-%d %H:%M')"
-            git push
+            # 使用 GITHUB_TOKEN 显式认证
+            git push "https://x-access-token:${GITHUB_TOKEN}@github.com/xJEYDAin/iptv-scraper.git" master
           fi
       
       - name: Upload cache
