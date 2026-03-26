@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""IPTV Playlist Generator - Reuses validate_and_merge.py results for HK channels"""
+"""IPTV Playlist Generator - Better categorization for HK/TW/MO channels"""
 import logging
 import json
 import os
@@ -15,38 +15,57 @@ CACHE_FILE = CACHE_DIR / "validation_cache.json"
 
 EPG_URL = "https://epgshare01.online/epgshare01/epg_48h.xml"
 
-# Detect GitHub Actions for faster timeout
 IS_GITHUB = os.getenv("GITHUB_ACTIONS") == "true"
-TIMEOUT = 2 if IS_GITHUB else 3  # Faster timeout in CI
-MAX_WORKERS = 10  # Reduced to avoid GitHub network rate limiting
-BATCH_SIZE = 50   # Process in smaller batches for better progress tracking
+TIMEOUT = 2 if IS_GITHUB else 3
+MAX_WORKERS = 10
+BATCH_SIZE = 50
 
 
 def categorize(name, group):
+    """Categorize channel into appropriate group."""
     name_lower, group_lower = name.lower(), (group or "").lower()
-    hk_kw = ['tvb', 'jade', 'pearl', 'viu', 'rthk', 'hoy', 'now tv', 'now news', 'cable', '无线', '翡翠', '明珠', '港台', '新闻台', 'j2', '开电视', 'hooy', 'star tv']
-    tw_kw = ['tvbs', '台', '台湾', '中視', '華視', '民視', '東森', '三立', '非凡', '大愛', 'news', '綜合', '戲劇', '綜合台']
-    cn_kw = ['cctv', 'cbn', '北京', '上海', '广东', '广州', '深圳', '浙江', '江苏', '四川', '湖南', '山东', '安徽', '福建', '凤凰', 'phtv', 'btv', 'sjtv']
-    for kw in hk_kw:
-        if kw in name_lower or kw in group_lower: return "🇭🇰 香港"
-    for kw in tw_kw:
-        if kw in name_lower: return "🇹🇼 台湾"
-    for kw in cn_kw:
-        if kw in name_lower: return "🇨🇳 大陆"
-    if '澳门' in name or '澳視' in name or 'macau' in name_lower: return "🇲🇴 澳门"
-    if any(kw in name_lower for kw in ['movie', '电影', '影城', 'cinema', 'hbo', 'cinemax']): return "🎬 电影"
-    if any(kw in name_lower for kw in ['sport', 'sports', '体育', 'espn', '足球', '篮球']): return "⚽ 体育"
-    if any(kw in name_lower for kw in ['kids', 'children', '卡通', '动画', 'anime', 'nick', '迪士尼', 'disney']): return "🧸 儿童"
-    if any(kw in name_lower for kw in ['news', '新闻', 'cnn', 'bbc']): return "📰 新闻"
-    if any(kw in name_lower for kw in ['entertainment', '娱乐', '综艺', 'variety']): return "🎭 娱乐"
-    if any(kw in name_lower for kw in ['discovery', 'national geographic', '地理', '探索', 'history']): return "📺 纪录片"
-    if any(kw in name_lower for kw in ['music', '音乐', 'mv', 'channel v', ' MTV']): return "🎵 音乐"
-    if group and group.strip(): return "📺 " + group
+    full_text = name_lower + " " + group_lower
+    
+    if any(kw in full_text for kw in ['tvb', '翡翠台', '明珠台', 'jade', 'pearl', 'j2', 'tvb珠', 'tvb明']):
+        return "📺 TVB"
+    if any(kw in full_text for kw in ['viutv', 'viu tv', 'viu6']):
+        return "📺 ViuTV"
+    if any(kw in full_text for kw in ['rthk', '港台', '香港电台']):
+        return "📺 RTHK"
+    if any(kw in full_text for kw in ['hoy', 'hooy', 'hoytv']):
+        return "📺 HOY TV"
+    if any(kw in full_text for kw in ['now tv', 'nowtv', 'now news', 'now直播', 'now财经']):
+        return "📺 Now TV"
+    if any(kw in full_text for kw in ['cable', '有线', '开电视', 'cable TV']):
+        return "📺 有线电视"
+    if any(kw in full_text for kw in ['凤凰', 'phoenix']):
+        return "📺 凤凰卫视"
+    if any(kw in full_text for kw in ['无线', '新闻台', '星空', 'star tv', 'hooy']):
+        return "📺 香港其他"
+    if any(kw in full_text for kw in ['tvbs', '台视', '中视', '华视', '民视', '东森', '三立', '非凡', '大爱', '公视']):
+        return "🇹🇼 台湾"
+    if any(kw in full_text for kw in ['澳门', '澳視', 'macau', '澳广视']):
+        return "🇲🇴 澳门"
+    if any(kw in full_text for kw in ['news', '新闻', 'cnn', 'bbc', 'dw', '半岛']):
+        return "📰 新闻"
+    if any(kw in full_text for kw in ['movie', '电影', 'cinema', 'hbo', 'cinemax', '影城', '卫视电影']):
+        return "🎬 电影"
+    if any(kw in full_text for kw in ['sport', 'sports', '体育', 'espn', '足球', '篮球', 'fox sports', 'beinsport']):
+        return "⚽ 体育"
+    if any(kw in full_text for kw in ['kids', 'children', '卡通', '动画', 'anime', 'nick', '迪士尼', 'disney', 'baby']):
+        return "🧸 儿童"
+    if any(kw in full_text for kw in ['entertainment', '娱乐', '综艺', 'variety', '综合台', '戏剧']):
+        return "🎭 综艺"
+    if any(kw in full_text for kw in ['discovery', 'national geographic', '地理', '探索', 'history', 'hist', '动物']):
+        return "📺 纪录片"
+    if any(kw in full_text for kw in ['music', '音乐', 'mv', 'channel v', 'mtv', 'vod']):
+        return "🎵 音乐"
+    if group and group.strip():
+        return "📺 " + group
     return "🌐 其他"
 
 
 def check_url(url, session=None):
-    """Validate URL using GET directly (P1-7: avoid HEAD→GET fallback delay)."""
     if session is None:
         session = requests.Session()
     try:
@@ -61,9 +80,6 @@ def check_url(url, session=None):
 
 
 def load_cache():
-    """Load validation cache with proper error handling.
-    Corrupted cache files are deleted and rebuilt.
-    """
     if CACHE_FILE.exists():
         try:
             return json.loads(CACHE_FILE.read_text(encoding='utf-8'))
@@ -74,7 +90,6 @@ def load_cache():
 
 
 def save_cache(cache):
-    """Save validation cache atomically."""
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     tmp = CACHE_FILE.with_suffix('.tmp')
     tmp.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding='utf-8')
@@ -82,15 +97,11 @@ def save_cache(cache):
 
 
 def get_latest_merged_hk():
-    """Find the latest hk_merged_YYYYMMDD.m3u from validate_and_merge.py output."""
     files = sorted(OUTPUT_DIR.glob("hk_merged_*.m3u"), key=lambda p: p.stat().st_mtime, reverse=True)
-    if files:
-        return files[0]
-    return None
+    return files[0] if files else None
 
 
 def batch_validate(all_channels, logger):
-    """Validate channels in batches with caching. Saves cache incrementally per URL."""
     logger.info("=" * 50)
     logger.info("Starting batched validation")
     logger.info("=" * 50)
@@ -98,18 +109,11 @@ def batch_validate(all_channels, logger):
     cache = load_cache()
     logger.info("Loaded cache: " + str(len(cache)) + " entries")
 
-    # Find channels to validate
-    to_validate = []
-    for ch in all_channels:
-        if ch["url"] not in cache:
-            to_validate.append(ch)
-
+    to_validate = [ch for ch in all_channels if ch["url"] not in cache]
     logger.info("Need to validate: " + str(len(to_validate)) + " channels")
     logger.info("Already cached: " + str(len(cache)) + " channels")
 
-    # Process in batches
     total = len(to_validate)
-
     for batch_start in range(0, total, BATCH_SIZE):
         batch_end = min(batch_start + BATCH_SIZE, total)
         batch = to_validate[batch_start:batch_end]
@@ -117,23 +121,18 @@ def batch_validate(all_channels, logger):
         logger.info("Batch " + str(batch_start//BATCH_SIZE + 1) + "/" + str((total + BATCH_SIZE - 1)//BATCH_SIZE))
         logger.info("  Progress: " + str(batch_end) + "/" + str(total))
 
-        # P0-3: use requests.Session for connection reuse
         session = requests.Session()
         with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
             futures = {executor.submit(check_url, ch["url"], session): ch for ch in batch}
             for future in as_completed(futures):
                 url, is_valid = future.result()
                 cache[url] = is_valid
-                # P0-1: batch cache save every 500 URLs
                 if len(cache) % 500 == 0:
                     save_cache(cache)
 
-        # P0-1: save cache after each batch
         save_cache(cache)
-
         logger.info("  Done. Cached total: " + str(len(cache)))
 
-    # Update channels with validation results
     for ch in all_channels:
         ch["is_valid"] = cache.get(ch["url"], False)
 
@@ -149,25 +148,22 @@ def generate_playlist(logger):
     logger.info("Generating final playlist")
     logger.info("=" * 50)
 
-    today_str = datetime.now().strftime('%Y%m%d')
-
-    # --- HK Channels: Reuse validate_and_merge.py output (already validated) ---
     hk_channels = []
     hk_source = get_latest_merged_hk()
 
     if hk_source:
-        logger.info("Reading HK channels from validated merge: " + hk_source.name)
+        logger.info("Reading HK channels from: " + hk_source.name)
         try:
             channels = parse_m3u(hk_source.read_text(encoding='utf-8'))
             for ch in channels:
-                ch["is_valid"] = True  # Already validated by validate_and_merge.py
+                ch["is_valid"] = True
             hk_channels = channels
             logger.info("Loaded " + str(len(hk_channels)) + " HK channels (pre-validated)")
         except Exception as e:
             logger.error("Failed to read HK merge file: " + str(e))
             hk_channels = []
     else:
-        logger.warning("No hk_merged_YYYYMMDD.m3u found! Falling back to filtered/ HK channels.")
+        logger.warning("No hk_merged_YYYYMMDD.m3u found!")
         for sf in sorted(FILTERED_DIR.glob("*.m3u*"), key=lambda p: p.stat().st_mtime, reverse=True):
             try:
                 channels = parse_m3u(sf.read_text(encoding='utf-8'))
@@ -175,8 +171,6 @@ def generate_playlist(logger):
             except Exception as e:
                 logger.warning("Failed: " + sf.name)
 
-    # --- Non-HK Channels: Batch validate from filtered/ ---
-    # Read all channels from filtered/ that are not HK
     non_hk_channels = []
     for sf in sorted(FILTERED_DIR.glob("*.m3u*"), key=lambda p: p.stat().st_mtime, reverse=True):
         try:
@@ -186,7 +180,6 @@ def generate_playlist(logger):
         except Exception as e:
             logger.warning("Failed: " + sf.name)
 
-    # Remove duplicates by URL, prioritize first-seen
     seen_urls = set()
     deduped_non_hk = []
     for ch in non_hk_channels:
@@ -196,68 +189,60 @@ def generate_playlist(logger):
     non_hk_channels = deduped_non_hk
     logger.info("Non-HK channels (deduped): " + str(len(non_hk_channels)))
 
-    # Batch validate non-HK channels (skip if SKIP_VALIDATION=1 or no channels to validate)
     skip_validation = os.getenv("SKIP_VALIDATION") == "1"
     cache = load_cache()
     if skip_validation:
-        logger.info("SKIP_VALIDATION=1, skipping validation - using cached results")
+        logger.info("SKIP_VALIDATION=1, using cached results")
         for ch in non_hk_channels:
             ch["is_valid"] = cache.get(ch["url"], False)
     else:
         non_hk_channels, cache = batch_validate(non_hk_channels, logger)
 
-    # Filter valid non-HK channels
     valid_non_hk = [ch for ch in non_hk_channels if ch["is_valid"]]
     logger.info("Valid non-HK channels: " + str(len(valid_non_hk)))
 
-    # Categorize non-HK channels
     categorized = {}
+    
+    for ch in hk_channels:
+        cat = categorize(ch["name"], ch["group"])
+        if cat not in categorized:
+            categorized[cat] = []
+        categorized[cat].append(ch)
+    
     for ch in valid_non_hk:
         cat = categorize(ch["name"], ch["group"])
         if cat not in categorized:
             categorized[cat] = []
         categorized[cat].append(ch)
 
-    # Add HK channels to categorized (pre-validated, no re-validation needed)
-    categorized_hk = {}
-    for ch in hk_channels:
-        cat = "🇭🇰 香港"
-        if cat not in categorized_hk:
-            categorized_hk[cat] = []
-        categorized_hk[cat].append(ch)
+    logger.info("Total categories: " + str(len(categorized)))
 
-    logger.info("HK channels (from merge): " + str(len(hk_channels)))
-    logger.info("Non-HK categories: " + str(len(categorized)))
-
-    # Sort categories
-    order = ["🇭🇰 香港", "🇹🇼 台湾", "🇨🇳 大陆", "🇲🇴 澳门", "🎬 电影", "⚽ 体育", "🧸 儿童", "📰 新闻", "🎭 娱乐", "📺 纪录片", "🎵 音乐", "🌐 其他"]
+    order = ["📺 TVB", "📺 ViuTV", "📺 RTHK", "📺 HOY TV", "📺 Now TV", "📺 有线电视", "📺 凤凰卫视", "📺 香港其他", "🇹🇼 台湾", "🇲🇴 澳门", "📰 新闻", "🎬 电影", "⚽ 体育", "🧸 儿童", "🎭 综艺", "📺 纪录片", "🎵 音乐", "🌐 其他"]
     def sort_key(c): return (0, order.index(c)) if c in order else (1, c)
 
-    # --- Generate HK playlist (from pre-validated merge) ---
+    hk_cats = {k: v for k, v in categorized.items() if '📺' in k or '香港' in k or '🇭🇰' in k}
+    total_hk = sum(len(v) for v in hk_cats.values())
+    
     hk_lines = ['#EXTM3U x-tvg-url="' + EPG_URL + '"',
                 '#PLAYLIST:HK IPTV ' + datetime.now().strftime('%Y-%m-%d'), '']
-    hk_lines.append('#EXTGRP:🇭🇰 香港 (' + str(len(hk_channels)) + ')')
-    for ch in hk_channels:
-        hk_lines.extend([ch["raw_extinf"], ch["url"]])
+    hk_lines.append('#EXTGRP:🇭🇰 香港 (' + str(total_hk) + ')')
+    
+    for cat, chs in sorted(hk_cats.items(), key=lambda x: sort_key(x[0])):
+        hk_lines.append('#EXTGRP:' + cat + ' (' + str(len(chs)) + ')')
+        for ch in chs:
+            hk_lines.extend([ch["raw_extinf"], ch["url"]])
+        hk_lines.append('')
+    
     hk_file = OUTPUT_DIR / "hk_merged.m3u"
     hk_file.write_text('\n'.join(hk_lines), encoding='utf-8')
-    logger.info("HK Playlist -> " + str(hk_file) + " (" + str(len(hk_channels)) + " channels)")
+    logger.info("HK Playlist -> " + str(hk_file) + " (" + str(total_hk) + " channels)")
 
-    # --- Generate ALL playlist ---
-    total_valid = len(hk_channels) + len(valid_non_hk)
+    total_valid = sum(len(v) for v in categorized.values())
     all_lines = ['#EXTM3U x-tvg-url="' + EPG_URL + '"',
                  '#PLAYLIST:All IPTV ' + datetime.now().strftime('%Y-%m-%d'),
-                 '# Total: ' + str(total_valid) + ' (HK: ' + str(len(hk_channels)) + ', Non-HK: ' + str(len(valid_non_hk)) + '), Cache: ' + str(len(cache)),
+                 '# Total: ' + str(total_valid) + ' channels, ' + str(len(categorized)) + ' categories',
                  '']
 
-    # HK first
-    for cat, chs in sorted(categorized_hk.items(), key=lambda x: sort_key(x[0])):
-        all_lines.append('#EXTGRP:' + cat + ' (' + str(len(chs)) + ')')
-        for ch in chs:
-            all_lines.extend([ch["raw_extinf"], ch["url"]])
-        all_lines.append('')
-
-    # Other categories
     for cat, chs in sorted(categorized.items(), key=lambda x: sort_key(x[0])):
         all_lines.append('#EXTGRP:' + cat + ' (' + str(len(chs)) + ')')
         for ch in chs[:100]:
@@ -268,11 +253,11 @@ def generate_playlist(logger):
 
     all_file = OUTPUT_DIR / "all_merged.m3u"
     all_file.write_text('\n'.join(all_lines), encoding='utf-8')
-    logger.info("ALL Playlist -> " + str(all_file) + " (" + str(total_valid) + " channels, " + str(len(categorized) + len(categorized_hk)) + " categories)")
+    logger.info("ALL Playlist -> " + str(all_file) + " (" + str(total_valid) + " channels, " + str(len(categorized)) + " categories)")
 
     return {
-        "hk": {"file": str(hk_file), "channels": len(hk_channels), "groups": len(categorized_hk)},
-        "all": {"file": str(all_file), "channels": total_valid, "groups": len(categorized) + len(categorized_hk), "cache": len(cache)}
+        "hk": {"file": str(hk_file), "channels": total_hk, "groups": len(hk_cats)},
+        "all": {"file": str(all_file), "channels": total_valid, "groups": len(categorized), "cache": len(cache)}
     }
 
 
