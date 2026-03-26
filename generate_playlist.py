@@ -1,22 +1,25 @@
 #!/usr/bin/env python3
-from config import OUTPUT_DIR, FILTERED_DIR, CACHE_DIR, CACHE_FILE, LOG_DIR
 """IPTV Playlist Generator - Reuses validate_and_merge.py results for HK channels"""
 import logging
 import json
+import os
 import requests
 from datetime import datetime
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+from config import OUTPUT_DIR, FILTERED_DIR, CACHE_DIR, CACHE_FILE, LOG_DIR
 from utils import setup_logging, parse_m3u
 
 CACHE_FILE = CACHE_DIR / "validation_cache.json"
 
 EPG_URL = "https://epgshare01.online/epgshare01/epg_48h.xml"
 
-BATCH_SIZE = 500
+# Detect GitHub Actions for faster timeout
+IS_GITHUB = os.getenv("GITHUB_ACTIONS") == "true"
+TIMEOUT = 2 if IS_GITHUB else 3  # Faster timeout in CI
 MAX_WORKERS = 10  # Reduced to avoid GitHub network rate limiting
-TIMEOUT = 3
+BATCH_SIZE = 50   # Process in smaller batches for better progress tracking
 
 
 def categorize(name, group):
