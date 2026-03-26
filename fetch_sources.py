@@ -27,11 +27,7 @@ SOURCES = [
         "url": "https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%8F%B0%E6%B9%BE%E9%A6%99%E6%B8%AF%E6%BE%B3%E9%97%A8202506.m3u",
         "priority": 3
     },
-    {
-        "name": "iptv-org",
-        "url": "https://iptv-org.github.io/iptv/index.m3u",
-        "priority": 4
-    }
+    # iptv-org removed - too many international channels pollute HK results
 ]
 
 TIMEOUT = 10
