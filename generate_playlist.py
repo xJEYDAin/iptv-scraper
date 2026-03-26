@@ -13,7 +13,7 @@ from utils import setup_logging, parse_m3u
 
 CACHE_FILE = CACHE_DIR / "validation_cache.json"
 
-EPG_URL = "https://epgshare01.online/epgshare01/epg_48h.xml"
+EPG_URL = "https://epg.pw/pp.xml"
 
 IS_GITHUB = os.getenv("GITHUB_ACTIONS") == "true"
 TIMEOUT = 2 if IS_GITHUB else 3
