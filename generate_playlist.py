@@ -196,8 +196,14 @@ def generate_playlist(logger):
     non_hk_channels = deduped_non_hk
     logger.info("Non-HK channels (deduped): " + str(len(non_hk_channels)))
 
-    # Batch validate non-HK channels
-    non_hk_channels, cache = batch_validate(non_hk_channels, logger)
+    # Batch validate non-HK channels (skip if SKIP_VALIDATION=1 or no channels to validate)
+    skip_validation = os.getenv("SKIP_VALIDATION") == "1"
+    if skip_validation:
+        logger.info("SKIP_VALIDATION=1, skipping validation - using cached results")
+        for ch in non_hk_channels:
+            ch["is_valid"] = cache.get(ch["url"], False)
+    else:
+        non_hk_channels, cache = batch_validate(non_hk_channels, logger)
 
     # Filter valid non-HK channels
     valid_non_hk = [ch for ch in non_hk_channels if ch["is_valid"]]

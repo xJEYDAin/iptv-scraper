@@ -43,7 +43,14 @@ jobs:
       - name: Run scraper
         run: |
           echo "Cache hit: ${{ steps.cache.outputs.cache-hit }}"
-          python main.py
+          # Skip validation if cache exists (use cached validation results)
+          if [ "${{ steps.cache.outputs.cache-hit }}" == "true" ]; then
+            echo "Using cached validation results"
+            SKIP_VALIDATION=1 python main.py
+          else
+            echo "No cache - running full validation"
+            python main.py
+          fi
       
       - name: Commit and push
         env:
