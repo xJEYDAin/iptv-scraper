@@ -1,0 +1,87 @@
+# IPTV Channel Alias Mapping
+# Format: 原始名称 -> 标准名称
+# Lines starting with # are comments
+
+# TVB
+ViuTV -> ViuTV
+Viutv -> ViuTV
+VIUTV -> ViuTV
+viu tv -> ViuTV
+Viu tv -> ViuTV
+
+TVB J2 -> TVB J2
+TVB J2台 -> TVB J2
+J2 -> TVB J2
+J2台 -> TVB J2
+TVBj2 -> TVB J2
+tvbj2 -> TVB J2
+
+TVB 翡翠台 -> TVB 翡翠台
+翡翠台 -> TVB 翡翠台
+TVB翡翠台 -> TVB 翡翠台
+
+TVB 明珠台 -> TVB 明珠台
+明珠台 -> TVB 明珠台
+TVB明珠台 -> TVB 明珠台
+
+TVB 无线新闻 -> TVB 无线新闻
+TVB无线新闻 -> TVB 无线新闻
+无线新闻 -> TVB 无线新闻
+TVB新闻 -> TVB 无线新闻
+
+TVB 无线财经 -> TVB 无线财经
+TVB无线财经 -> TVB 无线财经
+
+# ViuTV
+ViuTVsix -> ViuTVsix
+Viu TV six -> ViuTVsix
+ViutvSix -> ViuTVsix
+
+# RTHK
+RTHK 31 -> RTHK 31
+RTHK31 -> RTHK 31
+港台电视RTHK31 -> RTHK 31
+香港电台RTHK31 -> RTHK 31
+
+RTHK 32 -> RTHK 32
+RTHK32 -> RTHK 32
+港台电视RTHK32 -> RTHK 32
+香港电台RTHK32 -> RTHK 32
+
+RTHK 33 -> RTHK 33
+RTHK33 -> RTHK 33
+
+# HOY TV
+HOY TV -> HOY TV
+HOYTV -> HOY TV
+hoytv -> HOY TV
+HOY -> HOY TV
+
+# Now TV
+NOW TV -> Now TV
+NOWTV -> Now TV
+NowTV -> Now TV
+nowtv -> Now TV
+
+NOW NEWS -> Now 新闻
+NOW新闻 -> Now 新闻
+NOW NEWS直播 -> Now 新闻
+
+Now 星空台 -> Now 星空台
+Now星影台 -> Now 星空台
+
+# 有线电视
+有线电视 -> 有线电视
+Cable TV -> 有线电视
+cable tv -> 有线电视
+开电视 -> 有线电视
+
+# 凤凰卫视
+凤凰卫视 -> 凤凰卫视
+凤凰卫视中文台 -> 凤凰卫视
+凤凰卫视资讯台 -> 凤凰卫视
+
+# 澳广视
+澳广视 -> 澳广视
+Macau TV -> 澳广视
+MacauTV -> 澳广视

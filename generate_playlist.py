@@ -8,8 +8,10 @@ from datetime import datetime
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-from config import OUTPUT_DIR, FILTERED_DIR, CACHE_DIR, CACHE_FILE, LOG_DIR
+from config import OUTPUT_DIR, FILTERED_DIR, CACHE_DIR, CACHE_FILE, LOG_DIR, MIN_SPEED_KB, ENABLE_SPEEDTEST, SORT_BY_SPEED
+from speedtest import speedtest_channels, filter_by_speed, sort_by_speed, format_speed
 from utils import setup_logging, parse_m3u
+from logo_map import get_logo_fuzzy
 
 CACHE_FILE = CACHE_DIR / "validation_cache.json"
 
@@ -185,13 +187,34 @@ def generate_playlist(logger):
     else:
         all_channels, cache = batch_validate(all_channels, logger)
 
-    # 分类所有频道
+    # Speed test (only valid channels)
+    if ENABLE_SPEEDTEST and not skip_validation:
+        valid_chs = [ch for ch in all_channels if ch["is_valid"]]
+        logger.info(f"[Speedtest] Testing {len(valid_chs)} valid channels...")
+        speedtest_cache = speedtest_channels(valid_chs, logger, min_speed_kb=MIN_SPEED_KB)
+        
+        # Apply speed filter
+        before_speed = len(valid_chs)
+        valid_chs, filtered_count = filter_by_speed(valid_chs, min_speed_kb=MIN_SPEED_KB)
+        logger.info(f"[Speedtest] Filtered {filtered_count} slow links (< {MIN_SPEED_KB} KB/s), {len(valid_chs)} remain")
+        
+        # Update all_channels is_valid flag based on speed
+        valid_urls = {ch["url"] for ch in valid_chs}
+        for ch in all_channels:
+            ch["is_valid"] = ch["is_valid"] and ch["url"] in valid_urls
+        
+        # Sort valid channels by speed
+        if SORT_BY_SPEED:
+            valid_chs = sort_by_speed(valid_chs)
+            logger.info("[Speedtest] Sorted by speed (fastest first)")
+    else:
+        valid_chs = [ch for ch in all_channels if ch["is_valid"]]
+
+    # 分类所有频道 (基于 speed-tested valid channels)
     categorized = {}
     hk_categorized = {}
     
-    for ch in all_channels:
-        if not ch["is_valid"]:
-            continue
+    for ch in valid_chs:
         cat = categorize(ch["name"], ch["group"])
         if cat not in categorized:
             categorized[cat] = []
@@ -203,25 +226,68 @@ def generate_playlist(logger):
                 hk_categorized[cat] = []
             hk_categorized[cat].append(ch)
 
-    logger.info("Total valid: " + str(sum(len(v) for v in categorized.values())))
+    logger.info("Total valid (speed-tested): " + str(sum(len(v) for v in categorized.values())))
     logger.info("Total HK valid: " + str(sum(len(v) for v in hk_categorized.values())))
     logger.info("Total categories: " + str(len(categorized)))
 
     order = ["📺 TVB", "📺 ViuTV", "📺 RTHK", "📺 HOY TV", "📺 Now TV", "📺 有线电视", "📺 凤凰卫视", "📺 香港其他", "🇹🇼 台湾", "🇲🇴 澳门", "📰 新闻", "🎬 电影", "⚽ 体育", "🧸 儿童", "🎭 综艺", "📺 纪录片", "🎵 音乐", "🌐 其他"]
     def sort_key(c): return (0, order.index(c)) if c in order else (1, c)
 
+    def build_extinf(ch):
+        """Rebuild EXTINF line with tvg-logo injected via logo_map.
+        
+        Priority: logo_map fuzzy match > existing tvg_logo > existing logo= attribute > ''
+        Output format: #EXTINF:-1 tvg-name="X" tvg-logo="Y" group-title="Z",Name
+        """
+        import re
+
+        # 1. Determine logo: mapping > existing tvg_logo > ch["tvg_logo"] > ''
+        mapped_logo = get_logo_fuzzy(ch["name"])
+        if mapped_logo:
+            logo = mapped_logo
+        elif ch.get("tvg_logo"):
+            logo = ch["tvg_logo"]
+        else:
+            logo = ""
+
+        # 2. Determine group: use ch["group"] (normalized from raw_extinf)
+        group = ch.get("group", "") or ""
+
+        # 3. tvg-name: use tvg_name from parse (may differ from display name)
+        tvg_name = ch.get("tvg_name", "") or ch.get("name", "") or ""
+
+        # 4. Build clean EXTINF
+        attrs = []
+        if tvg_name:
+            attrs.append(f'tvg-name="{tvg_name}"')
+        if logo:
+            attrs.append(f'tvg-logo="{logo}"')
+        if group:
+            attrs.append(f'group-title="{group}"')
+
+        attr_str = " ".join(attrs)
+        extinf = f"#EXTINF:-1 {attr_str},{ch['name']}"
+        return extinf
+
     # ========== HK 频道列表 ==========
     total_hk = sum(len(v) for v in hk_categorized.values())
     
-    hk_lines = ['#EXTM3U x-tvg-url="' + EPG_URL + '"',
-                '#PLAYLIST:HK & TW IPTV ' + datetime.now().strftime('%Y-%m-%d'),
-                '# Total: ' + str(total_hk) + ' channels, ' + str(len(hk_categorized)) + ' categories',
-                '']
+    hk_lines = [
+        '#EXTM3U x-tvg-url="' + EPG_URL + '"',
+        '#EXTVLCOPT:network-caching=1000',
+        '#EXTVLCOPT:live-cache=1000',
+        '#EXTVLCOPT:ttl=5',
+        '#PLAYLIST:HK & TW IPTV ' + datetime.now().strftime('%Y-%m-%d'),
+        '# Total: ' + str(total_hk) + ' channels, ' + str(len(hk_categorized)) + ' categories, min speed: ' + str(MIN_SPEED_KB) + ' KB/s',
+        '']
     
     for cat, chs in sorted(hk_categorized.items(), key=lambda x: sort_key(x[0])):
         hk_lines.append('#EXTGRP:' + cat + ' (' + str(len(chs)) + ')')
         for ch in chs:
-            hk_lines.extend([ch["raw_extinf"], ch["url"]])
+            # Include speed info as comment if available
+            speed_comment = f'# speed: {ch.get("speed_str", "N/A")}'
+            hk_lines.append(speed_comment)
+            hk_lines.extend([build_extinf(ch), ch["url"]])
         hk_lines.append('')
     
     hk_file = OUTPUT_DIR / "hk_merged.m3u"
@@ -230,15 +296,19 @@ def generate_playlist(logger):
 
     # ========== 全部频道列表 ==========
     total_all = sum(len(v) for v in categorized.values())
-    all_lines = ['#EXTM3U x-tvg-url="' + EPG_URL + '"',
-                 '#PLAYLIST:All IPTV ' + datetime.now().strftime('%Y-%m-%d'),
-                 '# Total: ' + str(total_all) + ' channels, ' + str(len(categorized)) + ' categories',
-                 '']
+    all_lines = [
+        '#EXTM3U x-tvg-url="' + EPG_URL + '"',
+        '#EXTVLCOPT:network-caching=1000',
+        '#EXTVLCOPT:live-cache=1000',
+        '#EXTVLCOPT:ttl=5',
+        '#PLAYLIST:All IPTV ' + datetime.now().strftime('%Y-%m-%d'),
+        '# Total: ' + str(total_all) + ' channels, ' + str(len(categorized)) + ' categories, min speed: ' + str(MIN_SPEED_KB) + ' KB/s',
+        '']
 
     for cat, chs in sorted(categorized.items(), key=lambda x: sort_key(x[0])):
         all_lines.append('#EXTGRP:' + cat + ' (' + str(len(chs)) + ')')
         for ch in chs[:100]:
-            all_lines.extend([ch["raw_extinf"], ch["url"]])
+            all_lines.extend([build_extinf(ch), ch["url"]])
         if len(chs) > 100:
             all_lines.append('# ... and ' + str(len(chs) - 100) + ' more')
         all_lines.append('')

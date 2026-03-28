@@ -20,8 +20,8 @@ def main():
     
     banner = """
 ╔══════════════════════════════════════════════════╗
-║       HK IPTV Auto Scraper v2.0                ║
-║       Fetch → Filter → Validate → Generate      ║
+║       HK IPTV Auto Scraper v3.0                ║
+║   Fetch → Filter → Validate → SpeedTest → Gen   ║
 ╚══════════════════════════════════════════════════╝
     """
     logger.info(banner)
@@ -30,20 +30,23 @@ def main():
     logger.info("Start: " + start_time.strftime('%Y-%m-%d %H:%M:%S'))
     
     # Step 1: Fetch
-    logger.info("\n[Step 1/4] Fetching sources...")
+    logger.info("\n[Step 1/5] Fetching sources...")
     fetch_results = fetch_main()
     
     # Step 2: Filter HK
-    logger.info("\n[Step 2/4] Filtering HK channels...")
+    logger.info("\n[Step 2/5] Filtering HK channels...")
     filter_results = filter_main()
     
     # Step 3: Validate & Merge
-    logger.info("\n[Step 3/4] Validating and merging...")
+    logger.info("\n[Step 3/5] Validating and merging...")
     merged_channels = validate_main()
     
-    # Step 4: Generate playlists
-    logger.info("\n[Step 4/4] Generating playlists...")
+    # Step 4: Generate playlists (now includes speedtest + VLC opts)
+    logger.info("\n[Step 4/5] Generating playlists with speedtest + VLC optimization...")
     generate_results = generate_main()
+    
+    # Step 5: Done
+    logger.info("\n[Step 5/5] Complete!")
     
     end_time = datetime.now()
     duration = (end_time - start_time).total_seconds()

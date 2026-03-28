@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from config import FILTERED_DIR, OUTPUT_DIR, LOG_DIR, CACHE_DIR, CACHE_FILE
 """IPTV Validator & Merger"""
 import logging
 import sys
@@ -8,7 +7,8 @@ from datetime import datetime
 from pathlib import Path
 import requests
 
-from utils import setup_logging, parse_m3u
+from config import FILTERED_DIR, OUTPUT_DIR, LOG_DIR, CACHE_DIR, CACHE_FILE
+from utils import setup_logging, parse_m3u, load_aliases, normalize_channel_name
 
 PRIORITY = {
     "sammy0101": 1,
@@ -75,6 +75,12 @@ def validate_and_merge(logger):
     logger.info("Starting validation and merge")
     logger.info("=" * 50)
 
+    # Load channel alias mapping
+    aliases = load_aliases()
+    logger.info("Loaded " + str(len(aliases)) + " channel aliases")
+    if aliases:
+        logger.info("Sample aliases: " + str(dict(list(aliases.items())[:5])))
+
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     filtered_files = sorted(
@@ -96,11 +102,12 @@ def validate_and_merge(logger):
     session = requests.Session()
 
     # Collect all channels by name, with their priority and URLs
-    all_channels = {}  # name_key -> [(url, priority, raw_extinf, is_valid), ...]
+    all_channels = {}  # name_key -> [(url, priority, raw_extinf, is_valid, original_name), ...]
 
     total_valid = 0
     total_invalid = 0
     newly_validated = 0
+    alias_mapped_count = 0
 
     for filepath in filtered_files:
         priority = get_source_priority(filepath.name)
@@ -117,7 +124,14 @@ def validate_and_merge(logger):
                 if not name:
                     continue
 
-                name_key = name.strip().upper()
+                # Apply alias normalization
+                original_name = name.strip()
+                normalized_name = normalize_channel_name(original_name, aliases)
+                if normalized_name != original_name:
+                    alias_mapped_count += 1
+                    logger.debug(f"  Alias: '{original_name}' -> '{normalized_name}'")
+
+                name_key = normalized_name.strip().upper()
 
                 if name_key not in all_channels:
                     all_channels[name_key] = []
@@ -141,7 +155,8 @@ def validate_and_merge(logger):
                     "url": url,
                     "priority": priority,
                     "raw_extinf": ch["raw_extinf"],
-                    "is_valid": is_valid
+                    "is_valid": is_valid,
+                    "original_name": original_name
                 })
 
             # Save cache after each file
@@ -170,6 +185,7 @@ def validate_and_merge(logger):
 
             # Use the highest priority extinf as template
             template_extinf = selected[0]["raw_extinf"]
+            # Use normalized name as clean_name (already applied alias)
             clean_name = name_key.title()
 
             merged_channels.append({
@@ -186,6 +202,7 @@ def validate_and_merge(logger):
     logger.info("  Valid streams: " + str(total_valid))
     logger.info("  Invalid streams: " + str(total_invalid))
     logger.info("  Merged channels: " + str(len(merged_channels)))
+    logger.info("  Aliases mapped: " + str(alias_mapped_count))
     logger.info("  Cache: " + str(len(cache)) + " total entries")
 
     return merged_channels

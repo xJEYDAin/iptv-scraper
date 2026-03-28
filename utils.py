@@ -7,6 +7,51 @@ from datetime import datetime
 from pathlib import Path
 
 
+def load_aliases(alias_file=None):
+    """Load channel alias mapping from alias.txt.
+    
+    Format: 原始名称 -> 标准名称
+    Returns a dict: {alias_name: canonical_name}
+    """
+    if alias_file is None:
+        alias_file = Path(__file__).parent / "alias.txt"
+    else:
+        alias_file = Path(alias_file)
+    
+    if not alias_file.exists():
+        return {}
+    
+    aliases = {}
+    try:
+        content = alias_file.read_text(encoding='utf-8')
+        for line in content.split('\n'):
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+            if '->' in line:
+                parts = line.split('->', 1)
+                alias_name = parts[0].strip()
+                canonical = parts[1].strip()
+                if alias_name and canonical:
+                    aliases[alias_name] = canonical
+    except Exception as e:
+        logging.warning(f"Failed to load aliases from {alias_file}: {e}")
+    
+    return aliases
+
+
+def normalize_channel_name(name, aliases):
+    """Normalize a channel name using alias mapping.
+    
+    If the name matches an alias, return the canonical name.
+    Otherwise return the original name stripped.
+    """
+    if not name:
+        return name
+    name_stripped = name.strip()
+    return aliases.get(name_stripped, name_stripped)
+
+
 def setup_logging(log_dir, prefix):
     """Setup logging to file and stdout."""
     log_dir = Path(log_dir)
