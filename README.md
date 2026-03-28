@@ -57,6 +57,7 @@ python main.py
 | `SPEEDTEST_TIMEOUT` | `5` | 单个 URL 测速超时（秒） |
 | `SPEEDTEST_WORKERS` | `10` | 并行测速线程数 |
 | `GITHUB_ACTIONS` | `auto` | 在 GitHub Actions 环境自动设为 `true`，缩短超时 |
+| `SKIP_VALIDATION` | `0` | 设为 `1` 使用缓存验证结果，跳过重新验证（加速调试） |
 
 **示例：**
 
@@ -69,6 +70,9 @@ MIN_SPEED_KB=1000 python main.py
 
 # 关闭按网速排序（按字母顺序）
 SORT_BY_SPEED=false python main.py
+
+# 使用缓存验证结果（跳过重复验证）
+SKIP_VALIDATION=1 python main.py
 ```
 
 ### GitHub Actions 自动更新
@@ -81,14 +85,20 @@ SORT_BY_SPEED=false python main.py
 
 | 脚本 | 功能 |
 |------|------|
+| `main.py` | 入口脚本，串联全流程 |
 | `fetch_sources.py` | 抓取数据源 |
 | `filter_hk.py` | 筛选香港频道 |
 | `validate_and_merge.py` | 验证并合并 |
 | `speedtest.py` | 测速模块，过滤低速链接 |
 | `generate_playlist.py` | 生成播放列表（含台标注入、VLC参数） |
-| `logo_map.py` | 频道台标映射表 |
-| `alias.txt` | 频道别名标准化映射 |
 | `utils.py` | 工具函数 |
+
+## 数据文件
+
+| 文件 | 说明 |
+|------|------|
+| `alias.txt` | 频道别名标准化映射表 |
+| `logo_map.py` | 频道台标 URL 映射表 |
 
 ## 配置说明
 
