@@ -2,10 +2,10 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-#PLAYLIST:All IPTV 2026-03-28
-# Total: 5666 channels, 78 categories, min speed: 500 KB/s
+#PLAYLIST:All IPTV 2026-03-29
+# Total: 5671 channels, 78 categories, min speed: 500 KB/s
 
-#EXTGRP:📺 TVB (27)
+#EXTGRP:📺 TVB (26)
 #EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="Hong Kong",翡翠台
 http://r.jdshipin.com/qClQf
 #EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="Hong Kong",翡翠台
@@ -26,8 +26,6 @@ http://aktv.top/AKTV/live/aktv/null/AKTV.m3u8$LR•IPV4『线路1』
 http://cdn9.163189.xyz/smt1.1.php?id=jade_twn$LR•IPV4『线路10』
 #EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="Hong Kong",翡翠台
 https://cdn.163189.xyz/live/fct4k/stream.m3u8$LR•IPV4『线路16』
-#EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="Hong Kong",翡翠台
-http://8.138.7.223/tv/gdmzyd.php?id=1$LR•IPV4『线路20』
 #EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="Hong Kong",翡翠台
 http://122.152.202.33/s/81a8a44f/index.m3u8?id=53$LR•IPV4『线路26』
 #EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="Hong Kong",翡翠台
@@ -71,7 +69,9 @@ https://live.hkdvb.com/hls/live/99.m3u8?token=631170156112507&edge=live.tvfree.s
 #EXTINF:-1 tvg-name="VIUTV" tvg-logo="https://epg.112114.xyz/logo/ViuTV.png" group-title="Hong Kong",VIUTV
 http://php.jdshipin.com/TVOD/iptv.php?id=viutv2
 
-#EXTGRP:📺 RTHK (3)
+#EXTGRP:📺 RTHK (4)
+#EXTINF:-1 tvg-name="RTHK TV 31 (港台電視31) (360p) [Geo-blocked]" tvg-logo="https://epg.112114.xyz/logo/RTHK%2031.png" group-title="Hong Kong",RTHK TV 31 (港台電視31) (360p) [Geo-blocked]
+https://rthklive1-lh.akamaihd.net/i/rthk31_1@167495/master.m3u8
 #EXTINF:-1 tvg-name="RTHK 31" tvg-logo="https://epg.112114.xyz/logo/RTHK%2031.png" group-title="Hong Kong",RTHK 31
 https://www.rthk.hk/feeds/dtt/rthktv31_https.m3u8
 #EXTINF:-1 tvg-name="RTHK 32" tvg-logo="https://epg.112114.xyz/logo/RTHK%2032.png" group-title="Hong Kong",RTHK 32
@@ -143,7 +143,7 @@ http://38.64.72.148/hls/modn/list/4013/chunklist0.m3u8
 #EXTINF:-1 tvg-name="中视" tvg-logo="https://epg.112114.xyz/logo/中视.png",中视
 http://37.27.111.214:8080/live/7/hls.m3u8
 
-#EXTGRP:📰 新闻 (601)
+#EXTGRP:📰 新闻 (602)
 #EXTINF:-1 tvg-name="1S News (576p)" group-title="Undefined",1S News (576p)
 https://mumt03.tangotv.in/1SNEWS/index.m3u8
 #EXTINF:-1 tvg-name="3AW Melbourne (1080p)" tvg-logo="https://i.imgur.com/Z4MdB0S.png" group-title="News",3AW Melbourne (1080p)
@@ -344,7 +344,7 @@ https://liveovh010.cda.pl/zkr7GNESGht4_0Wk12c78A/17538736/2782059/enc114/bbclife
 https://vs-cmaf-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/iptv_mse_v0_hevc.mpd
 #EXTINF:-1 tvg-name="BBC News (1080p) [Geo-blocked]" tvg-logo="https://i.imgur.com/4SSHER2.png" group-title="News",BBC News (1080p) [Geo-blocked]
 https://pb-iiczlgfysam0q.akamaized.net/v1/amcnetworks_bbcnews_1/samsungheadend_us/latest/main/hls/playlist.m3u8
-# ... and 501 more
+# ... and 502 more
 
 #EXTGRP:🎬 电影 (201)
 #EXTINF:-1 tvg-name="30A TV Classic Movies (720p)" tvg-logo="https://babaktv.com/wp-content/uploads/2023/09/30A-Classi-Movies.jpeg" group-title="Movies",30A TV Classic Movies (720p)
@@ -955,7 +955,7 @@ https://amg01753-narrativeuk-amg01753c1-lg-gb-1830.playouts.now.amagi.tv/playlis
 https://live20.bozztv.com/giatvplayout7/giatv-208314/playlist.m3u8
 # ... and 26 more
 
-#EXTGRP:🎭 综艺 (341)
+#EXTGRP:🎭 综艺 (342)
 #EXTINF:-1 tvg-name="1KZN TV (576p)" tvg-logo="https://admango.cdn.mangomolo.com/analytics/uploads/188/6544bebaae.jpg" group-title="Entertainment;Family;General",1KZN TV (576p)
 https://cdn.freevisiontv.co.za/sttv/smil:1kzn.stream.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="2x2 (576p)" tvg-logo="https://i.imgur.com/fhQFLEl.png" group-title="Entertainment",2x2 (576p)
@@ -1156,7 +1156,7 @@ https://estrellatv-oando.amagi.tv/playlist.m3u8
 https://cc-uyh1ow5zouoio.akamaized.net/WWBI/Amagi/ETV_Josh_IN/playlist.m3u8
 #EXTINF:-1 tvg-name="ETV+ (720p)" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/a/a2/ETV%2B_logo.png" group-title="Entertainment",ETV+ (720p)
 https://sb.err.ee/live/etvpluss.m3u8
-# ... and 241 more
+# ... and 242 more
 
 #EXTGRP:📺 纪录片 (28)
 #EXTINF:-1 tvg-name="Alone By History (720p)" tvg-logo="https://i.imgur.com/TxfOCxi.png" group-title="Undefined",Alone By History (720p)
@@ -2315,7 +2315,7 @@ https://fox.hostlagarto.com:8081/telenonisa43/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-name="TV Famille (720p)" tvg-logo="https://i.imgur.com/Kbfihk5.png" group-title="Family;Religious",TV Famille (720p)
 https://streamer1.streamhost.org/salive/GMItvfh/playlist.m3u8
 
-#EXTGRP:📺 General (1280)
+#EXTGRP:📺 General (1283)
 #EXTINF:-1 tvg-name="1Almere TV (720p)" tvg-logo="https://i.imgur.com/XfkbTrU.png" group-title="General",1Almere TV (720p)
 https://d3472rjicrodic.cloudfront.net/nlpo/clr-nlpo/709d5260/index.m3u8
 #EXTINF:-1 tvg-name="1TV (720p)" tvg-logo="https://epg.112114.xyz/logo/TVB翡翠台.png" group-title="General",1TV (720p)
@@ -2516,7 +2516,7 @@ https://btutzctahuf0wjoq.cdn.streamingserver.io/hls/yjvam8hlp2g3u08z02tv0yz66rq3
 http://amdlive-ch01.ctnd.com.edgesuite.net/arirang_3ch/smil:arirang_3ch.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Arkadag TV (406p) [Not 24/7]" tvg-logo="https://i.imgur.com/JdEb4Ug.png" group-title="General",Arkadag TV (406p) [Not 24/7]
 https://alpha.tv.online.tm/hls/ch000.m3u8
-# ... and 1180 more
+# ... and 1183 more
 
 #EXTGRP:📺 General;Legislative (1)
 #EXTINF:-1 tvg-name="ATXN2 (1080p)" tvg-logo="https://i.imgur.com/tSMtDlz.png" group-title="General;Legislative",ATXN2 (1080p)
@@ -2921,7 +2921,7 @@ https://tgn.bozztv.com/betterlife/betternature/betternature/index.m3u8
 #EXTINF:-1 tvg-name="MyZen TV (1080p)" tvg-logo="https://i.imgur.com/fIi8o0C.png" group-title="Relax",MyZen TV (1080p)
 https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01255-secomcofites-my-myzen-en-plex/playlist.m3u8
 
-#EXTGRP:📺 Religious (427)
+#EXTGRP:📺 Religious (428)
 #EXTINF:-1 tvg-name="3ABN Canada (720p)" tvg-logo="https://i.imgur.com/U99CsEc.png" group-title="Religious",3ABN Canada (720p)
 https://3abn.bozztv.com/3abncanada/3ABN/master.m3u8
 #EXTINF:-1 tvg-name="3ABN Dare To Dream Network" tvg-logo="https://i.imgur.com/oNUpXA9.png" group-title="Religious",3ABN Dare To Dream Network
@@ -3122,7 +3122,7 @@ http://cdn.credonet.tv:1935/ctv/livecredo/playlist.m3u8
 https://5fc584f3f19c9.streamlock.net/cristovision/videocristovision/playlist.m3u8
 #EXTINF:-1 tvg-name="CSat TV (1080p) [Not 24/7]" tvg-logo="https://i.imgur.com/fp2EaLJ.png" group-title="Religious",CSat TV (1080p) [Not 24/7]
 http://media.smc-host.com:1935/csat.tv/smil:csat.smil/playlist.m3u8
-# ... and 327 more
+# ... and 328 more
 
 #EXTGRP:📺 Science (3)
 #EXTINF:-1 tvg-name=".sci-fi (576p)" tvg-logo="https://i.imgur.com/nSSUHcg.png" group-title="Science",.sci-fi (576p)
@@ -3400,7 +3400,7 @@ https://rpn.bozztv.com/gusa/gusa-tvstravel/index.m3u8
 #EXTINF:-1 tvg-name="Телепутешествия (576p)" tvg-logo="https://i.imgur.com/eXJm1n3.png" group-title="Travel",Телепутешествия (576p)
 http://31.148.48.15/Teleputeshestviya/index.m3u8
 
-#EXTGRP:📺 Undefined (1299)
+#EXTGRP:📺 Undefined (1298)
 #EXTINF:-1 tvg-name="2x2" tvg-logo="https://www.tvpolsat.info/wp-content/uploads/2023/03/2x2-logo.png" group-title="Undefined",2x2
 https://liveovh010.cda.pl/zkr7GNESGht4_0Wk12c78A/17538736/2782059/enc117/2x2hdraw/2x2hdraw.m3u8
 #EXTINF:-1 tvg-name="4K Travel TV (1080p)" group-title="Undefined",4K Travel TV (1080p)
@@ -3601,7 +3601,7 @@ https://d1727vwt6h9ghr.cloudfront.net/BuzzFeed_Unsolved.m3u8
 https://59959724487e3.streamlock.net/stream/live/playlist.m3u8
 #EXTINF:-1 tvg-name="BYUtv (1080p)" tvg-logo="https://i.imgur.com/mruGyuu.png" group-title="Undefined",BYUtv (1080p)
 https://d13j8jpstr8iqz.cloudfront.net/BYUtv.m3u8
-# ... and 1199 more
+# ... and 1198 more
 
 #EXTGRP:📺 Weather (4)
 #EXTINF:-1 tvg-name="AccuWeather Now (1080p)" tvg-logo="https://i.imgur.com/M8wbVYK.png" group-title="Weather",AccuWeather Now (1080p)
