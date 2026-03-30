@@ -1,6 +1,6 @@
-# HK IPTV Auto Scraper
+# Global IPTV Auto Scraper
 
-Automated IPTV channel scraper focused on Hong Kong, Taiwan, and Asia-Pacific regions. Supports scheduled runs, stream availability validation, speed testing, and generates optimized M3U playlists.
+Automated IPTV channel scraper focused on Hong Kong, Taiwan, and Asia-Pacific regions, with expanding global coverage. Supports scheduled runs, stream availability validation, speed testing, and generates optimized M3U playlists.
 
 [![Daily Update](https://img.shields.io/github/actions/workflow/status/xJEYDAin/iptv-scraper/update.yml?label=daily%20update&style=flat-square)](https://github.com/xJEYDAin/iptv-scraper/actions)
 [![Python](https://img.shields.io/badge/python-3.11+-blue.svg?style=flat-square)](https://www.python.org/)

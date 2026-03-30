@@ -1,6 +1,6 @@
-# HK IPTV 自动爬虫
+# 全球 IPTV 直播源自动爬虫
 
-自动化的 IPTV 频道爬虫，专注覆盖香港、台湾及亚太地区。支持定时运行、流媒体可用性验证、下载速度测试，并生成优化过的 M3U 播放列表。
+自动化的 IPTV 频道爬虫，专注覆盖香港、台湾及亚太地区，并持续扩展全球频道。支持定时运行、流媒体可用性验证、下载速度测试，并生成优化过的 M3U 播放列表。
 
 [![更新计划](https://img.shields.io/github/actions/workflow/status/xJEYDAin/iptv-scraper/update.yml?label=daily%20update&style=flat-square)](https://github.com/xJEYDAin/iptv-scraper/actions)
 [![Python](https://img.shields.io/badge/python-3.11+-blue.svg?style=flat-square)](https://www.python.org/)
