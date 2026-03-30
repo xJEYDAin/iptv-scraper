@@ -2,10 +2,10 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-#PLAYLIST:HK & TW IPTV 2026-03-29
-# Total: 59 channels, 10 categories, min speed: 500 KB/s
+#PLAYLIST:HK & TW IPTV 2026-03-30
+# Total: 57 channels, 10 categories, min speed: 500 KB/s
 
-#EXTGRP:📺 TVB (26)
+#EXTGRP:📺 TVB (25)
 # speed: N/A
 #EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="Hong Kong",翡翠台
 http://r.jdshipin.com/qClQf
@@ -30,9 +30,6 @@ http://php.jdshipin.com:8880/TVOD/iptv.php?id=fct4
 # speed: N/A
 #EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="Hong Kong",翡翠台
 http://aktv.top/AKTV/live/aktv/null/AKTV.m3u8$LR•IPV4『线路1』
-# speed: N/A
-#EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="Hong Kong",翡翠台
-http://cdn9.163189.xyz/smt1.1.php?id=jade_twn$LR•IPV4『线路10』
 # speed: N/A
 #EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="Hong Kong",翡翠台
 https://cdn.163189.xyz/live/fct4k/stream.m3u8$LR•IPV4『线路16』
@@ -99,10 +96,7 @@ https://live.hkdvb.com/hls/live/99.m3u8?token=631170156112507&edge=live.tvfree.s
 #EXTINF:-1 tvg-name="VIUTV" tvg-logo="https://epg.112114.xyz/logo/ViuTV.png" group-title="Hong Kong",VIUTV
 http://php.jdshipin.com/TVOD/iptv.php?id=viutv2
 
-#EXTGRP:📺 RTHK (4)
-# speed: N/A
-#EXTINF:-1 tvg-name="RTHK TV 31 (港台電視31) (360p) [Geo-blocked]" tvg-logo="https://epg.112114.xyz/logo/RTHK%2031.png" group-title="Hong Kong",RTHK TV 31 (港台電視31) (360p) [Geo-blocked]
-https://rthklive1-lh.akamaihd.net/i/rthk31_1@167495/master.m3u8
+#EXTGRP:📺 RTHK (3)
 # speed: N/A
 #EXTINF:-1 tvg-name="RTHK 31" tvg-logo="https://epg.112114.xyz/logo/RTHK%2031.png" group-title="Hong Kong",RTHK 31
 https://www.rthk.hk/feeds/dtt/rthktv31_https.m3u8
@@ -110,7 +104,7 @@ https://www.rthk.hk/feeds/dtt/rthktv31_https.m3u8
 #EXTINF:-1 tvg-name="RTHK 32" tvg-logo="https://epg.112114.xyz/logo/RTHK%2032.png" group-title="Hong Kong",RTHK 32
 https://www.rthk.hk/feeds/dtt/rthktv32_https.m3u8
 # speed: N/A
-#EXTINF:-1 tvg-name="RTHKTV31" group-title="Hong Kong",RTHKTV31
+#EXTINF:-1 tvg-name="RTHK TV 31 (港台電視31) (1080p) [Geo-blocked]" tvg-logo="https://epg.112114.xyz/logo/RTHK%2031.png" group-title="Undefined",RTHK TV 31 (港台電視31) (1080p) [Geo-blocked]
 https://rthktv31-live.akamaized.net/hls/live/2036818/RTHKTV31/master.m3u8
 
 #EXTGRP:📺 HOY TV (2)
