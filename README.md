@@ -1,198 +1,201 @@
 # HK IPTV Auto Scraper
 
-自动抓取香港 IPTV 直播源，每日更新。
+Automated IPTV channel scraper focused on Hong Kong, Taiwan, and Asia-Pacific regions. Runs on a schedule, validates stream availability, measures download speed, and generates optimized M3U playlists.
 
-## 功能
+[![Update Schedule](https://img.shields.io/github/actions/workflow/status/xJEYDAin/iptv-scraper/update.yml?label=daily%20update&style=flat-square)](https://github.com/xJEYDAin/iptv-scraper/actions)
+[![Python](https://img.shields.io/badge/python-3.11+-blue.svg?style=flat-square)](https://www.python.org/)
 
-- 🤖 自动抓取多个数据源
-- 🔍 筛选香港频道
-- ✅ 验证直播源有效性
-- 📝 分类整理（香港/台湾/大陆/电影/体育等）
-- 💾 验证缓存，支持断点续传
-- 🏷️ **别名映射** - 59条频道名称标准化（alias.txt）
-- ⚡ **测速过滤** - 自动过滤低速链接（默认 <500KB/s）
-- 🎨 **台标注入** - 自动匹配频道台标（logo_map.py）
-- 📺 **VLC 优化参数** - 输出最佳播放参数
+## 📺 Playlists
 
-## 数据源
+| Playlist | URL | Description |
+|----------|-----|-------------|
+| **HK Channels** | `https://raw.githubusercontent.com/xJEYDAin/iptv-scraper/master/output/hk_merged.m3u` | Hong Kong focused channels |
+| **All Channels** | `https://raw.githubusercontent.com/xJEYDAin/iptv-scraper/master/output/all_merged.m3u` | All scraped channels (HK + TW + CN + more) |
 
-| 来源 | 说明 |
-|------|------|
-| sammy0101/hk-iptv-auto | 香港专用，每日自动更新 |
-| nthack/IPTVM3U | 港台直播源 |
-| imDazui/Tvlist-awesome-m3u-m3u8 | 港台频道 |
-| iptv-org/iptv | 全球最大开源库 |
-| Free-TV/IPTV | 15.6K Stars，全球40+国家覆盖 |
+> Use any [IPTV-compatible player](https://github.com/iptv-org/awesome-iptv#apps) (VLC, mpv, Kodi, etc.) to open these links.
 
-## 播放列表
+---
 
-### 香港频道
+## ✨ Features
+
+- **🤖 Automated scraping** — fetches from multiple public M3U sources daily
+- **✅ Stream validation** — checks channel availability before including
+- **⚡ Speed filtering** — removes slow/unresponsive streams (configurable threshold)
+- **🏷️ Channel normalization** — 59+ alias rules for consistent naming across sources
+- **🎨 Logo injection** — auto-matches channel logos (EPG CDN + Imgur fallback)
+- **📺 VLC optimized** — includes network-caching and timeout parameters for smooth playback
+- **💾 Caching** — 24h validation cache with checkpoint support for faster re-runs
+- **🗓️ Daily auto-update** — GitHub Actions runs at 03:00 UTC every day
+
+---
+
+## 📂 Project Structure
+
 ```
-https://raw.githubusercontent.com/xJEYDAin/iptv-scraper/master/output/hk_merged.m3u
+iptv-scraper/
+├── main.py                  # Entry point: orchestrates the full pipeline
+├── config.py                # Shared settings (paths, speed thresholds, etc.)
+├── fetch_sources.py         # Step 1: fetch raw M3U from data sources
+├── filter_hk.py             # Step 2: filter HK / regional channels
+├── validate_and_merge.py    # Step 3: validate URLs, merge results
+├── speedtest.py             # Step 4: measure download speed per stream
+├── generate_playlist.py     # Step 5: generate M3U with logos + VLC params
+├── utils.py                 # Shared utilities (logging, file helpers)
+├── alias.txt                # Channel name → canonical name mapping
+├── logo_map.py              # Channel name → logo URL mapping
+├── output/                  # Generated M3U playlists (git-tracked)
+├── sources/                 # Raw fetched M3U files (gitignored)
+├── filtered/                # Intermediate filtered results (gitignored)
+├── cache/                   # Validation cache (gitignored)
+└── logs/                    # Run logs (gitignored)
 ```
 
-### 全部频道
-```
-https://raw.githubusercontent.com/xJEYDAin/iptv-scraper/master/output/all_merged.m3u
-```
+---
 
-## 使用方法
+## 🚀 Quick Start
 
-### 本地运行
+### Local
 
 ```bash
-# 安装依赖
+# 1. Clone
+git clone https://github.com/xJEYDAin/iptv-scraper.git
+cd iptv-scraper
+
+# 2. Install dependencies
 pip install requests
 
-# 运行
+# 3. Run
 python main.py
 ```
 
-### 环境变量
-
-| 变量 | 默认值 | 说明 |
-|------|--------|------|
-| `MIN_SPEED_KB` | `500` | 最低网速阈值（KB/s），低于此值的链接会被过滤 |
-| `ENABLE_SPEEDTEST` | `true` | 是否启用测速（`true`/`false`） |
-| `SORT_BY_SPEED` | `true` | 是否按网速排序（`true`=快到慢，`false`=字母序） |
-| `SPEEDTEST_TIMEOUT` | `5` | 单个 URL 测速超时（秒） |
-| `SPEEDTEST_WORKERS` | `10` | 并行测速线程数 |
-| `GITHUB_ACTIONS` | `auto` | 在 GitHub Actions 环境自动设为 `true`，缩短超时 |
-| `SKIP_VALIDATION` | `0` | 设为 `1` 使用缓存验证结果，跳过重新验证（加速调试） |
-
-**示例：**
+### Docker
 
 ```bash
-# 跳过测速（快速测试）
+# Build
+docker build -t iptv-scraper .
+
+# Run (skip speedtest for faster runs)
+docker run --rm \
+  -e ENABLE_SPEEDTEST=false \
+  -v $(pwd)/output:/app/output \
+  iptv-scraper
+```
+
+### GitHub Actions (Fork & Auto-Update)
+
+1. Fork this repo
+2. Go to **Actions** tab → enable the workflow
+3. The scraper runs automatically at 03:00 UTC daily
+4. Playlists are committed to `output/` on the `master` branch
+
+To trigger manually: Actions → **Update HK IPTV** → **Run workflow**
+
+---
+
+## ⚙️ Configuration
+
+| Environment Variable | Default | Description |
+|---------------------|---------|-------------|
+| `ENABLE_SPEEDTEST` | `true` | Enable/disable speed testing (`true` / `false`) |
+| `MIN_SPEED_KB` | `500` | Minimum speed in KB/s; streams below this are dropped |
+| `SORT_BY_SPEED` | `true` | Sort streams fastest-first (`true`) or alphabetical (`false`) |
+| `SPEEDTEST_TIMEOUT` | `5` | Per-URL speed test timeout in seconds |
+| `SPEEDTEST_WORKERS` | `10` | Number of parallel speed test threads |
+| `SKIP_VALIDATION` | `0` | Set `1` to reuse cached validation results (faster dev runs) |
+| `GITHUB_ACTIONS` | `auto` | Auto-detected; shortens timeouts when running in CI |
+
+**Examples:**
+
+```bash
+# Skip speedtest for quick testing
 ENABLE_SPEEDTEST=false python main.py
 
-# 提高最低网速要求（只保留优质链接）
+# Higher quality threshold (only fast streams)
 MIN_SPEED_KB=1000 python main.py
 
-# 关闭按网速排序（按字母顺序）
-SORT_BY_SPEED=false python main.py
-
-# 使用缓存验证结果（跳过重复验证）
+# Use cached validation results
 SKIP_VALIDATION=1 python main.py
 ```
 
-### GitHub Actions 自动更新
+---
 
-1. Fork 本项目
-2. 在 Actions 页面启用 workflow
-3. 每天凌晨3点自动更新
+## 🔍 Data Sources
 
-## 脚本说明
+| Source | Type | Region Focus |
+|--------|------|-------------|
+| [sammy0101/hk-iptv-auto](https://github.com/sammy0101/hk-iptv-auto) | M3U | 🇭🇰 HK (daily auto-update) |
+| [nthack/IPTVM3U](https://github.com/nthack/IPTVM3U) | M3U | 🇭🇰 HK / 🇹🇼 TW |
+| [imDazui/Tvlist-awesome-m3u-m3u8](https://github.com/imDazui/Tvlist-awesome-m3u-m3u8) | M3U | 🇭🇰 HK / 🇹🇼 TW |
+| [iptv-org/iptv](https://github.com/iptv-org/iptv) | M3U | 🌍 Global |
+| [Free-TV/IPTV](https://github.com/Free-TV/IPTV) | M3U | 🌍 40+ countries |
 
-| 脚本 | 功能 |
-|------|------|
-| `main.py` | 入口脚本，串联全流程 |
-| `fetch_sources.py` | 抓取数据源 |
-| `filter_hk.py` | 筛选香港频道 |
-| `validate_and_merge.py` | 验证并合并 |
-| `speedtest.py` | 测速模块，过滤低速链接 |
-| `generate_playlist.py` | 生成播放列表（含台标注入、VLC参数） |
-| `utils.py` | 工具函数 |
+> Channels are validated and speed-tested before inclusion. Slow or broken streams are automatically removed.
 
-## 数据文件
+---
 
-| 文件 | 说明 |
-|------|------|
-| `alias.txt` | 频道别名标准化映射表 |
-| `logo_map.py` | 频道台标 URL 映射表 |
+## 📡 VLC Optimization
 
-## 配置说明
-
-### 别名映射（alias.txt）
-
-频道名称标准化映射，统一不同数据源的同一频道命名。
-
-**格式：**
-```
-原始名称 -> 标准名称
-```
-
-**示例：**
-```
-ViuTV -> ViuTV
-viutv -> ViuTV
-TVB J2 -> TVB J2
-J2台 -> TVB J2
-RTHK 31 -> RTHK 31
-港台电视RTHK31 -> RTHK 31
-```
-
-**支持覆盖：**
-- TVB 系列（翡翠台、明珠台、J2、新闻台、财经台等）
-- ViuTV / ViuTVsix
-- RTHK 31/32/33
-- HOY TV
-- Now TV 系列
-- 有线电视
-- 凤凰卫视
-- 澳广视
-
-### 台标注入（logo_map.py）
-
-自动为频道匹配台标，使用 EPG CDN（epg.112114.xyz/logo/）和 Imgur 备用源。
-
-**匹配逻辑（优先级）：**
-1. 精确匹配标准化名称
-2. 前缀匹配（由长到短尝试）
-3. 模糊包含匹配（关键词 ≥5 字符防误匹配）
-
-**支持的频道：**
-- 📺 TVB 系列（翡翠台、明珠台、J2、新闻台、电视剧台等）
-- 📺 ViuTV / ViuTVsix
-- 📺 RTHK 31/32/33/34/35
-- 📺 HOY TV
-- 📺 Now TV 系列
-- 📺 有线电视 / Cable TV
-- 📺 凤凰卫视
-- 📺 台湾主流频道（TVBS、台视、中视、华视、民视、东森、三立等）
-- 📺 澳门频道
-- 📺 国际频道（BBC、CNN、Al Jazeera、NHK 等）
-- 🎬 电影频道（HBO、Star Movies、AMC 等）
-- ⚽ 体育频道（ESPN、Fox Sports、BeIN 等）
-- 🧸 儿童频道（Nick、Disney、Animax 等）
-- 🌍 探索/纪录片（Discovery、National Geographic、History 等）
-
-## VLC 优化参数
-
-生成的 M3U8 文件包含 VLC 优化的播放参数，确保最佳兼容性：
+The generated M3U includes VLC-specific tags for reliable playback:
 
 ```
 #EXTVLCOPT:network-caching=1000
-#EXTVLCOPT:live-cacheing=1000
+#EXTVLCOPT:live-caching=1000
 #EXTVLCOPT:timeout=10
 ```
 
-**参数说明：**
+| Parameter | Value | Purpose |
+|-----------|-------|---------|
+| `network-caching` | 1000ms | Buffer to reduce network jitter |
+| `live-caching` | 1000ms | Live stream buffer |
+| `timeout` | 10s | Connection timeout |
 
-| 参数 | 值 | 说明 |
-|------|-----|------|
-| `network-caching` | 1000ms | 网络缓存，避免卡顿 |
-| `live-caching` | 1000ms | 直播流缓存 |
-| `timeout` | 10s | 连接超时时间 |
+---
 
-## 分类
+## ❓ FAQ
 
-- 🇭🇰 香港
-- 🇹🇼 台湾
-- 🇨🇳 大陆
-- 🇲🇴 澳门
-- 🎬 电影
-- ⚽ 体育
-- 🧸 儿童
-- 📰 新闻
-- 🎭 娱乐
+**Q: Some channels don't work.**
+A: IPTV streams are often temporary. The scraper re-validates daily — broken streams are filtered out automatically. If a channel is missing, it may have been removed from all source repositories.
 
-## 缓存机制
+**Q: How can I add a missing channel?**
+A: The channel needs to exist in one of the upstream source repos. Check those projects first. You can also submit a PR to the relevant upstream source.
 
-- 验证结果缓存到 `cache/validation_cache.json`
-- 支持断点续传
-- 缓存有效期24小时
+**Q: Can I run this more frequently than once a day?**
+A: Yes — edit the cron schedule in `.github/workflows/update.yml`. Note that very frequent runs may increase load on source repos.
 
-## License
+**Q: How does speed filtering work?**
+A: Each stream URL is downloaded with a short timeout and the throughput (KB/s) is measured. Streams below `MIN_SPEED_KB` are excluded from the output.
 
-MIT
+**Q: Is this legal?**
+A: This project only aggregates publicly available M3U links. It does not host or redistribute copyrighted content. Users are responsible for complying with their local laws.
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome! Please read the guidelines below.
+
+### Adding / Fixing Channels
+
+This project aggregates from upstream M3U sources. To add or fix a channel, submit a PR to the appropriate source:
+
+- Hong Kong / Taiwan channels → [sammy0101/hk-iptv-auto](https://github.com/sammy0101/hk-iptv-auto)
+- Global channels → [iptv-org/iptv](https://github.com/iptv-org/iptv) or [Free-TV/IPTV](https://github.com/Free-TV/IPTV)
+
+### This Project
+
+For issues specific to the scraper itself (validation logic, speed test, logo matching, etc.):
+
+1. Open an issue describing the problem
+2. Or submit a PR with the fix
+
+### Alias / Logo Updates
+
+To update channel name normalization or logo mappings, edit:
+- `alias.txt` — channel name aliases
+- `logo_map.py` — channel name → logo URL
+
+---
+
+## 📄 License
+
+MIT — free to use, modify, and distribute.
