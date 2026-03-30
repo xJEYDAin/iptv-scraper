@@ -68,18 +68,7 @@ pip install requests
 python main.py
 ```
 
-### Docker
 
-```bash
-# Build image
-docker build -t iptv-scraper .
-
-# Run (skip speed test to speed up)
-docker run --rm \
-  -e ENABLE_SPEEDTEST=false \
-  -v $(pwd)/output:/app/output \
-  iptv-scraper
-```
 
 ### GitHub Actions (Auto-update after Fork)
 

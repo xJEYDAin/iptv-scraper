@@ -68,18 +68,7 @@ pip install requests
 python main.py
 ```
 
-### Docker 运行
 
-```bash
-# 构建镜像
-docker build -t iptv-scraper .
-
-# 运行（跳过速度测试可加快执行）
-docker run --rm \
-  -e ENABLE_SPEEDTEST=false \
-  -v $(pwd)/output:/app/output \
-  iptv-scraper
-```
 
 ### GitHub Actions（Fork 后自动更新）
 
