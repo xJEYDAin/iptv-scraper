@@ -9,15 +9,25 @@ TVB翡翠台 -> TVB 翡翠台
 TVB翡翠台 1080P -> TVB 翡翠台
 翡翠台4K -> TVB 翡翠台
 翡翠台北美版 -> TVB 翡翠台
+翡翠台 -> TVB 翡翠台
+TVB 翡翠台 -> TVB 翡翠台
+翡翠台 - 线路1（大陆线路） -> TVB 翡翠台
+翡翠台 - 线路2（大陆线路） -> TVB 翡翠台
+翡翠台 - 线路3（高清，香港线路） -> TVB 翡翠台
 
 # 明珠台
 明珠 -> TVB 明珠台
 TVB明珠台 -> TVB 明珠台
 翡翠明珠台 -> TVB 明珠台
+TVB 明珠台 -> TVB 明珠台
+明珠台 -> TVB 明珠台
+翡翠明珠台 - 线路2（高清，香港线路） -> TVB 明珠台
 
 # J2
 TVBj2 -> TVB J2
 tvbj2 -> TVB J2
+TVB J2 -> TVB J2
+翡翠台2 - J2（高清，香港线路） -> TVB J2
 
 # 无线新闻
 TVB新闻 -> TVB 无线新闻
@@ -26,6 +36,8 @@ TVB新聞 -> TVB 无线新闻
 TVB新聞台 -> TVB 无线新闻
 TVB無綫新聞 -> TVB 无线新闻
 TVB無線新聞 -> TVB 无线新闻
+TVB 无线新闻 -> TVB 无线新闻
+无线新闻台（高清，香港线路） -> TVB 无线新闻
 
 # 无线财经
 TVB财经 -> TVB 无线财经
@@ -48,27 +60,30 @@ Viu tv -> ViuTV
 viutv -> ViuTV
 VIUTV -> ViuTV
 viu tv -> ViuTV
+ViuTV -> ViuTV
+ViuTV - 线路2（高清，香港线路） -> ViuTV
 
 # ViuTVsix
 Viu TV six -> ViuTVsix
 ViutvSix -> ViuTVsix
 Viu TV Six -> ViuTVsix
 viutv six -> ViuTVsix
+ViuTVsix -> ViuTVsix
+ViuTVsix - 线路2（香港线路） -> ViuTVsix
 
 # ===== RTHK =====
 港台电视RTHK31 -> RTHK 31
 港台電視31\ (官方) -> RTHK 31
 港台電視31 (官方) -> RTHK 31
 RTHK31 -> RTHK 31
-
+RTHK 31 -> RTHK 31
 港台电视RTHK32 -> RTHK 32
 港台電視32\ (官方) -> RTHK 32
 港台電視32 (官方) -> RTHK 32
 RTHK32 -> RTHK 32
-
+RTHK 32 -> RTHK 32
 RTHK33 -> RTHK 33
 港台电视RTHK33 -> RTHK 33
-
 RTHK TV 31 (港台電視31) -> RTHK 31
 RTHK TV 32 (港台電視32) -> RTHK 32
 RTHK TV 33 (港台電視33) -> RTHK 33
@@ -80,6 +95,7 @@ HOY -> HOY TV
 hooy -> HOY TV
 hooytv -> HOY TV
 HOY78 -> HOY TV
+HOY TV -> HOY TV
 
 # ===== Now TV =====
 NOW TV -> Now TV
@@ -87,12 +103,11 @@ NOWTV -> Now TV
 NowTV -> Now TV
 nowtv -> Now TV
 NOW -> Now TV
-
+NOW TV (720p) -> Now TV
 NOW新闻 -> Now 新闻
 NOW NEWS -> Now 新闻
 NOW新聞 -> Now 新闻
 NOW NEWS直播 -> Now 新闻
-
 Now星影台 -> Now 星空台
 Now星空台 -> Now 星空台
 NOW星空台 -> Now 星空台
@@ -102,14 +117,12 @@ Cable TV -> 有线电视
 cable tv -> 有线电视
 cable -> 有线电视
 开电视 -> 有线电视
-
 有線新聞 -> 有线电视 新闻台
 有线新闻 -> 有线电视 新闻台
 香港有線新聞 -> 有线电视 新闻台
 香港有线新闻 -> 有线电视 新闻台
 有線新聞台 -> 有线电视 新闻台
 有线新闻台 -> 有线电视 新闻台
-
 有線財經信息台 -> 有线电视 财经台
 有线财经信息台 -> 有线电视 财经台
 
@@ -123,11 +136,27 @@ cable -> 有线电视
 凤凰香港台 -> 凤凰卫视
 phoenix tv -> 凤凰卫视
 phoenix -> 凤凰卫视
+凤凰卫视 -> 凤凰卫视
+凤凰卫视台 -> 凤凰卫视
+凤凰香港 - 蓝光1 -> 凤凰卫视
+凤凰香港 - 蓝光2 -> 凤凰卫视
 
 # ===== 澳广视 / 澳门 =====
 Macau TV -> 澳广视
 MacauTV -> 澳广视
 澳视澳门 -> 澳广视
+澳广视 -> 澳广视
+TDM -> 澳广视
+澳门卫视 -> 澳门卫视
+
+# 澳门有线
+澳门有线 CH1 -> 澳门有线 CH1
+澳门有线 CH3 -> 澳门有线 CH3
+澳门有线互动新闻 -> 澳门有线 互动新闻台
+澳门有线 -> 澳门有线
+
+# 莲花卫视
+莲花卫视 -> 莲花卫视
 
 # ===== 台湾 - 台视 =====
 台視 -> 台视
@@ -135,6 +164,7 @@ MacauTV -> 澳广视
 台视新闻 HD -> 台视 新闻台
 台视新闻台 -> 台视 新闻台
 台視新聞 -> 台视 新闻台
+台视 -> 台视
 
 # ===== 台湾 - 中视 =====
 中視 -> 中视
@@ -143,12 +173,14 @@ MacauTV -> 澳广视
 中視閩南 -> 中视 闽南台
 中視新聞 -> 中视 新闻台
 中视新闻 -> 中视 新闻台
+中视 -> 中视
 
 # ===== 台湾 - 华视 =====
 華視 -> 华视
 華視閩南 -> 华视 闽南台
 華視閩南頻道 -> 华视 闽南台
-華視新聞 -> 华视 新闻台
+華視NEWS -> 华视 新闻台
+华视 -> 华视
 
 # ===== 台湾 - 民视 =====
 民視 -> 民视
@@ -156,11 +188,16 @@ MacauTV -> 澳广视
 民視閩南 -> 民视 闽南台
 民視新聞 -> 民视 新闻台
 民视新闻 -> 民视 新闻台
+民视 -> 民视
 
 # ===== 台湾 - 三立 =====
 三立台灣 -> 三立台湾
 三立台湾台 -> 三立台湾
 SET三立戲劇 -> 三立 戏剧台
+三立台湾 -> 三立台湾
+三立新闻 -> 三立 新闻台
+三立综合 -> 三立 综合台
+三立都会 -> 三立 都会台
 
 # ===== 台湾 - 纬来 =====
 緯來戲劇 -> 纬来 戏剧台
@@ -173,23 +210,33 @@ SET三立戲劇 -> 三立 戏剧台
 緯來體育HD -> 纬来 体育台
 纬来体育 -> 纬来 体育台
 纬来综合 -> 纬来 综合台
+纬来 -> 纬来
 
 # ===== 台湾 - 东森 =====
 東森超視 -> 东森 超视
 東森幼幼台 -> 东森 幼幼台
 東森美洲 -> 东森 美洲台
 東森美洲衛視 -> 东森 美洲台
+东森超视34.5 -> 东森 超视
+东森戏剧 -> 东森 戏剧台
+东森新闻 -> 东森 新闻台
+东森综合 -> 东森 综合台
+东森财经 -> 东森 财经台
+东森 -> 东森
 
 # ===== 台湾 - 中天 =====
 中天亞洲 -> 中天 亚洲台
 中天娱乐 -> 中天 娱乐台
 中天新聞 -> 中天 新闻台
+中天 -> 中天
 
 # ===== 台湾 - TVBS =====
 TVBS亚洲 -> TVBS 亚洲台
 tvbs閩南 -> TVBS 闽南台
 tvbs新聞 -> TVBS 新闻台
 TVBS新闻 -> TVBS 新闻台
+TVBS新闻台 -> TVBS 新闻台
+TVBS -> TVBS
 
 # ===== 台湾 - 龙华 =====
 龍華日韓 -> 龙华 日韩台
@@ -199,10 +246,15 @@ TVBS新闻 -> TVBS 新闻台
 龙华偶像 -> 龙华 偶像台
 龙华卡通 -> 龙华 卡通台
 龙华戏剧 -> 龙华 戏剧台
+龙华日韩 -> 龙华 日韩台
+龙华电影 -> 龙华 电影台
+龙华经典 -> 龙华 经典台
+龙华 -> 龙华
 
 # ===== 台湾 - 公视 =====
 公視戲劇 -> 公视 戏剧台
 公視 -> 公视
+公视 -> 公视
 
 # ===== 台湾 - 大爱 =====
 大愛1 -> 大爱 1台
@@ -213,12 +265,27 @@ TVBS新闻 -> TVBS 新闻台
 大爱二台 -> 大爱 2台
 大愛二台 -> 大爱 2台
 
+# ===== 台湾 - 八大 =====
+GTV八大戲劇HD -> 八大 戏剧台
+GTV八大第1台HD -> 八大 第一台
+GTV八大綜合台HD -> 八大 综合台
+八大戲劇 -> 八大 戏剧台
+八大第一 -> 八大 第一台
+八大綜合 -> 八大 综合台
+八大综合 -> 八大 综合台
+八大 -> 八大
+
 # ===== 台湾 - 靖天/天映/美亚/AMC =====
 天映经典 -> 天映 经典台
 天映频道(MAS) -> 天映
 美亚C+ -> 美亚 C+
 美亚电影 -> 美亚 电影台
 AMC電影台 -> AMC 电影台
+AMC -> AMC 电影台
+靖天国际台 -> 靖天 国际台
+靖天電影 -> 靖天 电影台
+HITs電影頻道 -> HITs 电影台
+CINEMA-頻道 -> CINEMA 频道
 
 # ===== 台湾 - Discovery/Nat Geo/History =====
 Discovery探索亞洲 -> Discovery 探索亚洲
@@ -228,6 +295,7 @@ Discovery探索頻道 -> Discovery 探索频道
 動物星球 -> 动物星球
 动物星球 -> 动物星球
 HISTORY頻道 -> History 频道
+美食星球 -> 美食星球
 
 # ===== 台湾 - 博斯体育 =====
 博斯運動頻壹 -> 博斯 运动一台
@@ -237,7 +305,6 @@ HISTORY頻道 -> History 频道
 博斯魅力 -> 博斯 魅力台
 
 # ===== 台湾 - 其他 =====
-年代much -> 年代 Much
 年代much -> 年代 Much
 寰宇新聞 -> 寰宇 新闻台
 寰宇新闻 -> 寰宇 新闻台
@@ -249,21 +316,415 @@ channel8 -> Channel 8
 channelu -> Channel U
 PopC -> Pop C
 ZooMoo- -> ZooMoo
+GTV -> 八大
+MoMoTV4K -> MoMo TV
+Mo綜合 -> Mo 综合台
+SUPER 18台 -> Super 18台
+唯心电视 -> 唯心电视
+唯心電視 -> 唯心电视
+創世電視 -> 创世电视
+生命電視 -> 生命电视
+生命電視台 -> 生命电视
+香港佛陀 -> 香港佛陀
+番薯台 -> 番薯台
+台灣番薯台 -> 番薯台
+人间卫视 -> 人间卫视
+寰宇 -> 寰宇
+東森 -> 东森
+华语电视 -> 华语电视
+人間衛視 -> 人间卫视
 
-# ===== 大陆/国际 =====
-凤凰卫视 -> 凤凰卫视
-凤凰卫视中文台 -> 凤凰卫视
-凤凰卫视资讯台 -> 凤凰卫视
-凤凰香港 -> 凤凰卫视
-凤凰资讯 -> 凤凰卫视
-凤凰电影 -> 凤凰卫视
-凤凰香港台 -> 凤凰卫视
-凤凰卫视台 -> 凤凰卫视
+# ===== 星空/STAR TV / 福斯 =====
+星空衛視 -> 星空卫视
+星空卫视 -> 星空卫视
+Star TV -> STAR TV
+StarTV -> STAR TV
+FOX -> FOX
+Fox -> FOX
+福斯 -> FOX
+Fox娛樂台 -> FOX 娱乐台
+Fox hd -> FOX HD
+FX -> FX
+FX频道 -> FX
+Star Movies Select HD -> Star Movies
+StarMovies -> Star Movies
+星選卡通 -> Star
+
+# ===== HBO / Cinemax / AMC / Paramount =====
+HBO -> HBO
+HBO HD -> HBO
+HBO台湾 -> HBO 台湾
+HBO台湾HD -> HBO 台湾
+HBO签名 -> HBO 签名台
+HBO強档 -> HBO 强档台
+HBO家庭 -> HBO 家庭台
+Cinemax -> Cinemax
+Cinemax HD -> Cinemax
+CineMax -> Cinemax
+AMC HD -> AMC 电影台
+Paramount -> Paramount Channel
+Paramount Channel -> Paramount Channel
+Paramount Movie Channel -> Paramount Movie Channel
+Paramount Network -> Paramount Network
+MGM -> MGM 电影台
+MGM HD -> MGM 电影台
+
+# ===== BBC / CNN / Al Jazeera / France 24 =====
+BBC -> BBC
+BBC World News -> BBC World News
+BBC NEWS -> BBC World News
+BBC News -> BBC World News
+BBC World -> BBC World News
+BBC HD -> BBC
+CNN -> CNN
+CNN International -> CNN International
+CNN HD -> CNN
+CNN en Español -> CNN en Español
+Al Jazeera -> Al Jazeera
+Al Jazeera English -> Al Jazeera English
+Al Jazeera Arabic -> Al Jazeera Arabic
+France 24 -> France 24
+France24 -> France 24
+France 24 English -> France 24 English
+France 24 Français -> France 24 Français
+DW -> DW
+Deutsche Welle -> DW
+Euronews -> Euronews
+Euro News -> Euronews
+EuroNews -> Euronews
+
+# ===== NHK / TBS / Fuji TV / TV Asahi / TV Tokyo =====
+NHK WORLD -> NHK World
+NHKworld -> NHK World
+NHK World Premium -> NHK World
+NHK -> NHK
+NHK総合 -> NHK 综合台
+NHK Eテレ -> NHK 教育台
+NHK BS1 -> NHK BS1
+NHK BS4K -> NHK BS4K
+NHK BS8K -> NHK BS8K
+NHK新闻 -> NHK 新闻台
+TBS -> TBS
+TBS TV -> TBS
+TBSテレビ -> TBS
+TBS HD -> TBS
+Fuji TV -> Fuji TV
+FujiTelevision -> Fuji TV
+富士電視台 -> Fuji TV
+Fuji TV HD -> Fuji TV
+TV Asahi -> TV Asahi
+朝日電視台 -> TV Asahi
+TV Asahi HD -> TV Asahi
+TV Tokyo -> TV Tokyo
+東京電視台 -> TV Tokyo
+TV TOKYO -> TV Tokyo
+NHK -> NHK World
+日视 -> TV Asahi
+
+# ===== KBS / MBC / SBS / EBS =====
+KBS -> KBS
+KBS 1TV -> KBS 1TV
+KBS 2TV -> KBS 2TV
+KBS Drama -> KBS Drama
+KBS Joy -> KBS Joy
+KBS N -> KBS N
+KBS World -> KBS World
+KBS world -> KBS World
+MBC -> MBC
+MBC TV -> MBC TV
+MBC Drama -> MBC Drama
+MBC every1 -> MBC every1
+MBC C&I -> MBC C&I
+SBS -> SBS
+SBS TV -> SBS TV
+SBS Drama -> SBS Drama
+SBS Entertainment -> SBS Entertainment
+SBS Sports -> SBS Sports
+EBS -> EBS
+EBS TV -> EBS
+EBS频道 -> EBS
+EBS 한국교육 -> EBS
+EBS Math -> EBS Math
+
+# ===== 新加坡 Mediacorp =====
+Mediacorp -> Mediacorp
+Channel 5 -> Channel 5
+Channel 8 -> Channel 8
+Channel U -> Channel U
+Channel NewsAsia -> Channel NewsAsia
+CNA -> Channel NewsAsia
+Suria -> Suria
+Vasantham -> Vasantham
+Mediacorp Channel 5 -> Channel 5
+Mediacorp Channel 8 -> Channel 8
+Mediacorp Channel U -> Channel U
+MediaCorp Channel 5 -> Channel 5
+MediaCorp Channel 8 -> Channel 8
+MediaCorp Channel U -> Channel U
+
+# ===== 马来西亚 Astro / TV2 =====
+TV2 -> TV2 Malaysia
+Astro -> Astro
+Astro AEC -> Astro AEC
+Astro AEC HD -> Astro AEC
+Astro Awani -> Astro Awani
+Astro Oasis -> Astro Oasis
+Astro Ceria -> Astro Ceria
+Astro Tutor -> Astro Tutor
+Astro SuperSport -> Astro SuperSport
+Astro SuperSport 2 -> Astro SuperSport 2
+Astro SuperSport 3 -> Astro SuperSport 3
+Astro SuperSport 4 -> Astro SuperSport 4
+Astro Cricket -> Astro Cricket
+Astro Arena -> Astro Arena
+Astro Arena 2 -> Astro Arena 2
+Astro Hua Hee -> Astro Hua Hee
+Astro Shuang Xing -> Astro 双星
+RTM -> RTM
+RTM TV1 -> RTM TV1
+RTM TV2 -> RTM TV2
+TV1 -> TV1 Malaysia
+TV3 Malaysia -> TV3 Malaysia
+TV9 -> TV9 Malaysia
+
+# ===== CCTV / 央视全套 =====
+CCTV-1 -> CCTV-1 综合
+CCTV-1 HD -> CCTV-1 综合
+CCTV1 -> CCTV-1 综合
+CCTV-2 -> CCTV-2 财经
+CCTV-2 HD -> CCTV-2 财经
+CCTV2 -> CCTV-2 财经
+CCTV-3 -> CCTV-3 综艺
+CCTV-3 HD -> CCTV-3 综艺
+CCTV3 -> CCTV-3 综艺
+CCTV-4 -> CCTV-4 中文国际
+CCTV-4 HD -> CCTV-4 中文国际
+CCTV4 -> CCTV-4 中文国际
+CCTV-4 America -> CCTV-4 中文国际
+CCTV-4 Europe -> CCTV-4 中文国际
+CCTV-5 -> CCTV-5 体育
+CCTV-5 HD -> CCTV-5 体育
+CCTV5 -> CCTV-5 体育
+CCTV-5+ -> CCTV-5+ 体育赛事
+CCTV-5+ HD -> CCTV-5+ 体育赛事
+CCTV-6 -> CCTV-6 电影
+CCTV-6 HD -> CCTV-6 电影
+CCTV6 -> CCTV-6 电影
+CCTV-7 -> CCTV-7 军事农业
+CCTV-7 HD -> CCTV-7 军事农业
+CCTV7 -> CCTV-7 军事农业
+CCTV-8 -> CCTV-8 电视剧
+CCTV-8 HD -> CCTV-8 电视剧
+CCTV8 -> CCTV-8 电视剧
+CCTV-9 -> CCTV-9 纪录
+CCTV-9 HD -> CCTV-9 纪录
+CCTV9 -> CCTV-9 纪录
+CCTV-10 -> CCTV-10 教育
+CCTV-10 HD -> CCTV-10 教育
+CCTV10 -> CCTV-10 教育
+CCTV-11 -> CCTV-11 戏曲
+CCTV-11 HD -> CCTV-11 戏曲
+CCTV11 -> CCTV-11 戏曲
+CCTV-12 -> CCTV-12 社会与法
+CCTV-12 HD -> CCTV-12 社会与法
+CCTV12 -> CCTV-12 社会与法
+CCTV-13 -> CCTV-13 新闻
+CCTV-13 新闻 -> CCTV-13 新闻
+CCTV-13 HD -> CCTV-13 新闻
+CCTV13 -> CCTV-13 新闻
+CCTV-14 -> CCTV-14 少儿
+CCTV-14 HD -> CCTV-14 少儿
+CCTV14 -> CCTV-14 少儿
+CCTV-15 -> CCTV-15 音乐
+CCTV-15 HD -> CCTV-15 音乐
+CCTV15 -> CCTV-15 音乐
+CCTV-16 -> CCTV-16 奥林匹克
+CCTV-16 HD -> CCTV-16 奥林匹克
+CCTV16 -> CCTV-16 奥林匹克
+CCTV-17 -> CCTV-17 农业农村
+CCTV-17 HD -> CCTV-17 农业农村
+CCTV17 -> CCTV-17 农业农村
+CCTV+ 1 -> CCTV+ 1
+CCTV+ 2 -> CCTV+ 2
+央视一套 -> CCTV-1 综合
+央视二套 -> CCTV-2 财经
+央视三套 -> CCTV-3 综艺
+央视四套 -> CCTV-4 中文国际
+央视五套 -> CCTV-5 体育
+央视六套 -> CCTV-6 电影
+央视七套 -> CCTV-7 军事农业
+央视八套 -> CCTV-8 电视剧
+央视九套 -> CCTV-9 纪录
+央视十套 -> CCTV-10 教育
+央视十一套 -> CCTV-11 戏曲
+央视十二套 -> CCTV-12 社会与法
+央视十三套 -> CCTV-13 新闻
+央视十四套 -> CCTV-14 少儿
+央视十五套 -> CCTV-15 音乐
+央视新闻 -> CCTV-13 新闻
+央视体育 -> CCTV-5 体育
+央视电影 -> CCTV-6 电影
+
+# ===== 中国各省卫视 =====
+湖南卫视 -> 湖南卫视
+湖南卫视 HD -> 湖南卫视
+湖南電視台 -> 湖南卫视
+湖南台 -> 湖南卫视
+芒果TV -> 湖南卫视
+金鹰卡通 -> 金鹰卡通
+金鹰卡通频道 -> 金鹰卡通
+浙江卫视 -> 浙江卫视
+浙江卫视 HD -> 浙江卫视
+浙江台 -> 浙江卫视
+浙江電視台 -> 浙江卫视
+江苏卫视 -> 江苏卫视
+江苏卫视 HD -> 江苏卫视
+江苏台 -> 江苏卫视
+东方卫视 -> 东方卫视
+东方卫视 HD -> 东方卫视
+东卫视 -> 东方卫视
+上海卫视 -> 东方卫视
+北京卫视 -> 北京卫视
+北京卫视 HD -> 北京卫视
+BTV -> 北京卫视
+北京台 -> 北京卫视
+广东卫视 -> 广东卫视
+广东卫视 HD -> 广东卫视
+广东台 -> 广东卫视
+珠江频道 -> 广东卫视 珠江频道
+深圳卫视 -> 深圳卫视
+深圳卫视 HD -> 深圳卫视
+深圳台 -> 深圳卫视
+四川卫视 -> 四川卫视
+四川台 -> 四川卫视
+湖北卫视 -> 湖北卫视
+湖北台 -> 湖北卫视
+山东卫视 -> 山东卫视
+山东台 -> 山东卫视
+安徽卫视 -> 安徽卫视
+安徽台 -> 安徽卫视
+辽宁卫视 -> 辽宁卫视
+辽宁台 -> 辽宁卫视
+吉林卫视 -> 吉林卫视
+吉林台 -> 吉林卫视
+黑龙江卫视 -> 黑龙江卫视
+黑龙江台 -> 黑龙江卫视
+河北卫视 -> 河北卫视
+河南卫视 -> 河南卫视
+陕西卫视 -> 陕西卫视
+甘肃卫视 -> 甘肃卫视
+宁夏卫视 -> 宁夏卫视
+青海卫视 -> 青海卫视
+新疆卫视 -> 新疆卫视
+西藏卫视 -> 西藏卫视
+内蒙古卫视 -> 内蒙古卫视
+广西卫视 -> 广西卫视
+贵州卫视 -> 贵州卫视
+云南卫视 -> 云南卫视
+海南卫视 -> 海南卫视
+江西卫视 -> 江西卫视
+山西卫视 -> 山西卫视
+重庆卫视 -> 重庆卫视
+天津卫视 -> 天津卫视
+黑龙江 -> 黑龙江卫视
+东南卫视 -> 东南卫视
+海峡卫视 -> 海峡卫视
+厦门卫视 -> 厦门卫视
+福州卫视 -> 福州卫视
+陕西二套 -> 陕西卫视
+
+# ===== 中国城市台 =====
+北京一套 -> 北京 台
+北京文艺 -> 北京 文艺台
+北京科教 -> 北京 科教台
+北京影视 -> 北京 影视台
+北京财经 -> 北京 财经台
+北京体育 -> 北京 体育台
+北京生活 -> 北京 生活台
+北京新闻 -> 北京 新闻台
+北京公共 -> 北京 公共台
+上海新闻 -> 上海 新闻综合
+上海娱乐 -> 上海 娱乐频道
+上海影视 -> 上海 影视频道
+上海体育 -> 上海 体育频道
+上海生活 -> 上海 生活频道
+广州新闻 -> 广州 新闻频道
+广州综合 -> 广州 综合频道
+深圳一套 -> 深圳 都市频道
+深圳二套 -> 深圳 财经生活频道
+成都一套 -> 成都 新闻综合
+成都二套 -> 成都 经济资讯
+杭州综合 -> 杭州 综合频道
+南京新闻 -> 南京 新闻频道
+武汉新闻 -> 武汉 新闻频道
+西安新闻 -> 西安 新闻频道
+天津新闻 -> 天津 新闻频道
+重庆新闻 -> 重庆 新闻频道
+
+# ===== 凤凰卫视（已在上方） =====
+
+# ===== 星空/华视/其他卫视频道 =====
+
+# ===== 大陆/国际 - 其他 =====
+
+# ===== 香港卫视/财经 =====
+香港卫视 -> 香港卫视
+香港卫视文旅 -> 香港卫视
+香港国际财经台 -> 香港国际财经台
+耀才财经 -> 耀才 财经台
+点掌财经 -> 点掌 财经台
+
+# ===== 星空/STAR TV =====
+
+# ===== BBC/CNN/NHK =====（见上方）
+
+# ===== Animax/AniMAX =====
+AniMAX_ -> AniMAX
+Animax -> Animax
+
+# ===== Discovery / Nat Geo / History / Animal Planet =====
+Discovery -> Discovery
+Discovery Channel -> Discovery Channel
+Discovery Science -> Discovery Science
+Discovery Asia -> Discovery Asia
+TLC -> TLC
+TLC旅游生活 -> TLC 旅游生活
+TLC 知性 -> TLC 知性
+National Geographic -> 国家地理
+国家地理 -> 国家地理
+国家地理频道 -> 国家地理
+Nat Geo -> 国家地理
+Nat Geo Wild -> 国家地理 野生台
+Animal Planet -> 动物星球
+History -> History 频道
+HISTORY -> History 频道
+历史频道 -> History 频道
+A&E -> A&E
+ Lifetime -> Lifetime
 
 # ===== 儿童频道 =====
 Nick卡通 -> Nickelodeon 卡通台
 Nick綜合 -> Nickelodeon 综合台
+Nickelodeon -> Nickelodeon
+Nick Jr. -> Nick Jr.
+Nick Jr -> Nick Jr.
 尼克儿童频道 -> Nickelodeon
+Nickelodeon Asia -> Nickelodeon
+Cartoon Network -> Cartoon Network
+Cartoon Network Asia -> Cartoon Network
+卡通频道 -> Cartoon Network
+卡通台 -> Cartoon Network
+ Boomerang -> Boomerang
+Disney Channel -> Disney Channel
+Disney Channel Taiwan -> Disney Channel 台湾
+迪士尼频道 -> Disney Channel
+Disney Junior -> Disney Junior
+Disney XD -> Disney XD
+Baby First -> Baby First
+宝宝频道 -> Baby First
+儿童频道 -> 儿童频道
+BabyTV -> BabyTV
+幼儿台 -> 幼儿台
 
 # ===== 宗教频道 =====
 好消息 -> 好消息电视台
@@ -274,32 +735,153 @@ GOODTV好消息卡通 -> 好消息 卡通台
 GOODTV經典音樂河HD -> 好消息 经典音乐台
 GOODTV復興禱告 -> 好消息 复兴祷告台
 GOODTV道在人間HD -> 好消息 道在人间台
+GOODTV -> 好消息电视台
+创世电视 -> 创世电视
+生命电视 -> 生命电视
+佛卫 -> 佛卫
+佛卫电视 -> 佛卫电视
 
-# ===== 澳门频道 =====
-澳视澳门 -> 澳广视
-澳门有线 CH1 -> 澳门有线 CH1
-澳门有线 CH3 -> 澳门有线 CH3
-澳门有线互动新闻 -> 澳门有线 互动新闻台
+# ===== 澳门频道 =====（见上方）
 
-# ===== 香港卫视/财经 =====
-香港卫视 -> 香港卫视
-香港卫视文旅 -> 香港卫视
-香港国际财经台 -> 香港国际财经台
-耀才财经 -> 耀才 财经台
-点掌财经 -> 点掌 财经台
+# ===== Sports 体育频道 - 国际 =====
+ESPN -> ESPN
+ESPN HD -> ESPN
+ESPN台湾 -> ESPN 台湾
+ESPN Taiwan -> ESPN 台湾
+Fox Sports -> Fox Sports
+Fox Sports HD -> Fox Sports
+Fox Sports台湾 -> Fox Sports 台湾
+Fox Sports Taiwan -> Fox Sports 台湾
+beIN SPORTS -> beIN Sports
+beIN Sports -> beIN Sports
+beIN Sports 1 -> beIN Sports 1
+beIN Sports 2 -> beIN Sports 2
+beIN Sports 3 -> beIN Sports 3
+Sky Sports -> Sky Sports
+Sky Sports News -> Sky Sports News
+Sky Sports Premier League -> Sky Sports Premier League
+Sky Sports Cricket -> Sky Sports Cricket
+Sky Sports Golf -> Sky Sports Golf
+Sky Sports F1 -> Sky Sports F1
+NBC Sports -> NBC Sports
+CBS Sports -> CBS Sports
+ABC Sports -> ABC Sports
+Euro Sport -> Eurosport
+Eurosport -> Eurosport
+Eurosport 1 -> Eurosport 1
+Eurosport 2 -> Eurosport 2
+Ten Sports -> Ten Sports
+Star Sports -> Star Sports
+Star Sports Select -> Star Sports Select
+CCTV-5体育 -> CCTV-5 体育
+CCTV5体育 -> CCTV-5 体育
+CCTV体育 -> CCTV-5 体育
+五星体育 -> 五星体育
+广东体育 -> 广东体育
+北京体育 -> 北京 体育频道
+劲爆体育 -> 劲爆体育
+高球频道 -> 高球频道
+Golf Channel -> Golf Channel
+Golf HD -> Golf Channel
+网球频道 -> 网球频道
+Tennis Channel -> Tennis Channel
+博斯高球 -> 博斯 高球台
+博斯运动 -> 博斯 运动一台
 
-# ===== 星空/STAR TV =====
-星空衛視 -> 星空卫视
-星空卫视 -> 星空卫视
-Star TV -> STAR TV
+# ===== 电影频道 - 港台 =====
+HBO檔目 -> HBO 强档台
+Star Movies -> Star Movies
+Star Movies HD -> Star Movies
+TVB Movie -> TVB Movie
+TVB movie -> TVB Movie
+HBO Asia -> HBO
+HBO Signature -> HBO 签名台
+HBO Family -> HBO 家庭台
+Cinewave -> Cinewave
+cinemax -> Cinemax
+Warner TV -> Warner TV
+Warner Channel -> Warner TV
+ Warner -> Warner TV
+Sony Channel -> Sony Channel
+Sony Channel Taiwan -> Sony Channel 台湾
+TV5Monde -> TV5Monde
+香港C+ -> 香港 C+
+香港C+ - 蓝光1 -> 香港 C+
+香港C+ - 蓝光2 -> 香港 C+
+天映频道 -> 天映
+靖天电影 -> 靖天 电影台
+HITs电影 -> HITs 电影台
+纬来电影 -> 纬来 电影台
+东森电影 -> 东森 电影台
+星空电影 -> 星空电影
 
-# ===== BBC/CNN/NHK =====
-BBC -> BBC
-BBC World News -> BBC World News
-CNN -> CNN
-NHK WORLD -> NHK World
-NHKworld -> NHK World
+# ===== 娱乐/综合频道 =====
+E! Entertainment -> E!
+E! -> E!
+TLC生活 -> TLC 旅游生活
+Asia Travel -> Asia Travel
+Voyage -> Voyage
+Arte -> Arte
+ZDF -> ZDF
+ARD -> ARD
+BBC Two -> BBC Two
+BBC Three -> BBC Three
+BBC Four -> BBC Four
+ITV -> ITV
+Channel 4 -> Channel 4
+Sky One -> Sky One
+Sky News -> Sky News
+TVB Entertainment -> TVB 娱乐台
+TVB 娱乐台 -> TVB 娱乐台
+ViuTV 娱乐 -> ViuTV 娱乐
+Now 娱乐 -> Now 娱乐台
+Star Chinese Channel -> 星空华语
+Star Chinese -> 星空华语
+Channel V -> Channel V
+V MV -> Channel V
+MTV -> MTV
+MTV Taiwan -> MTV 台湾
+MTV HD -> MTV
+VH1 -> VH1
+Mtv -> MTV
 
-# ===== Animax/AniMAX =====
-AniMAX_ -> AniMAX
-Animax -> Animax
+# ===== 财经新闻频道 =====
+Bloomberg -> Bloomberg
+Bloomberg TV -> Bloomberg
+CNBC -> CNBC
+CNBC Asia -> CNBC Asia
+CNBC Taiwan -> CNBC 台湾
+CNBC Hong Kong -> CNBC 香港
+Fox Business -> Fox Business
+日经新闻 -> 日经新闻
+Nikkei -> 日经新闻
+经济日报 -> 经济日报
+第一财经 -> 第一财经
+东方财富 -> 东方财富
+新浪财经 -> 新浪财经
+凤凰财经 -> 凤凰卫视
+有線財經 -> 有线电视 财经台
+有线财经 -> 有线电视 财经台
+NOW财经 -> Now 财经台
+Now财经 -> Now 财经台
+ViuTV财经 -> ViuTV 财经
+
+# ===== 时装/生活方式 =====
+Fashion TV -> Fashion TV
+FTV -> Fashion TV
+Fashion -> Fashion TV
+旅游频道 -> 旅游频道
+亚洲旅游 -> 亚洲 旅游频道
+
+# ===== 其他未分类 =====
+Super TV -> Super TV
+TV5 -> TV5
+TVB -> TVB
+RTHK -> RTHK
+RTHK 33 -> RTHK 33
+安乐电影 -> 安乐电影
+安乐电视 -> 安乐电视
+千禧經典台 -> 千禧经典台
+重温经典 -> 重温经典
+时差资讯 -> 时差资讯
+MTV Live ->
