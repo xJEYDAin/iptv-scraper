@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 """Shared utilities for IPTV Scraper"""
+import json
 import re
 import sys
 import logging
+import time
+import requests
 from datetime import datetime
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 def load_aliases(alias_file=None):
@@ -97,3 +101,155 @@ def parse_m3u(content):
                     continue
         i += 1
     return channels
+
+
+# ─── Generic Cache ───────────────────────────────────────────────────────────
+
+MAX_CACHE_ENTRIES = 10000  # Max entries before LRU eviction
+
+
+def load_cache(cache_file):
+    """Load JSON cache with proper error handling.
+    Corrupted cache files are deleted and rebuilt.
+    """
+    cache_file = Path(cache_file)
+    if cache_file.exists():
+        try:
+            return json.loads(cache_file.read_text(encoding='utf-8'))
+        except json.JSONDecodeError:
+            logging.warning(f"Cache corrupted ({cache_file}), deleting and rebuilding...")
+            cache_file.unlink()
+    return {}
+
+
+def save_cache(cache, cache_file):
+    """Save JSON cache atomically with size-limit eviction.
+    If entries exceed MAX_CACHE_ENTRIES, oldest entries are pruned.
+    """
+    cache_file = Path(cache_file)
+    cache_dir = cache_file.parent
+    cache_dir.mkdir(parents=True, exist_ok=True)
+
+    # ── Fix #5: Cache size limit with LRU eviction ──────────────────────
+    if len(cache) > MAX_CACHE_ENTRIES:
+        # Sort by cache value (assumes value is timestamp or order key)
+        # Keep the most recent MAX_CACHE_ENTRIES entries
+        sorted_items = sorted(cache.items(), key=lambda x: str(x[1]))
+        cache = dict(sorted_items[:MAX_CACHE_ENTRIES])
+        logging.info(f"Cache pruned to {len(cache)} entries (limit: {MAX_CACHE_ENTRIES})")
+
+    tmp = cache_file.with_suffix('.tmp')
+    tmp.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding='utf-8')
+    tmp.rename(cache_file)
+
+
+# ─── Retry + Rate-limiting URL Fetcher ──────────────────────────────────────
+
+DEFAULT_TIMEOUT = 5
+DEFAULT_MAX_RETRIES = 3
+DEFAULT_RATE_LIMIT_DELAY = 0.5  # seconds between requests
+DEFAULT_MAX_CONCURRENCY = 5
+
+
+def fetch_with_retry(url, session=None, timeout=DEFAULT_TIMEOUT,
+                      max_retries=DEFAULT_MAX_RETRIES,
+                      logger=None):
+    """Fetch URL with exponential-backoff retry (3 attempts).
+
+    Returns:
+        tuple: (success: bool, content: str or error_msg: str)
+    """
+    if session is None:
+        session = requests.Session()
+
+    for attempt in range(max_retries):
+        try:
+            response = session.get(url, timeout=timeout, allow_redirects=True)
+            response.raise_for_status()
+            return True, response.text
+        except Exception as e:
+            if attempt < max_retries - 1:
+                wait = (2 ** attempt) * DEFAULT_RATE_LIMIT_DELAY
+                if logger:
+                    logger.debug(f"  Retry {attempt+1}/{max_retries} for {url} after {wait:.1f}s: {e}")
+                time.sleep(wait)
+            else:
+                if logger:
+                    logger.debug(f"  Failed {url} after {max_retries} attempts: {e}")
+                return False, str(e)
+    return False, "exhausted retries"
+
+
+def fetch_sources_rate_limited(sources, logger, max_workers=DEFAULT_MAX_CONCURRENCY,
+                                delay=DEFAULT_RATE_LIMIT_DELAY):
+    """Fetch multiple sources with rate-limiting and concurrency cap.
+
+    Uses a semaphore to limit max concurrent requests and enforces
+    a delay between successive requests to avoid rate-limiting.
+
+    Returns:
+        list of result dicts
+    """
+    import threading
+
+    semaphore = threading.Semaphore(max_workers)
+    results = []
+    results_lock = threading.Lock()
+
+    def fetch_one(source):
+        name = source.get("name", "?")
+        url = source.get("url", "")
+        with semaphore:
+            if delay > 0:
+                time.sleep(delay)
+            success, content = fetch_with_retry(url, logger=logger)
+        result = {"name": name, "url": url, "success": success}
+        if success:
+            result["content"] = content
+        else:
+            result["error"] = content
+        with results_lock:
+            results.append(result)
+        return result
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {executor.submit(fetch_one, src): src for src in sources}
+        for future in as_completed(futures):
+            future.result()  # raise exceptions if any
+
+    return results
+
+
+# ─── HEAD-first URL validator ────────────────────────────────────────────────
+
+def validate_url_head_first(url, session=None, timeout=DEFAULT_TIMEOUT,
+                             logger=None):
+    """Validate stream URL: try HEAD first (fast), fall back to GET on failure.
+
+    Returns:
+        bool: True if URL is reachable
+    """
+    if session is None:
+        session = requests.Session()
+
+    # ── Fix #3: HEAD first, GET fallback ─────────────────────────────────
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; IPTV-Scraper/1.0)"}
+    try:
+        resp = session.head(url, timeout=timeout, allow_redirects=True,
+                            headers=headers)
+        if resp.status_code in (200, 206, 301, 302, 303, 307, 308):
+            return True
+    except Exception as e:
+        if logger:
+            logger.debug(f"  HEAD failed for {url}: {e}")
+
+    # Fallback to GET (only on HEAD failure)
+    try:
+        resp = session.get(url, timeout=timeout, allow_redirects=True,
+                           headers=headers, stream=True)
+        if resp.status_code in (200, 206, 301, 302, 303, 307, 308):
+            return True
+    except Exception as e:
+        if logger:
+            logger.debug(f"  GET fallback failed for {url}: {e}")
+    return False

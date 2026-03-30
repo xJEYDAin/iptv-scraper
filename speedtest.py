@@ -10,6 +10,7 @@ from datetime import datetime
 from pathlib import Path
 
 from config import CACHE_DIR, LOG_DIR
+from utils import load_cache, save_cache  # Fix #1: unified cache functions
 
 # Speed test settings
 MIN_SPEED_KB = float(os.getenv("MIN_SPEED_KB", "500"))   # Minimum speed in KB/s (default 500KB/s)
@@ -87,21 +88,13 @@ def speedtest_url_requests(url, timeout=TIMEOUT_SEC, session=None):
 
 
 def load_speedtest_cache():
-    """Load speedtest cache from disk."""
-    if SPEEDTEST_CACHE_FILE.exists():
-        try:
-            return json.loads(SPEEDTEST_CACHE_FILE.read_text(encoding='utf-8'))
-        except json.JSONDecodeError:
-            SPEEDTEST_CACHE_FILE.unlink()
-    return {}
+    """Load speedtest cache from disk (Fix #1: delegates to unified load_cache)."""
+    return load_cache(SPEEDTEST_CACHE_FILE)
 
 
 def save_speedtest_cache(cache):
-    """Atomically save speedtest cache."""
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    tmp = SPEEDTEST_CACHE_FILE.with_suffix('.tmp')
-    tmp.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding='utf-8')
-    tmp.rename(SPEEDTEST_CACHE_FILE)
+    """Atomically save speedtest cache (Fix #1: delegates to unified save_cache)."""
+    save_cache(cache, SPEEDTEST_CACHE_FILE)
 
 
 def format_speed(speed_bps):

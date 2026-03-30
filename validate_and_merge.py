@@ -9,6 +9,7 @@ import requests
 
 from config import FILTERED_DIR, OUTPUT_DIR, LOG_DIR, CACHE_DIR, CACHE_FILE
 from utils import setup_logging, parse_m3u, load_aliases, normalize_channel_name
+from utils import load_cache, save_cache  # Fix #1: unified cache functions
 
 PRIORITY = {
     "sammy0101": 1,
@@ -31,43 +32,9 @@ def get_source_priority(filename):
 
 
 def validate_url(url, logger, timeout=TIMEOUT, session=None):
-    """Validate URL using GET directly (P1-7: avoid HEAD→GET fallback delay)."""
-    if session is None:
-        session = requests.Session()
-    try:
-        with session.get(url, timeout=timeout, allow_redirects=True) as response:
-            return response.status_code == 200
-    except requests.exceptions.Timeout:
-        logger.debug(f"URL validation timeout for {url}")
-        return False
-    except requests.exceptions.ConnectionError:
-        logger.debug(f"URL validation connection error for {url}")
-        return False
-    except Exception as e:
-        logger.debug(f"URL validation failed for {url}: {e}")
-        return False
-
-
-def load_cache():
-    """Load validation cache with proper error handling.
-    Corrupted cache files are deleted and rebuilt.
-    """
-    if CACHE_FILE.exists():
-        try:
-            return json.loads(CACHE_FILE.read_text(encoding='utf-8'))
-        except json.JSONDecodeError as e:
-            logging.warning(f"Cache corrupted ({e}), deleting and rebuilding...")
-            CACHE_FILE.unlink()
-    return {}
-
-
-def save_cache(cache):
-    """Save validation cache atomically."""
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    # Write to temp file then rename to avoid partial writes
-    tmp = CACHE_FILE.with_suffix('.tmp')
-    tmp.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding='utf-8')
-    tmp.rename(CACHE_FILE)
+    """Validate URL using HEAD first (Fix #3: HEAD→GET fallback for speed)."""
+    from utils import validate_url_head_first
+    return validate_url_head_first(url, session=session, timeout=timeout, logger=logger)
 
 
 def validate_and_merge(logger):
@@ -95,7 +62,7 @@ def validate_and_merge(logger):
     logger.info("Found " + str(len(filtered_files)) + " files to process")
 
     # Load validation cache ONCE at the start
-    cache = load_cache()
+    cache = load_cache(CACHE_FILE)  # Fix #1: use unified load_cache
     logger.info("Loaded cache: " + str(len(cache)) + " entries")
 
     # P0-3: use requests.Session for connection reuse
@@ -148,7 +115,7 @@ def validate_and_merge(logger):
 
                     # P0-4: incremental cache save every BATCH_SIZE validations
                     if batch_count % BATCH_SIZE == 0:
-                        save_cache(cache)
+                        save_cache(cache, CACHE_FILE)  # Fix #1: use unified save_cache
                         logger.info(f"  [Cache saved: {len(cache)} entries, {newly_validated} newly validated this file]")
 
                 all_channels[name_key].append({
@@ -161,7 +128,7 @@ def validate_and_merge(logger):
 
             # Save cache after each file
             if batch_count > 0:
-                save_cache(cache)
+                save_cache(cache, CACHE_FILE)  # Fix #1: use unified save_cache
                 logger.info(f"  File done: +{batch_count} validated, cache now {len(cache)} entries")
 
         except Exception as e:

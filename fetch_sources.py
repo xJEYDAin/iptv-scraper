@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 """IPTV Source Fetcher"""
-import requests
 import sys
 from datetime import datetime
 from pathlib import Path
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Import shared config
 sys.path.insert(0, str(Path(__file__).parent))
 from config import SOURCES_DIR, LOG_DIR
-from utils import setup_logging
+from utils import setup_logging, fetch_sources_rate_limited
 
 SOURCES = [
     {
@@ -71,70 +69,58 @@ SOURCES = [
     }
 ]
 
-TIMEOUT = 10
+def save_source_result(result, logger):
+    """Save fetched source content to file. Called after fetch_with_retry succeeds."""
+    name = result.get("name", "?")
+    url = result.get("url", "")
+    if not result.get("success") or "content" not in result:
+        logger.error(f"FAILED {name} - {result.get('error', 'unknown')}")
+        return result
 
-def fetch_source(source, logger, session=None):
-    name = source["name"]
-    url = source["url"]
-    
-    logger.info("Fetching: " + name + " (" + url + ")")
-    
-    if session is None:
-        session = requests.Session()
-    
-    try:
-        response = session.get(url, timeout=TIMEOUT)
-        response.raise_for_status()
-        
-        content = response.text
-        today = datetime.now().strftime('%Y%m%d')
-        filename = SOURCES_DIR / (name + "_" + today + ".m3u")
-        filename.write_text(content, encoding='utf-8')
-        
-        count = content.count('#EXTINF:')
-        logger.info("OK " + name + ": " + str(count) + " channels -> " + str(filename))
-        
-        return {
-            "name": name,
-            "file": str(filename),
-            "count": count,
-            "success": True
-        }
-        
-    except requests.exceptions.Timeout:
-        logger.error("TIMEOUT " + name + " (" + str(TIMEOUT) + "s)")
-        return {"name": name, "success": False, "error": "timeout"}
-    except requests.exceptions.RequestException as e:
-        logger.error("FAILED " + name + " - " + str(e))
-        return {"name": name, "success": False, "error": str(e)}
-    except Exception as e:
-        logger.error("ERROR " + name + " - " + str(e))
-        return {"name": name, "success": False, "error": str(e)}
+    content = result["content"]
+    today = datetime.now().strftime('%Y%m%d')
+    filename = SOURCES_DIR / (name + "_" + today + ".m3u")
+    filename.write_text(content, encoding='utf-8')
+    count = content.count('#EXTINF:')
+    logger.info(f"OK {name}: {count} channels -> {filename}")
+
+    return {
+        "name": name,
+        "file": str(filename),
+        "count": count,
+        "success": True
+    }
+
 
 def main():
     logger = setup_logging(LOG_DIR, "fetch")
     logger.info("=" * 50)
     logger.info("Starting IPTV source fetch")
     logger.info("=" * 50)
-    
+
     SOURCES_DIR.mkdir(parents=True, exist_ok=True)
-    
-    # P0-2: parallel fetch with shared session (P0-3)
-    session = requests.Session()
+
+    # Fix #2: rate-limited + retry + concurrency cap
+    # max_workers=5 concurrent, 0.5s delay between requests, 3 retries with exponential backoff
+    raw_results = fetch_sources_rate_limited(SOURCES, logger,
+                                              max_workers=5,
+                                              delay=0.5)
+
+    # Save successful fetches to disk
     results = []
-    with ThreadPoolExecutor(max_workers=len(SOURCES)) as executor:
-        futures = {executor.submit(fetch_source, source, logger, session): source for source in SOURCES}
-        for future in as_completed(futures):
-            results.append(future.result())
-    
+    for r in raw_results:
+        saved = save_source_result(r, logger)
+        results.append(saved)
+
     success_count = sum(1 for r in results if r["success"])
     total_count = sum(r.get("count", 0) for r in results if r["success"])
-    
+
     logger.info("=" * 50)
     logger.info("Fetch complete: " + str(success_count) + "/" + str(len(SOURCES)) + " success")
     logger.info("Total channels: " + str(total_count))
-    
+
     return results
+
 
 if __name__ == "__main__":
     main()

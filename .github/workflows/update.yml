@@ -32,13 +32,28 @@ jobs:
       - name: Create required directories
         run: |
           mkdir -p cache logs sources filtered output
-      
+
+      - name: Compute sources cache key
+        id: cache-key
+        run: |
+          # Fix #6: dynamic cache key based on sources hash + date
+          # Cache refreshes when sources change or daily run
+          DATE_KEY=$(date +'%Y%m%d')
+          if [ -d "sources" ]; then
+            SOURCES_HASH=$(find sources -type f -name "*.m3u" | sort | xargs cat 2>/dev/null | md5sum | cut -c1-8)
+          else
+            SOURCES_HASH="empty"
+          fi
+          CACHE_KEY="validation-cache-${DATE_KEY}-${SOURCES_HASH}"
+          echo "cache_key=${CACHE_KEY}" >> $GITHUB_OUTPUT
+          echo "date_key=${DATE_KEY}" >> $GITHUB_OUTPUT
+
       - name: Restore validation cache
         id: cache
         uses: actions/cache@v4
         with:
           path: cache/
-          key: validation-cache  # Static key - persists across runs
+          key: ${{ steps.cache-key.outputs.cache_key }}
           restore-keys: |
             validation-cache
       
@@ -75,4 +90,4 @@ jobs:
         uses: actions/cache@v4
         with:
           path: cache/
-          key: validation-cache  # Always use static key
+          key: ${{ steps.cache-key.outputs.cache_key }}

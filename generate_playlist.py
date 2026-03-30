@@ -10,7 +10,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from config import OUTPUT_DIR, FILTERED_DIR, CACHE_DIR, CACHE_FILE, LOG_DIR, MIN_SPEED_KB, ENABLE_SPEEDTEST, SORT_BY_SPEED
 from speedtest import speedtest_channels, filter_by_speed, sort_by_speed, format_speed
-from utils import setup_logging, parse_m3u
+from utils import setup_logging, parse_m3u, load_cache, save_cache  # Fix #1: unified cache
 from logo_map import get_logo_fuzzy
 
 CACHE_FILE = CACHE_DIR / "validation_cache.json"
@@ -93,29 +93,12 @@ def check_url(url, session=None):
         return (url, False)
 
 
-def load_cache():
-    if CACHE_FILE.exists():
-        try:
-            return json.loads(CACHE_FILE.read_text(encoding='utf-8'))
-        except json.JSONDecodeError as e:
-            logging.warning(f"Cache corrupted ({e}), deleting and rebuilding...")
-            CACHE_FILE.unlink()
-    return {}
-
-
-def save_cache(cache):
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    tmp = CACHE_FILE.with_suffix('.tmp')
-    tmp.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding='utf-8')
-    tmp.rename(CACHE_FILE)
-
-
 def batch_validate(all_channels, logger):
     logger.info("=" * 50)
     logger.info("Starting batched validation")
     logger.info("=" * 50)
 
-    cache = load_cache()
+    cache = load_cache(CACHE_FILE)  # Fix #1: use unified load_cache
     logger.info("Loaded cache: " + str(len(cache)) + " entries")
 
     to_validate = [ch for ch in all_channels if ch["url"] not in cache]
@@ -137,9 +120,9 @@ def batch_validate(all_channels, logger):
                 url, is_valid = future.result()
                 cache[url] = is_valid
                 if len(cache) % 500 == 0:
-                    save_cache(cache)
+                    save_cache(cache, CACHE_FILE)  # Fix #1: use unified save_cache
 
-        save_cache(cache)
+        save_cache(cache, CACHE_FILE)  # Fix #1: use unified save_cache
         logger.info("  Done. Cached total: " + str(len(cache)))
 
     for ch in all_channels:
@@ -179,7 +162,7 @@ def generate_playlist(logger):
 
     # 验证
     skip_validation = os.getenv("SKIP_VALIDATION") == "1"
-    cache = load_cache()
+    cache = load_cache(CACHE_FILE)  # Fix #1: use unified load_cache
     if skip_validation:
         logger.info("SKIP_VALIDATION=1, using cached results")
         for ch in all_channels:
@@ -191,7 +174,7 @@ def generate_playlist(logger):
     if ENABLE_SPEEDTEST and not skip_validation:
         valid_chs = [ch for ch in all_channels if ch["is_valid"]]
         logger.info(f"[Speedtest] Testing {len(valid_chs)} valid channels...")
-        speedtest_cache = speedtest_channels(valid_chs, logger, min_speed_kb=MIN_SPEED_KB)
+        speedtest_channels(valid_chs, logger, min_speed_kb=MIN_SPEED_KB)  # Fix #4: modifies in-place, return value unused
         
         # Apply speed filter
         before_speed = len(valid_chs)
