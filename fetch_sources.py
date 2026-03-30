@@ -32,6 +32,42 @@ SOURCES = [
         "name": "iptv-org",
         "url": "https://iptv-org.github.io/iptv/index.m3u",
         "priority": 4
+    },
+    # Free-TV - 15.6K stars, 全球覆盖
+    {
+        "name": "free-tv-hk",
+        "url": "https://raw.githubusercontent.com/Free-TV/IPTV/master/lists/hong_kong.md",
+        "priority": 5
+    },
+    {
+        "name": "free-tv-tw",
+        "url": "https://raw.githubusercontent.com/Free-TV/IPTV/master/lists/taiwan.md",
+        "priority": 5
+    },
+    {
+        "name": "free-tv-cn",
+        "url": "https://raw.githubusercontent.com/Free-TV/IPTV/master/lists/china.md",
+        "priority": 5
+    },
+    {
+        "name": "free-tv-jp",
+        "url": "https://raw.githubusercontent.com/Free-TV/IPTV/master/lists/japan.md",
+        "priority": 5
+    },
+    {
+        "name": "free-tv-kr",
+        "url": "https://raw.githubusercontent.com/Free-TV/IPTV/master/lists/korea.md",
+        "priority": 5
+    },
+    {
+        "name": "free-tv-us",
+        "url": "https://raw.githubusercontent.com/Free-TV/IPTV/master/lists/usa.md",
+        "priority": 6
+    },
+    {
+        "name": "free-tv-uk",
+        "url": "https://raw.githubusercontent.com/Free-TV/IPTV/master/lists/uk.md",
+        "priority": 6
     }
 ]
 

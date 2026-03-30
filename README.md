@@ -22,6 +22,7 @@
 | nthack/IPTVM3U | 港台直播源 |
 | imDazui/Tvlist-awesome-m3u-m3u8 | 港台频道 |
 | iptv-org/iptv | 全球最大开源库 |
+| Free-TV/IPTV | 15.6K Stars，全球40+国家覆盖 |
 
 ## 播放列表
 
