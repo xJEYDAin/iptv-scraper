@@ -38,20 +38,20 @@ def is_hk_region(name, group):
     hk_exact = [
         # hkdtmb CDN 频道
         r"hkdtmb", r"香港台", r"香港電視",
-        # TVB 系列 - 必须是完整词
-        "\\btvb\\b", "\\btv b\\b",
+        # TVB 系列 (无\b因为后面可能是中文)
+        r"tvb", r"tv b",
         # 翡翠/明珠 - 中文完整匹配
         r"翡翠台", r"明珠台",
-        # J2
-        "\\bj2\\b",
+        # J2/J1 (TVB频道)
+        r"j2", r"j1",
         # ViuTV
-        "\\bviutv\\b", r"viu tv", "\\bviu6\\b", r"viu 6",
+        r"viutv", r"viu tv", r"viu6", r"viu 6",
         # RTHK
-        "\\brthk\\b", "\\brthk tv\\b", r"港台電視", r"港台电视", r"香港电台",
+        r"rthk", r"rthk tv", r"港台電視", r"港台电视", r"香港电台",
         # HOY TV
-        "\\bhoy tv\\b", "\\bhoytv\\b",
+        r"hoy tv", r"hoytv",
         # Now TV
-        "\\bnow tv\\b", "\\bnowtv\\b",
+        r"now tv", r"nowtv",
         # Cable TV (有线电视) - 必须是完整词或中文
         r"有线电视", "开电视", "cable tv", r"cable_tv",
         # 凤凰卫视
@@ -59,18 +59,18 @@ def is_hk_region(name, group):
         # 无线/星空
         r"无线电视", r"无线新闻", r"星空卫视",
     ]
-    # TW 精确匹配
+    # TW 精确匹配 (移除对中文无效的\b词边界)
     tw_exact = [
-        "\\btvbs\\b", r"tvbs新闻", r"tvbs\b",
+        r"tvbs", r"tvbs新闻",
         r"台视主频", r"台視主頻",
         r"中视综合台", r"中視綜合台",
-        r"民视无线台", r"民視無線台",
+        r"民视无线台", r"民視無彈",
         r"东森电视", r"東森電視", r"东森新闻", r"東森新聞",
         r"三立台湾台", r"三立台灣台",
         r"华视", r"華視", r"中视", r"中視", r"民视", r"民視",
         r"台视", r"台視", r"大爱", r"公视", r"公視",
-        "\\bttv\\b", "\\bcts\\b", "\\bftv\\b", "\\bpts\\b",
-        "\\bcna\\b", "\\bpts\\b",
+        r"ttv", r"cts", r"ftv", r"pts",
+        r"cna",
     ]
     # MO 精确匹配
     mo_exact = [r"澳门", r"澳視", "\\bmacau\\b", r"澳广视", r"澳亚卫视"]
@@ -111,7 +111,7 @@ def categorize(name, group):
         return "📺 TVB"
     if any(kw in full_text for kw in ['viutv', 'viu tv', 'viu6']):
         return "📺 ViuTV"
-    if any(kw in full_text for kw in ['rthk', '港台', '香港电台']):
+    if any(kw in full_text for kw in ['rthk', 'rthk tv', '香港电台']):
         return "📺 RTHK"
     if any(kw in full_text for kw in ['hoy', 'hooy', 'hoytv']):
         return "📺 HOY TV"
@@ -121,12 +121,13 @@ def categorize(name, group):
         return "📺 有线电视"
     if any(kw in full_text for kw in ['凤凰', 'phoenix']):
         return "📺 凤凰卫视"
-    if any(kw in full_text for kw in ['无线', '新闻台', '星空', 'star tv']):
-        return "📺 香港其他"
-    if any(kw in full_text for kw in ['tvbs', '台视', '中视', '华视', '民视', '东森', '三立', '非凡', '大爱', '公视']):
+    # 台湾必须放在香港其他之前，避免"民视新闻台"等被"新闻台"误匹配
+    if any(kw in full_text for kw in ['tvbs', '台视', '中视', '华视', '民视', '东森', '三立', '非凡', '大爱', '公视', '華視', '中視', '民視', '台視', '公視']):
         return "🇹🇼 台湾"
     if any(kw in full_text for kw in ['澳门', '澳視', 'macau', '澳广视']):
         return "🇲🇴 澳门"
+    if any(kw in full_text for kw in ['无线', '星空', 'star tv']):
+        return "📺 香港其他"
     if any(kw in full_text for kw in ['news', '新闻', 'cnn', 'bbc', 'dw', '半岛']):
         return "📰 新闻"
     if any(kw in full_text for kw in ['movie', '电影', 'cinema', 'hbo', 'cinemax', '影城', '卫视电影']):
@@ -250,9 +251,9 @@ def generate_playlist(logger):
     skip_validation = os.getenv("SKIP_VALIDATION") == "1"
     cache = load_cache(CACHE_FILE)  # Fix #1: use unified load_cache
     if skip_validation:
-        logger.info("SKIP_VALIDATION=1, using cached results")
+        logger.info("SKIP_VALIDATION=1, using cached results + HK CDN whitelist")
         for ch in all_channels:
-            ch["is_valid"] = cache.get(ch["url"], False)
+            ch["is_valid"] = cache.get(ch["url"], False) or is_hk_cdn_whitelisted(ch["url"])
     else:
         all_channels, cache = batch_validate(all_channels, logger)
 

@@ -29,8 +29,9 @@ def speedtest_url_curl(url, timeout=TIMEOUT_SEC):
         float: Speed in bytes/second, or 0 if failed
     """
     # HK CDN Whitelist: skip speedtest for known HK CDN domains
+    # Return a high fake speed (500 KB/s = 512000 bytes/sec) to pass MIN_SPEED_KB=30 threshold
     if is_hk_cdn_whitelisted(url):
-        return 500.0  # Return a reasonable default speed for whitelisted URLs
+        return 500 * 1024.0  # 500 KB/s in bytes/sec - well above 30 KB/s threshold
     
     try:
         # curl -w "%{speed_download}" -m timeout -r 0-511999 -L -s -o /dev/null $URL
