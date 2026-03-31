@@ -24,26 +24,79 @@ BATCH_SIZE = 50
 
 
 def is_hk_region(name, group):
-    """判断是否为港台地区频道"""
+    """判断是否为港台地区频道 (HK/TW/MO)
+    
+    使用精确匹配避免误匹配，如 "16tv Budapest" 不会匹配 TVB
+    """
+    import re
     name_lower, group_lower = name.lower(), (group or "").lower()
     full_text = name_lower + " " + group_lower
     
-    # HK 严格匹配 - 避免误匹配 Al Jadeed, Pearl (非HK)
-    hk_patterns = [
-        'tvb', 'tv b', 'tvb jade', 'tvb pearl', 'tvb j2', 'tvbjade', 'tvbj2', 'tvbpearl',
-        '翡翠台', '明珠台', 'j2',
-        'viutv', 'viu tv', 'viu6', 'viu 6',
-        'rthk', 'rthk tv', 'rthktv', '港台電視', '港台电视',
-        'hoy tv', 'hoytv', 'hoy_tv', 'hoy_t v',
-        'now tv', 'nowtv', 'now news', 'nownews', 'now_news',
-        'cable tv', 'cable_tv', '有线电视', '开电视',
-        '凤凰卫视', 'phoenix tv', 'phoenixtv',
-        '无线电视', '无线新闻', 'star tv', 'startv', '星空卫视'
+    # HK 精确匹配 - 必须完整匹配频道名
+    # 注意: 使用 \b词边界 避免误匹配 "tvb" 在 "16tvb" 中
+    hk_exact = [
+        # TVB 系列 - 必须是完整词
+        "\\btvb\\b", "\\btv b\\b",
+        # 翡翠/明珠 - 中文完整匹配
+        r"翡翠台", r"明珠台",
+        # J2
+        "\\bj2\\b",
+        # ViuTV
+        "\\bviutv\\b", r"viu tv", "\\bviu6\\b", r"viu 6",
+        # RTHK
+        "\\brthk\\b", "\\brthk tv\\b", r"港台電視", r"港台电视", r"香港电台",
+        # HOY TV
+        "\\bhoy tv\\b", "\\bhoytv\\b",
+        # Now TV
+        "\\bnow tv\\b", "\\bnowtv\\b",
+        # Cable TV (有线电视) - 必须是完整词或中文
+        r"有线电视", "开电视", "cable tv", r"cable_tv",
+        # 凤凰卫视
+        r"凤凰卫视", r"phoenix tv",
+        # 无线/星空
+        r"无线电视", r"无线新闻", r"星空卫视",
     ]
-    tw_kw = ['tvbs', '台视', '中视', '华视', '民视', '东森', '三立', '非凡', '大爱', '公视', '客家', '原住民']
-    mo_kw = ['澳门', '澳視', 'macau', '澳广视']
+    # TW 精确匹配
+    tw_exact = [
+        "\\btvbs\\b", r"tvbs新闻", r"tvbs\b",
+        r"台视主频", r"台視主頻",
+        r"中视综合台", r"中視綜合台",
+        r"民视无线台", r"民視無線台",
+        r"东森电视", r"東森電視", r"东森新闻", r"東森新聞",
+        r"三立台湾台", r"三立台灣台",
+        r"华视", r"華視", r"中视", r"中視", r"民视", r"民視",
+        r"台视", r"台視", r"大爱", r"公视", r"公視",
+        "\\bttv\\b", "\\bcts\\b", "\\bftv\\b", "\\bpts\\b",
+        "\\bcna\\b", "\\bpts\\b",
+    ]
+    # MO 精确匹配
+    mo_exact = [r"澳门", r"澳視", "\\bmacau\\b", r"澳广视", r"澳亚卫视"]
     
-    return any(p in full_text for p in hk_patterns + tw_kw + mo_kw)
+    # 排除项 - 包含这些关键词的不是港台
+    exclude = [
+        "\\bcctv\\b", "\\bcetv\\b",  # 央视/中教台
+        "\\bbbc\\b", "\\bcnn\\b",      # 西方媒体
+        "\\bal jazeera\\b", "\\bfrance 24\\b",
+        r"16tv", "\\b16 tv\\b",        # 不是TVB
+        r"african", r"africable",        # 非洲台
+        r"budapest",                     # 布达佩斯
+        r"bogota", r"brasil", r"brazil", # 南美
+        "\\bktv\\b",                   # 韩国或其他
+        "\\bmtv\\b", "\\bm tv\\b",   # 音乐电视
+        r"star tv", r"startv",          # 避免误匹配 EuroStar TV
+        r"daystar",                      # 宗教台
+        r"café", r"cafe",               # 咖啡馆电视台
+    ]
+    
+    for p in exclude:
+        if re.search(p, full_text):
+            return False
+    
+    for p in hk_exact + tw_exact + mo_exact:
+        if re.search(p, full_text):
+            return True
+    
+    return False
 
 
 def categorize(name, group):
