@@ -3,12 +3,7 @@
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
 #PLAYLIST:HK & TW IPTV 2026-03-31
-# Total: 10 channels, 5 categories, min speed: 100 KB/s
-
-#EXTGRP:📺 TVB (1)
-# speed: N/A
-#EXTINF:-1 tvg-name="Al Jadeed (1080p)" tvg-logo="https://i.imgur.com/CfxR8o3.png" group-title="General",Al Jadeed (1080p)
-http://185.9.2.18/chid_391/mono.m3u8
+# Total: 21 channels, 8 categories, min speed: 100 KB/s
 
 #EXTGRP:📺 RTHK (1)
 # speed: N/A
@@ -20,16 +15,10 @@ https://rthktv31-live.akamaized.net/hls/live/2036818/RTHKTV31/master.m3u8
 #EXTINF:-1 tvg-name="NOW TV (720p)" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="Hong Kong",NOW TV (720p)
 https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8
 
-#EXTGRP:📺 有线电视 (4)
+#EXTGRP:📺 有线电视 (2)
 # speed: N/A
 #EXTINF:-1 tvg-name="Africable TV (360p)" tvg-logo="https://epg.112114.xyz/logo/有线电视.png" group-title="General",Africable TV (360p)
 http://69.64.57.208/africable/playlist.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="Cable 14 Hamilton" tvg-logo="https://i.imgur.com/bJ7ygTq.png" group-title="Undefined",Cable 14 Hamilton
-https://flowcaster1-ch.cdn.clearcable.net/C14/smil:C14.smil/playlist.m3u8?iimae0UC2aendtime=1665196120&iimae0UC2ahash=NzcDbuotaJAVf1DsNxuGHBlfCXSvHDIt5sqMUMgrRMU=&iimae0UC2astarttime=1665181720
-# speed: N/A
-#EXTINF:-1 tvg-name="Cable Imagen Armstrong (540p) [Not 24/7]" tvg-logo="https://i.imgur.com/U9NuJQC.png" group-title="Undefined",Cable Imagen Armstrong (540p) [Not 24/7]
-https://stream.arcast.com.ar/casse/casse/playlist.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="Fort Collins Cable TV (FCTV) (Fort Collins CO) (1080p)" tvg-logo="https://epg.112114.xyz/logo/有线电视.png" group-title="General",Fort Collins Cable TV (FCTV) (Fort Collins CO) (1080p)
 https://reflect-vod-fcgov.cablecast.tv/live-9/live/stream-1/live.m3u8
@@ -44,3 +33,53 @@ https://hls-live-media-gc.cdn01.net/mpegts/232076_2222907/karlKyiKToEdHsTFUcjs9g
 # speed: N/A
 #EXTINF:-1 tvg-name="Hmong Star TV (720p) [Not 24/7]" tvg-logo="https://epg.112114.xyz/logo/星空.png" group-title="Culture",Hmong Star TV (720p) [Not 24/7]
 https://livefta.malimarcdn.com/ftaedge00/hmongstartv.sdp/playlist.m3u8
+
+#EXTGRP:🎵 音乐 (1)
+# speed: N/A
+#EXTINF:-1 tvg-name="Radio Weser TV Bremen (576p)" group-title="Music",Radio Weser TV Bremen (576p)
+https://5857499ee635b.streamlock.net/radiowesertv-live/_definst_/mp4:livestreamTV/playlist.m3u8
+
+#EXTGRP:📺 General (8)
+# speed: N/A
+#EXTINF:-1 tvg-name="16tv Budapest (360p)" tvg-logo="https://i.imgur.com/04fCzHl.png" group-title="General",16tv Budapest (360p)
+https://cloudfront44.lexanetwork.com:1344/freerelay/16tv.sdp/playlist.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Citytv Bogota (1080p)" tvg-logo="https://i.imgur.com/h7K9EW9.png" group-title="General",Citytv Bogota (1080p)
+http://181.114.57.246:4000/play/u2H4dIJoRipgGI3A/index.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="ConecTV Brasil (720p)" tvg-logo="https://i.imgur.com/XN6jjMR.png" group-title="General",ConecTV Brasil (720p)
+https://stream01.msolutionbrasil.com.br/hls/conectv/live.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Elive TV Brescia (720p) [Not 24/7]" tvg-logo="https://i.imgur.com/gZxjLph.png" group-title="General",Elive TV Brescia (720p) [Not 24/7]
+https://59d7d6f47d7fc.streamlock.net/elivebresciatv/elivebresciatv/playlist.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Jawa Pos TV Bali (576p)" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Jawa_Pos_TV_2024.svg/960px-Jawa_Pos_TV_2024.svg.png" group-title="General",Jawa Pos TV Bali (576p)
+http://122.248.43.242:1935/JAWAPOSTVBALI/_definst_/myStream/playlist.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="KTV Bangla (720p)" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/channel/2f8e3b371c660faa2f43a7f0942948a4.png" group-title="General",KTV Bangla (720p)
+https://server.livelegitpro.in:9899/tribetv/tribetv/index.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Nova TV Brasov (576p) [Not 24/7]" tvg-logo="https://i.imgur.com/33Vn0Ij.png" group-title="General",Nova TV Brasov (576p) [Not 24/7]
+http://novapress.ro:2022/live/nova/playlist.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Radio TV Basse-Terre (720p)" tvg-logo="https://i.imgur.com/OvnRplq.png" group-title="General",Radio TV Basse-Terre (720p)
+https://vdo.ssl-stream.com:3412/stream/play.m3u8
+
+#EXTGRP:📺 Religious (3)
+# speed: N/A
+#EXTINF:-1 tvg-name="Canal 30 TV Bethel (720p) [Not 24/7]" tvg-logo="https://i.imgur.com/PP4U1JL.png" group-title="Religious",Canal 30 TV Bethel (720p) [Not 24/7]
+https://s.emisoras.tv:8081/canal30tvbethel/index.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Peace TV Bangla (1080p)" tvg-logo="https://i.imgur.com/1ztVXUi.png" group-title="Religious",Peace TV Bangla (1080p)
+https://dzkyvlfyge.erbvr.com/PeaceTvBangla/index.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Peniel TV Biblia Abierta (480p)" tvg-logo="https://i.ibb.co/j3gGwYk/D64575438be2a3a54fdf64d4035ade48.png" group-title="Religious",Peniel TV Biblia Abierta (480p)
+https://s.emisoras.tv:8081/penielbibliaabierta/index.m3u8
+
+#EXTGRP:📺 Undefined (2)
+# speed: N/A
+#EXTINF:-1 tvg-name="Ebony TV by Lionsgate (1080p) [Geo-blocked]" group-title="Undefined",Ebony TV by Lionsgate (1080p) [Geo-blocked]
+https://pb-6csswagmy4nat.akamaized.net/Ebony_TV_by_Lionsgate.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Regio TV Bodensee (1080p)" tvg-logo="https://i.imgur.com/3koyLef.png" group-title="Undefined",Regio TV Bodensee (1080p)
+https://regiotv-b.iptv-playoutcenter.de/regiotv-b/regiotv-b.stream_1/playlist.m3u8

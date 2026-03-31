@@ -3,7 +3,7 @@
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
 #PLAYLIST:All IPTV 2026-03-31
-# Total: 3659 channels, 65 categories, min speed: 100 KB/s
+# Total: 3668 channels, 65 categories, min speed: 100 KB/s
 
 #EXTGRP:📺 TVB (1)
 #EXTINF:-1 tvg-name="Al Jadeed (1080p)" tvg-logo="https://i.imgur.com/CfxR8o3.png" group-title="General",Al Jadeed (1080p)
@@ -1793,7 +1793,7 @@ https://avr.host247.net/live/Mix-kurdy/playlist.m3u8
 #EXTINF:-1 tvg-name="CWB TV (720p)" tvg-logo="https://i.imgur.com/S0ISpmU.png" group-title="Family;General",CWB TV (720p)
 https://59d39900ebfb8.streamlock.net/cwbtv/cwbtv/playlist.m3u8
 
-#EXTGRP:📺 General (863)
+#EXTGRP:📺 General (864)
 #EXTINF:-1 tvg-name="1Almere TV (720p)" tvg-logo="https://i.imgur.com/XfkbTrU.png" group-title="General",1Almere TV (720p)
 https://d3472rjicrodic.cloudfront.net/nlpo/clr-nlpo/709d5260/index.m3u8
 #EXTINF:-1 tvg-name="1TV (720p)" tvg-logo="https://epg.112114.xyz/logo/TVB翡翠台.png" group-title="General",1TV (720p)
@@ -1994,7 +1994,7 @@ http://186.121.206.197/live/daniel/index.m3u8
 https://streaming5.globalhostla.com/rtplive/atntelevision/playlist.m3u8
 #EXTINF:-1 tvg-name="ATV2 HD (1080p) [Geo-Blocked]" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Logo_ATV2.svg/960px-Logo_ATV2.svg.png" group-title="General",ATV2 HD (1080p) [Geo-Blocked]
 https://viamotionhsi.netplus.ch/live/eds/atv/browser-dash/atv.mpd
-# ... and 763 more
+# ... and 764 more
 
 #EXTGRP:📺 General;Legislative (1)
 #EXTINF:-1 tvg-name="ATXN2 (1080p)" tvg-logo="https://i.imgur.com/tSMtDlz.png" group-title="General;Legislative",ATXN2 (1080p)
@@ -2695,7 +2695,7 @@ http://media4.tripsmarter.com:1935/LiveTV/NOTVHD/playlist.m3u8
 #EXTINF:-1 tvg-name="OEPM TV (720p)" tvg-logo="https://i.imgur.com/QghtwMB.jpeg" group-title="Travel",OEPM TV (720p)
 https://cnn.hostlagarto.com/oepmtelevision/tracks-v1a1/mono.m3u8
 
-#EXTGRP:📺 Undefined (687)
+#EXTGRP:📺 Undefined (695)
 #EXTINF:-1 tvg-name="2x2" tvg-logo="https://www.tvpolsat.info/wp-content/uploads/2023/03/2x2-logo.png" group-title="Undefined",2x2
 https://liveovh010.cda.pl/zkr7GNESGht4_0Wk12c78A/17538736/2782059/enc117/2x2hdraw/2x2hdraw.m3u8
 #EXTINF:-1 tvg-name="4K Travel TV (1080p)" group-title="Undefined",4K Travel TV (1080p)
@@ -2896,7 +2896,7 @@ https://59959724487e3.streamlock.net/stream/live/playlist.m3u8
 https://d13j8jpstr8iqz.cloudfront.net/BYUtv.m3u8
 #EXTINF:-1 tvg-name="Cadena A (720p) [Not 24/7]" tvg-logo="https://i.imgur.com/BxQPPAA.png" group-title="Undefined",Cadena A (720p) [Not 24/7]
 https://5fe2654d6127d.streamlock.net/cadenaa/videocadenaa/playlist.m3u8
-# ... and 587 more
+# ... and 595 more
 
 #EXTGRP:📺 Weather (2)
 #EXTINF:-1 tvg-name="AccuWeather Now (1080p)" tvg-logo="https://i.imgur.com/M8wbVYK.png" group-title="Weather",AccuWeather Now (1080p)
