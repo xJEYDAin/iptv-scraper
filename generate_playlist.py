@@ -28,7 +28,18 @@ def is_hk_region(name, group):
     name_lower, group_lower = name.lower(), (group or "").lower()
     full_text = name_lower + " " + group_lower
     
-    # HK 严格匹配
+    # HK 严格匹配 - 避免误匹配 Al Jadeed, Pearl (非HK)
+    hk_patterns = [
+        'tvb', 'tv b', 'tvb jade', 'tvb pearl', 'tvb j2', 'tvbjade', 'tvbj2', 'tvbpearl',
+        '翡翠台', '明珠台', 'j2',
+        'viutv', 'viu tv', 'viu6', 'viu 6',
+        'rthk', 'rthk tv', 'rthktv', '港台電視', '港台电视',
+        'hoy tv', 'hoytv', 'hoy_tv', 'hoy_t v',
+        'now tv', 'nowtv', 'now news', 'nownews', 'now_news',
+        'cable tv', 'cable_tv', '有线电视', '开电视',
+        '凤凰卫视', 'phoenix tv', 'phoenixtv',
+        '无线电视', '无线新闻', 'star tv', 'startv', '星空卫视'
+    ]
     tw_kw = ['tvbs', '台视', '中视', '华视', '民视', '东森', '三立', '非凡', '大爱', '公视', '客家', '原住民']
     mo_kw = ['澳门', '澳視', 'macau', '澳广视']
     
