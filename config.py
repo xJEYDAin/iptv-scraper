@@ -16,7 +16,7 @@ LOG_DIR = BASE_DIR / "logs"
 CACHE_FILE = CACHE_DIR / "validation_cache.json"
 
 # Speedtest settings
-MIN_SPEED_KB = 100           # Minimum speed in KB/s (filter out slow links)
+MIN_SPEED_KB = 30           # Minimum speed in KB/s (filter out slow links)
 SPEEDTEST_TIMEOUT = 5        # Seconds per URL
 SPEEDTEST_WORKERS = 10       # Parallel workers
 SPEEDTEST_USE_CURL = True    # Use curl (True) or requests (False)

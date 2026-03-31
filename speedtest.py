@@ -10,7 +10,7 @@ from datetime import datetime
 from pathlib import Path
 
 from config import CACHE_DIR, LOG_DIR
-from utils import load_cache, save_cache  # Fix #1: unified cache functions
+from utils import load_cache, save_cache, is_hk_cdn_whitelisted  # Fix #1: unified cache functions
 
 # Speed test settings
 MIN_SPEED_KB = float(os.getenv("MIN_SPEED_KB", "500"))   # Minimum speed in KB/s (default 500KB/s)
@@ -28,6 +28,10 @@ def speedtest_url_curl(url, timeout=TIMEOUT_SEC):
     Returns:
         float: Speed in bytes/second, or 0 if failed
     """
+    # HK CDN Whitelist: skip speedtest for known HK CDN domains
+    if is_hk_cdn_whitelisted(url):
+        return 500.0  # Return a reasonable default speed for whitelisted URLs
+    
     try:
         # curl -w "%{speed_download}" -m timeout -r 0-511999 -L -s -o /dev/null $URL
         # -w "%{speed_download}" outputs bytes/sec
