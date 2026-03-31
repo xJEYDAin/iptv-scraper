@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 """IPTV Validator & Merger"""
 import logging
-import sys
-import json
 from datetime import datetime
 from pathlib import Path
 import requests
 
 from config import FILTERED_DIR, OUTPUT_DIR, LOG_DIR, CACHE_DIR, CACHE_FILE
 from utils import setup_logging, parse_m3u, load_aliases, normalize_channel_name
-from utils import load_cache, save_cache  # Fix #1: unified cache functions
+from utils import load_cache, save_cache
+from validate.validators import validate_url_head_first
 
 PRIORITY = {
     "sammy0101": 1,
@@ -17,10 +16,8 @@ PRIORITY = {
     "joker-cold": 3
 }
 
-TIMEOUT = 5  # Reduced for faster validation
+TIMEOUT = 5
 MAX_LINES_PER_CHANNEL = 3
-
-# Batch size for incremental cache saves (after each file)
 BATCH_SIZE = 500
 
 
@@ -32,8 +29,7 @@ def get_source_priority(filename):
 
 
 def validate_url(url, logger, timeout=TIMEOUT, session=None):
-    """Validate URL using HEAD first (Fix #3: HEAD→GET fallback for speed)."""
-    from utils import validate_url_head_first
+    """Validate URL using HEAD first → GET fallback."""
     return validate_url_head_first(url, session=session, timeout=timeout, logger=logger)
 
 
@@ -42,7 +38,6 @@ def validate_and_merge(logger):
     logger.info("Starting validation and merge")
     logger.info("=" * 50)
 
-    # Load channel alias mapping
     aliases = load_aliases()
     logger.info("Loaded " + str(len(aliases)) + " channel aliases")
     if aliases:
@@ -61,15 +56,12 @@ def validate_and_merge(logger):
 
     logger.info("Found " + str(len(filtered_files)) + " files to process")
 
-    # Load validation cache ONCE at the start
-    cache = load_cache(CACHE_FILE)  # Fix #1: use unified load_cache
+    cache = load_cache(CACHE_FILE)
     logger.info("Loaded cache: " + str(len(cache)) + " entries")
 
-    # P0-3: use requests.Session for connection reuse
     session = requests.Session()
 
-    # Collect all channels by name, with their priority and URLs
-    all_channels = {}  # name_key -> [(url, priority, raw_extinf, is_valid, original_name), ...]
+    all_channels = {}
 
     total_valid = 0
     total_invalid = 0
@@ -91,7 +83,6 @@ def validate_and_merge(logger):
                 if not name:
                     continue
 
-                # Apply alias normalization
                 original_name = name.strip()
                 normalized_name = normalize_channel_name(original_name, aliases)
                 if normalized_name != original_name:
@@ -104,7 +95,6 @@ def validate_and_merge(logger):
                     all_channels[name_key] = []
 
                 url = ch["url"]
-                # Use cache if available, otherwise validate
                 if url in cache:
                     is_valid = cache[url]
                 else:
@@ -113,9 +103,8 @@ def validate_and_merge(logger):
                     newly_validated += 1
                     batch_count += 1
 
-                    # P0-4: incremental cache save every BATCH_SIZE validations
                     if batch_count % BATCH_SIZE == 0:
-                        save_cache(cache, CACHE_FILE)  # Fix #1: use unified save_cache
+                        save_cache(cache, CACHE_FILE)
                         logger.info(f"  [Cache saved: {len(cache)} entries, {newly_validated} newly validated this file]")
 
                 all_channels[name_key].append({
@@ -126,33 +115,26 @@ def validate_and_merge(logger):
                     "original_name": original_name
                 })
 
-            # Save cache after each file
             if batch_count > 0:
-                save_cache(cache, CACHE_FILE)  # Fix #1: use unified save_cache
+                save_cache(cache, CACHE_FILE)
                 logger.info(f"  File done: +{batch_count} validated, cache now {len(cache)} entries")
 
         except Exception as e:
             logger.error("  Failed " + filepath.name + ": " + str(e))
 
-    # Merge channels - keep valid ones, sorted by priority
     merged_channels = []
 
     for name_key, sources in all_channels.items():
-        # Filter to only valid sources
         valid_sources = [s for s in sources if s["is_valid"]]
         invalid_count = len(sources) - len(valid_sources)
         total_invalid += invalid_count
 
         if valid_sources:
             total_valid += len(valid_sources)
-            # Sort by priority
             valid_sources.sort(key=lambda x: x["priority"])
-            # Take max lines
             selected = valid_sources[:MAX_LINES_PER_CHANNEL]
 
-            # Use the highest priority extinf as template
             template_extinf = selected[0]["raw_extinf"]
-            # Use normalized name as clean_name (already applied alias)
             clean_name = name_key.title()
 
             merged_channels.append({

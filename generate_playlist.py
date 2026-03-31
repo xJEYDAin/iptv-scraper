@@ -1,20 +1,17 @@
 #!/usr/bin/env python3
 """IPTV Playlist Generator - HK专区和全部频道"""
 import logging
-import json
 import os
 import requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from config import OUTPUT_DIR, FILTERED_DIR, CACHE_DIR, CACHE_FILE, LOG_DIR, MIN_SPEED_KB, ENABLE_SPEEDTEST, SORT_BY_SPEED
 from speedtest import speedtest_channels, filter_by_speed, sort_by_speed, format_speed
-from utils import setup_logging, parse_m3u, load_cache, save_cache  # Fix #1: unified cache
-from utils import is_hk_cdn_whitelisted  # HK CDN whitelist
+from utils import setup_logging, parse_m3u, load_cache, save_cache
+from lib.whitelist import is_whitelisted as is_hk_cdn_whitelisted
 from logo_map import get_logo_fuzzy
-
-CACHE_FILE = CACHE_DIR / "validation_cache.json"
 
 EPG_URL = "https://epg.pw/pp.xml"
 
@@ -24,165 +21,23 @@ MAX_WORKERS = 10
 BATCH_SIZE = 50
 
 
-def is_hk_region(name, group):
-    """判断是否为港台地区频道 (HK/TW/MO)
-    
-    使用精确匹配避免误匹配，如 "16tv Budapest" 不会匹配 TVB
-    """
-    import re
-    name_lower, group_lower = name.lower(), (group or "").lower()
-    full_text = name_lower + " " + group_lower
-    
-    # HK 精确匹配 - 必须完整匹配频道名
-    # 注意: 使用 \b词边界 避免误匹配 "tvb" 在 "16tvb" 中
-    hk_exact = [
-        # hkdtmb CDN 频道
-        r"hkdtmb", r"香港台", r"香港電視",
-        # TVB 系列 (无\b因为后面可能是中文)
-        r"tvb",
-        # 翡翠/明珠 - 中文完整匹配
-        r"翡翠台", r"明珠台",
-        # J2/J1 (TVB频道)
-        r"j2", r"j1",
-        # ViuTV
-        r"viutv", r"viu tv", r"viu6", r"viu 6",
-        # RTHK
-        r"rthk", r"rthk tv", r"港台電視", r"港台电视", r"香港电台",
-        # HOY TV
-        r"hoy tv", r"hoytv",
-        # Now TV
-        r"now tv", r"nowtv",
-        # Cable TV (有线电视) - 必须是完整词或中文
-        r"有线电视", "开电视", "cable tv", r"cable_tv",
-        # 凤凰卫视
-        r"凤凰卫视", r"phoenix tv",
-        # 无线/星空
-        r"无线电视", r"无线新闻", r"星空卫视",
-    ]
-    # TW 精确匹配 (使用\b词边界避免误匹配)
-    tw_exact = [
-        r"tvbs", r"tvbs新闻",
-        r"台视主频", r"台視主頻",
-        r"中视综合台", r"中視綜合台",
-        r"民视无线台", r"民視無限",
-        r"东森电视", r"東森電視", r"东森新闻", r"東森新聞",
-        r"三立台湾台", r"三立台灣台",
-        r"华视", r"華視", r"中视", r"中視", r"民视", r"民視",
-        r"台视", r"台視", r"大爱", r"公视", r"公視",
-        r"\\bttv\\b", r"\\bftv\\b", r"\\bpts\\b",
-        r"\\bcna\\b",
-    ]
-    # MO 精确匹配
-    mo_exact = [r"澳门", r"澳視", "\\bmacau\\b", r"澳广视", r"澳亚卫视"]
-    
-    # 排除项 - 包含这些关键词的不是港台
-    exclude = [
-        "\\bcctv\\b", "\\bcetv\\b",  # 央视/中教台
-        "\\bbbc\\b", "\\bcnn\\b",      # 西方媒体
-        "\\bal jazeera\\b", "\\bfrance 24\\b",
-        r"16tv", "\\b16 tv\\b",        # 不是TVB
-        r"african", r"africable",        # 非洲台
-        r"budapest",                     # 布达佩斯
-        r"bogota", r"brasil", r"brazil", # 南美
-        "\\bktv\\b",                   # 韩国或其他
-        "\\bmtv\\b", "\\bm tv\\b",   # 音乐电视
-        r"star tv", r"startv",          # 避免误匹配 EuroStar TV
-        r"daystar",                      # 宗教台
-        r"café", r"cafe",               # 咖啡馆电视台
-    ]
-    
-    for p in exclude:
-        if re.search(p, full_text):
-            return False
-    
-    for p in hk_exact + tw_exact + mo_exact:
-        if re.search(p, full_text):
-            return True
-    
-    return False
-
-
-def categorize(name, group):
-    """分类频道"""
-    import re
-    name_lower, group_lower = name.lower(), (group or "").lower()
-    full_text = name_lower + " " + group_lower
-    
-    if any(kw in full_text for kw in ['tvb', '翡翠台', '明珠台', 'jade', 'pearl', 'j2']):
-        # 排除非HK的jade/pearl
-        if re.search(r'\bal jadeed\b', full_text):
-            pass  # 黎巴嫩台，非HK
-        elif re.search(r'\bpearl fm\b', full_text) or re.search(r'pearl.*fm', full_text):
-            return "🎵 音乐"
-        else:
-            return "📺 TVB"
-    if any(kw in full_text for kw in ['viutv', 'viu tv', 'viu6']):
-        return "📺 ViuTV"
-    if any(kw in full_text for kw in ['rthk', 'rthk tv', '港台電視', '港台電台', '香港电台', '香港電台']):
-        return "📺 RTHK"
-    if any(kw in full_text for kw in ['hoy', 'hooy', 'hoytv']):
-        return "📺 HOY TV"
-    if any(kw in full_text for kw in ['now tv', 'nowtv', 'now news', 'now直播', 'now财经']):
-        return "📺 Now TV"
-    if any(kw in full_text for kw in ['cable', '有线', '开电视', 'cable TV']):
-        return "📺 有线电视"
-    if any(kw in full_text for kw in ['凤凰', 'phoenix']):
-        return "📺 凤凰卫视"
-    # 台湾必须放在香港其他之前，避免"民视新闻台"等被"新闻台"误匹配
-    if any(kw in full_text for kw in ['tvbs', '台视', '中视', '华视', '民视', '东森', '三立', '非凡', '大爱', '公视', '華視', '中視', '民視', '台視', '公視']):
-        return "🇹🇼 台湾"
-    if any(kw in full_text for kw in ['澳门', '澳視', 'macau', '澳广视']):
-        return "🇲🇴 澳门"
-    if any(kw in full_text for kw in ['无线', '星空', 'star tv']):
-        return "📺 香港其他"
-    if any(kw in full_text for kw in ['news', '新闻', 'cnn', 'bbc', 'dw', '半岛']):
-        return "📰 新闻"
-    if any(kw in full_text for kw in ['movie', '电影', 'cinema', 'hbo', 'cinemax', '影城', '卫视电影']):
-        return "🎬 电影"
-    if any(kw in full_text for kw in ['sport', 'sports', '体育', 'espn', '足球', '篮球', 'fox sports', 'beinsport']):
-        return "⚽ 体育"
-    if any(kw in full_text for kw in ['kids', 'children', '卡通', '动画', 'anime', 'nick', '迪士尼', 'disney', 'baby']):
-        return "🧸 儿童"
-    if any(kw in full_text for kw in ['entertainment', '娱乐', '综艺', 'variety', '综合台', '戏剧']):
-        return "🎭 综艺"
-    if any(kw in full_text for kw in ['discovery', 'national geographic', '地理', '探索', 'history', 'hist', '动物']):
-        return "📺 纪录片"
-    if any(kw in full_text for kw in ['music', '音乐', 'mv', 'channel v', 'mtv', 'vod']):
-        return "🎵 音乐"
-    if group and group.strip():
-        return "📺 " + group
-    return "🌐 其他"
-
-
 def check_url(url, session=None):
-    """Check URL using HEAD-first approach (fast), fallback to GET if needed.
-    
-    HK CDN URLs (cdn.hkdtmb.com etc.) are whitelisted and always return valid.
-    """
-    # ── HK CDN Whitelist: skip validation for known HK CDN domains ─────────
-    if is_hk_cdn_whitelisted(url):
+    """Check URL using HEAD-first approach (fast), fallback to GET if needed."""
+    from lib.whitelist import is_whitelisted
+    if is_whitelisted(url):
         return (url, True)
-
     if session is None:
         session = requests.Session()
     headers = {"User-Agent": "Mozilla/5.0 (compatible; IPTV-Scraper/1.0)"}
-    
-    # Try HEAD first (fast)
     try:
         r = session.head(url, timeout=TIMEOUT, allow_redirects=True, headers=headers)
         if r.status_code in [200, 206, 301, 302, 303, 307, 308]:
             return (url, True)
     except Exception:
         pass
-    
-    # Fallback to GET (only if HEAD fails)
     try:
         r = session.get(url, timeout=TIMEOUT, allow_redirects=True, headers=headers)
         return (url, r.status_code in [200, 301, 302, 303, 307, 308])
-    except requests.exceptions.Timeout:
-        return (url, False)
-    except requests.exceptions.ConnectionError:
-        return (url, False)
     except Exception:
         return (url, False)
 
@@ -192,7 +47,7 @@ def batch_validate(all_channels, logger):
     logger.info("Starting batched validation")
     logger.info("=" * 50)
 
-    cache = load_cache(CACHE_FILE)  # Fix #1: use unified load_cache
+    cache = load_cache(CACHE_FILE)
     logger.info("Loaded cache: " + str(len(cache)) + " entries")
 
     to_validate = [ch for ch in all_channels if ch["url"] not in cache]
@@ -214,9 +69,9 @@ def batch_validate(all_channels, logger):
                 url, is_valid = future.result()
                 cache[url] = is_valid
                 if len(cache) % 200 == 0:
-                    save_cache(cache, CACHE_FILE)  # Fix #1: use unified save_cache
+                    save_cache(cache, CACHE_FILE)
 
-        save_cache(cache, CACHE_FILE)  # Fix #1: use unified save_cache
+        save_cache(cache, CACHE_FILE)
         logger.info("  Done. Cached total: " + str(len(cache)))
 
     for ch in all_channels:
@@ -227,6 +82,16 @@ def batch_validate(all_channels, logger):
     logger.info("Validation complete: " + str(valid_count) + "/" + str(len(all_channels)) + " valid")
 
     return all_channels, cache
+
+
+def categorize(name, group):
+    from group.categorizer import categorize as _cat
+    return _cat(name, group)
+
+
+def is_hk_region(name, group):
+    from group.categorizer import is_hk_region as _hk
+    return _hk(name, group)
 
 
 def generate_playlist(logger):
@@ -256,7 +121,7 @@ def generate_playlist(logger):
 
     # 验证
     skip_validation = os.getenv("SKIP_VALIDATION") == "1"
-    cache = load_cache(CACHE_FILE)  # Fix #1: use unified load_cache
+    cache = load_cache(CACHE_FILE)
     if skip_validation:
         logger.info("SKIP_VALIDATION=1, using cached results + HK CDN whitelist")
         for ch in all_channels:
@@ -268,137 +133,25 @@ def generate_playlist(logger):
     if ENABLE_SPEEDTEST and not skip_validation:
         valid_chs = [ch for ch in all_channels if ch["is_valid"]]
         logger.info(f"[Speedtest] Testing {len(valid_chs)} valid channels...")
-        speedtest_channels(valid_chs, logger, min_speed_kb=MIN_SPEED_KB)  # Fix #4: modifies in-place, return value unused
+        speedtest_channels(valid_chs, logger, min_speed_kb=MIN_SPEED_KB)
         
-        # Apply speed filter
         before_speed = len(valid_chs)
         valid_chs, filtered_count = filter_by_speed(valid_chs, min_speed_kb=MIN_SPEED_KB)
         logger.info(f"[Speedtest] Filtered {filtered_count} slow links (< {MIN_SPEED_KB} KB/s), {len(valid_chs)} remain")
         
-        # Update all_channels is_valid flag based on speed
         valid_urls = {ch["url"] for ch in valid_chs}
         for ch in all_channels:
             ch["is_valid"] = ch["is_valid"] and ch["url"] in valid_urls
         
-        # Sort valid channels by speed
         if SORT_BY_SPEED:
             valid_chs = sort_by_speed(valid_chs)
             logger.info("[Speedtest] Sorted by speed (fastest first)")
     else:
         valid_chs = [ch for ch in all_channels if ch["is_valid"]]
 
-    # 分类所有频道 (基于 speed-tested valid channels)
-    categorized = {}
-    hk_categorized = {}
-    
-    for ch in valid_chs:
-        cat = categorize(ch["name"], ch["group"])
-        ch["cat"] = cat  # Store for build_extinf to use
-        if cat not in categorized:
-            categorized[cat] = []
-        categorized[cat].append(ch)
-        
-        # HK 专区
-        if is_hk_region(ch["name"], ch["group"]):
-            if cat not in hk_categorized:
-                hk_categorized[cat] = []
-            hk_categorized[cat].append(ch)
-
-    logger.info("Total valid (speed-tested): " + str(sum(len(v) for v in categorized.values())))
-    logger.info("Total HK valid: " + str(sum(len(v) for v in hk_categorized.values())))
-    logger.info("Total categories: " + str(len(categorized)))
-
-    order = ["📺 TVB", "📺 ViuTV", "📺 RTHK", "📺 HOY TV", "📺 Now TV", "📺 有线电视", "📺 凤凰卫视", "📺 香港其他", "🇹🇼 台湾", "🇲🇴 澳门", "📰 新闻", "🎬 电影", "⚽ 体育", "🧸 儿童", "🎭 综艺", "📺 纪录片", "🎵 音乐", "🌐 其他"]
-    def sort_key(c): return (0, order.index(c)) if c in order else (1, c)
-
-    def build_extinf(ch):
-        """Rebuild EXTINF line with tvg-logo injected via logo_map.
-        
-        Priority: logo_map fuzzy match > existing tvg_logo > existing logo= attribute > ''
-        Output format: #EXTINF:-1 tvg-name="X" tvg-logo="Y" group-title="Z",Name
-        """
-        import re
-
-        # 1. Determine logo: mapping > existing tvg_logo > ch["tvg_logo"] > ''
-        mapped_logo = get_logo_fuzzy(ch["name"])
-        if mapped_logo:
-            logo = mapped_logo
-        elif ch.get("tvg_logo"):
-            logo = ch["tvg_logo"]
-        else:
-            logo = ""
-
-        # 2. Determine group: use categorize() result (not raw source group-title)
-        group = ch.get("cat", "") or ch.get("group", "") or ""
-
-        # 3. tvg-name: use tvg_name from parse (may differ from display name)
-        tvg_name = ch.get("tvg_name", "") or ch.get("name", "") or ""
-
-        # 4. Build clean EXTINF
-        attrs = []
-        if tvg_name:
-            attrs.append(f'tvg-name="{tvg_name}"')
-        if logo:
-            attrs.append(f'tvg-logo="{logo}"')
-        if group:
-            attrs.append(f'group-title="{group}"')
-
-        attr_str = " ".join(attrs)
-        extinf = f"#EXTINF:-1 {attr_str},{ch['name']}"
-        return extinf
-
-    # ========== HK 频道列表 ==========
-    total_hk = sum(len(v) for v in hk_categorized.values())
-    
-    hk_lines = [
-        '#EXTM3U x-tvg-url="' + EPG_URL + '"',
-        '#EXTVLCOPT:network-caching=1000',
-        '#EXTVLCOPT:live-cache=1000',
-        '#EXTVLCOPT:ttl=5',
-        '#PLAYLIST:HK & TW IPTV ' + datetime.now().strftime('%Y-%m-%d'),
-        '# Total: ' + str(total_hk) + ' channels, ' + str(len(hk_categorized)) + ' categories, min speed: ' + str(MIN_SPEED_KB) + ' KB/s',
-        '']
-    
-    for cat, chs in sorted(hk_categorized.items(), key=lambda x: sort_key(x[0])):
-        hk_lines.append('#EXTGRP:' + cat + ' (' + str(len(chs)) + ')')
-        for ch in chs:
-            # Include speed info as comment if available
-            speed_comment = f'# speed: {ch.get("speed_str", "N/A")}'
-            hk_lines.append(speed_comment)
-            hk_lines.extend([build_extinf(ch), ch["url"]])
-        hk_lines.append('')
-    
-    hk_file = OUTPUT_DIR / "hk_merged.m3u"
-    hk_file.write_text('\n'.join(hk_lines), encoding='utf-8')
-    logger.info("HK Playlist -> " + str(hk_file) + " (" + str(total_hk) + " channels)")
-
-    # ========== 全部频道列表 ==========
-    total_all = sum(len(v) for v in categorized.values())
-    all_lines = [
-        '#EXTM3U x-tvg-url="' + EPG_URL + '"',
-        '#EXTVLCOPT:network-caching=1000',
-        '#EXTVLCOPT:live-cache=1000',
-        '#EXTVLCOPT:ttl=5',
-        '#PLAYLIST:All IPTV ' + datetime.now().strftime('%Y-%m-%d'),
-        '# Total: ' + str(total_all) + ' channels, ' + str(len(categorized)) + ' categories, min speed: ' + str(MIN_SPEED_KB) + ' KB/s',
-        '']
-
-    for cat, chs in sorted(categorized.items(), key=lambda x: sort_key(x[0])):
-        all_lines.append('#EXTGRP:' + cat + ' (' + str(len(chs)) + ')')
-        for ch in chs[:100]:
-            all_lines.extend([build_extinf(ch), ch["url"]])
-        if len(chs) > 100:
-            all_lines.append('# ... and ' + str(len(chs) - 100) + ' more')
-        all_lines.append('')
-
-    all_file = OUTPUT_DIR / "all_merged.m3u"
-    all_file.write_text('\n'.join(all_lines), encoding='utf-8')
-    logger.info("ALL Playlist -> " + str(all_file) + " (" + str(total_all) + " channels)")
-
-    return {
-        "hk": {"file": str(hk_file), "channels": total_hk, "groups": len(hk_categorized)},
-        "all": {"file": str(all_file), "channels": total_all, "groups": len(categorized)}
-    }
+    # 分类所有频道
+    from output.playlist import generate_playlist as gen_pl
+    return gen_pl(valid_chs, MIN_SPEED_KB)
 
 
 def main():
