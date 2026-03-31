@@ -3,34 +3,169 @@
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
 #PLAYLIST:HK & TW IPTV 2026-03-31
-# Total: 6 channels, 6 categories, min speed: 30 KB/s
+# Total: 49 channels, 9 categories, min speed: 30 KB/s
 
-#EXTGRP:📺 RTHK (1)
+#EXTGRP:📺 TVB (28)
 # speed: N/A
-#EXTINF:-1 tvg-name="RTHK TV 31 (港台電視31) (1080p) [Geo-blocked]" tvg-logo="https://epg.112114.xyz/logo/RTHK%2031.png" group-title="Undefined",RTHK TV 31 (港台電視31) (1080p) [Geo-blocked]
-https://rthktv31-live.akamaized.net/hls/live/2036818/RTHKTV31/master.m3u8
+#EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="📺 TVB",翡翠台
+http://r.jdshipin.com/qClQf
+# speed: N/A
+#EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="📺 TVB",翡翠台
+http://r.jdshipin.com/qrfbg
+# speed: N/A
+#EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="📺 TVB",翡翠台
+http://r.jdshipin.com/n90gt
+# speed: N/A
+#EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="📺 TVB",翡翠台
+http://r.jdshipin.com/GeWKr
+# speed: N/A
+#EXTINF:-1 tvg-name="TVB翡翠台" tvg-logo="https://epg.112114.xyz/logo/TVB翡翠台.png" group-title="📺 TVB",TVB翡翠台
+http://cdn9.163189.xyz/smt1.1.php?id=jade_twn
+# speed: N/A
+#EXTINF:-1 tvg-name="翡翠台4K" group-title="📺 TVB",翡翠台4K
+http://cdn6.163189.xyz/163189/fct4k
+# speed: N/A
+#EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="📺 TVB",翡翠台
+https://cdn.163189.xyz/live/fct4k/stream.m3u8$LR•IPV4『线路16』
+# speed: N/A
+#EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="📺 TVB",翡翠台
+http://122.152.202.33/s/81a8a44f/index.m3u8?id=53$LR•IPV4『线路26』
+# speed: N/A
+#EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="📺 TVB",翡翠台
+http://r.jdshipin.com/GeWKr?id=fct406$LR•IPV4『线路30』
+# speed: N/A
+#EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="📺 TVB",翡翠台
+http://r.jdshipin.com/GeWKr?id=fct720$LR•IPV4『线路31』
+# speed: N/A
+#EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="📺 TVB",翡翠台
+http://kkk.jjjj.jiduo.me/api.php?n=tttt&id=0401&tk=2aca1ad9a849$LR•IPV4『线路39』
+# speed: N/A
+#EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="📺 TVB",翡翠台
+http://fm1077.serv00.net/Smart.php?id=jade_twn$LR•IPV4『线路41』
+# speed: N/A
+#EXTINF:-1 tvg-name="TVB無線新聞" group-title="📺 TVB",TVB無線新聞
+http://cdn9.163189.xyz/smt1.1.php?id=inews_twn
+# speed: N/A
+#EXTINF:-1 tvg-name="明珠台" tvg-logo="https://epg.112114.xyz/logo/明珠台.png" group-title="📺 TVB",明珠台
+http://r.jdshipin.com/ZQ4kN
+# speed: N/A
+#EXTINF:-1 tvg-name="明珠台" tvg-logo="https://epg.112114.xyz/logo/明珠台.png" group-title="📺 TVB",明珠台
+http://r.jdshipin.com/jUx8K
+# speed: N/A
+#EXTINF:-1 tvg-name="明珠台" tvg-logo="https://epg.112114.xyz/logo/明珠台.png" group-title="📺 TVB",明珠台
+http://php.jdshipin.com/TVOD/iptv.php?id=mzt2
+# speed: N/A
+#EXTINF:-1 tvg-name="J2" tvg-logo="https://epg.112114.xyz/logo/J2.png" group-title="📺 TVB",J2
+http://fm1077.serv00.net/Smart.php?id=j2_twn$LR•IPV4
+# speed: N/A
+#EXTINF:-1 tvg-name="翡翠台 - 线路1（大陆线路）" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="📺 TVB",翡翠台 - 线路1（大陆线路）
+http://116.199.5.52:8114/00000000/index.m3u8?&Fsv_ctype=LIVES&Fsv_otype=1&FvSeid=5abd1660af1babb4&Pcontent_id=&Provider_id=&Fsv_chan_hls_se_idx=188
+# speed: N/A
+#EXTINF:-1 tvg-name="翡翠台 - 线路2（大陆线路）" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="📺 TVB",翡翠台 - 线路2（大陆线路）
+http://116.199.5.52:8114/00000000/index.m3u8?&Fsv_ctype=LIVES&Fsv_otype=1&FvSeid=5abd1660af1babb4&Fsv_filetype=1&Fsv_ctype=LIVES&Fsv_cid=0&Fsv_chan_hls_se_idx=188&Fsv_rate_id=1&Fsv_SV_PARAM1=0&Fsv_ShiftEnable=0&Fsv_ShiftTsp=0&Provider_id=&Pcontent_id=&Fsv_CMSID=&Fsv_otype=1
+# speed: N/A
+#EXTINF:-1 tvg-name="翡翠台 - 线路3（高清，香港线路）" tvg-logo="https://epg.112114.xyz/logo/翡翠台.png" group-title="📺 TVB",翡翠台 - 线路3（高清，香港线路）
+https://cdn.hkdtmb.com/hls/81/index.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="翡翠台2 - J2（高清，香港线路）" group-title="📺 TVB",翡翠台2 - J2（高清，香港线路）
+https://cdn.hkdtmb.com/hls/82/index.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="翡翠明珠台" group-title="📺 TVB",翡翠明珠台
+http://116.199.5.51:8114/index.m3u8?Fsv_chan_hls_se_idx=12&amp;FvSeid=1&amp;Fsv_ctype=LIVES&amp;Fsv_otype=1&amp;Provider_id=&amp;Pcontent_id=.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="翡翠明珠台 - 线路2（高清，香港线路）" group-title="📺 TVB",翡翠明珠台 - 线路2（高清，香港线路）
+https://cdn.hkdtmb.com/hls/84/index.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="TVBJ1" group-title="📺 TVB",TVBJ1
+https://cdn3.163189.xyz/live/j1/stream.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="tvbs閩南" tvg-logo="https://epg.112114.xyz/logo/TVBS%E9%96%86%E5%8D%97.png" group-title="📺 TVB",tvbs閩南
+http://aktv.top/AKTV/live/aktv/tvbs/AKTV.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="tvbs新聞" tvg-logo="https://epg.112114.xyz/logo/TVBS%E6%96%B0%E8%81%9E.png" group-title="📺 TVB",tvbs新聞
+http://aktv.top/AKTV/live/aktv/tvbs-1/AKTV.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="tvbs新聞" tvg-logo="https://epg.112114.xyz/logo/TVBS%E6%96%B0%E8%81%9E.png" group-title="📺 TVB",tvbs新聞
+http://aktv.top/AKTV/live/aktv3/null-2/AKTV.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="TVB无线星河" group-title="📺 TVB",TVB无线星河
+http://v2h.jdshipin.com/xinghe/xinghe.stream/chunklist.m3u8
+
+#EXTGRP:📺 ViuTV (6)
+# speed: N/A
+#EXTINF:-1 tvg-name="ViuTV" tvg-logo="https://epg.112114.xyz/logo/ViuTV.png" group-title="📺 ViuTV",ViuTV
+http://r.jdshipin.com/vSJvl
+# speed: N/A
+#EXTINF:-1 tvg-name="ViuTV" tvg-logo="https://epg.112114.xyz/logo/ViuTV.png" group-title="📺 ViuTV",ViuTV
+http://r.jdshipin.com/TcKr2
+# speed: N/A
+#EXTINF:-1 tvg-name="VIUTV" tvg-logo="https://epg.112114.xyz/logo/ViuTV.png" group-title="📺 ViuTV",VIUTV
+http://php.jdshipin.com/TVOD/iptv.php?id=viutv
+# speed: N/A
+#EXTINF:-1 tvg-name="VIUTV" tvg-logo="https://epg.112114.xyz/logo/ViuTV.png" group-title="📺 ViuTV",VIUTV
+http://php.jdshipin.com/TVOD/iptv.php?id=viutv2
+# speed: N/A
+#EXTINF:-1 tvg-name="ViuTV - 线路2（高清，香港线路）" tvg-logo="https://epg.112114.xyz/logo/ViuTV.png" group-title="📺 ViuTV",ViuTV - 线路2（高清，香港线路）
+https://cdn.hkdtmb.com/hls/99/index.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="ViuTVsix - 线路2（香港线路）" tvg-logo="https://epg.112114.xyz/logo/ViuTV.png" group-title="📺 ViuTV",ViuTVsix - 线路2（香港线路）
+https://cdn.hkdtmb.com/hls/96/index.m3u8
+
+#EXTGRP:📺 RTHK (4)
+# speed: N/A
+#EXTINF:-1 tvg-name="RTHK 31" tvg-logo="https://epg.112114.xyz/logo/RTHK%2031.png" group-title="📺 RTHK",RTHK 31
+https://www.rthk.hk/feeds/dtt/rthktv31_https.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="RTHK 32" tvg-logo="https://epg.112114.xyz/logo/RTHK%2032.png" group-title="📺 RTHK",RTHK 32
+https://www.rthk.hk/feeds/dtt/rthktv32_https.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="港台电视RTHK31" tvg-logo="https://epg.112114.xyz/logo/RTHK%2031.png" group-title="📺 RTHK",港台电视RTHK31
+https://cdn.hkdtmb.com/hls/31/index.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="港台电视RTHK32" tvg-logo="https://epg.112114.xyz/logo/RTHK%2032.png" group-title="📺 RTHK",港台电视RTHK32
+https://cdn.hkdtmb.com/hls/32/index.m3u8
+
+#EXTGRP:📺 HOY TV (2)
+# speed: N/A
+#EXTINF:-1 tvg-name="HOY TV" tvg-logo="https://epg.112114.xyz/logo/HOY%20TV.png" group-title="📺 HOY TV",HOY TV
+http://r.jdshipin.com/sFw4S
+# speed: N/A
+#EXTINF:-1 tvg-name="HOY TV" tvg-logo="https://epg.112114.xyz/logo/HOY%20TV.png" group-title="📺 HOY TV",HOY TV
+http://php.jdshipin.com/TVOD/iptv.php?id=hoytv
 
 #EXTGRP:📺 Now TV (1)
 # speed: N/A
-#EXTINF:-1 tvg-name="NOW TV (720p)" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="Hong Kong",NOW TV (720p)
+#EXTINF:-1 tvg-name="NOW TV (720p)" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",NOW TV (720p)
 https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8
 
 #EXTGRP:📺 有线电视 (1)
 # speed: N/A
-#EXTINF:-1 tvg-name="Fort Collins Cable TV (FCTV) (Fort Collins CO) (1080p)" tvg-logo="https://epg.112114.xyz/logo/有线电视.png" group-title="General",Fort Collins Cable TV (FCTV) (Fort Collins CO) (1080p)
+#EXTINF:-1 tvg-name="Fort Collins Cable TV (FCTV) (Fort Collins CO) (1080p)" tvg-logo="https://epg.112114.xyz/logo/有线电视.png" group-title="📺 有线电视",Fort Collins Cable TV (FCTV) (Fort Collins CO) (1080p)
 https://reflect-vod-fcgov.cablecast.tv/live-9/live/stream-1/live.m3u8
 
-#EXTGRP:⚽ 体育 (1)
+#EXTGRP:📺 香港其他 (1)
 # speed: N/A
-#EXTINF:-1 tvg-name="FTV (720p)" tvg-logo="https://i.imgur.com/E6RdZfK.png" group-title="Sports",FTV (720p)
-https://master.tucableip.com/ftvhd/index.m3u8
+#EXTINF:-1 tvg-name="无线新闻台（高清，香港线路）" group-title="📺 香港其他",无线新闻台（高清，香港线路）
+https://cdn.hkdtmb.com/hls/83/index.m3u8
 
-#EXTGRP:🎵 音乐 (1)
+#EXTGRP:🇹🇼 台湾 (2)
 # speed: N/A
-#EXTINF:-1 tvg-name="FTV (576p)" tvg-logo="https://i.imgur.com/E6RdZfK.png" group-title="Music",FTV (576p)
-https://stream8.cinerama.uz/1018/playlist.m3u8
+#EXTINF:-1 tvg-name="華視閩南" group-title="🇹🇼 台湾",華視閩南
+http://aktv.top/AKTV/live/aktv/null-11/AKTV.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="中視閩南" group-title="🇹🇼 台湾",中視閩南
+http://aktv.top/AKTV/live/aktv/null-10/AKTV.m3u8
 
-#EXTGRP:📺 Documentary (1)
+#EXTGRP:🇲🇴 澳门 (4)
 # speed: N/A
-#EXTINF:-1 tvg-name="CNA Originals (1080p)" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/CNA_new_logo.svg/500px-CNA_new_logo.svg.png" group-title="Documentary",CNA Originals (1080p)
-https://amg01082-cna-amg01082c1-rlaxx-us-11304.playouts.now.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-name="Canal Macau Ch. 92 (720p) [Not 24/7]" tvg-logo="https://epg.112114.xyz/logo/澳门.png" group-title="🇲🇴 澳门",Canal Macau Ch. 92 (720p) [Not 24/7]
+https://live3.tdm.com.mo/ch2/ch2.live/playlist.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Directo das Reuniões da Assembleia de Macau (720p)" tvg-logo="https://epg.112114.xyz/logo/澳门.png" group-title="🇲🇴 澳门",Directo das Reuniões da Assembleia de Macau (720p)
+https://live3.tdm.com.mo/tv/ch22.live/playlist.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Ou-Mun Macau Satellite Ch. 96 (720p)" tvg-logo="https://epg.112114.xyz/logo/澳门.png" group-title="🇲🇴 澳门",Ou-Mun Macau Satellite Ch. 96 (720p)
+https://live3.tdm.com.mo/ch3/ch3.live/playlist.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="TDM Info. Macau (720p) [Not 24/7]" tvg-logo="https://epg.112114.xyz/logo/澳门.png" group-title="🇲🇴 澳门",TDM Info. Macau (720p) [Not 24/7]
+https://live3.tdm.com.mo/ch5/info_ch5.live/playlist.m3u8
