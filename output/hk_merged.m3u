@@ -3,4 +3,34 @@
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
 #PLAYLIST:HK & TW IPTV 2026-03-31
-# Total: 0 channels, 0 categories, min speed: 100 KB/s
+# Total: 6 channels, 6 categories, min speed: 30 KB/s
+
+#EXTGRP:📺 RTHK (1)
+# speed: N/A
+#EXTINF:-1 tvg-name="RTHK TV 31 (港台電視31) (1080p) [Geo-blocked]" tvg-logo="https://epg.112114.xyz/logo/RTHK%2031.png" group-title="Undefined",RTHK TV 31 (港台電視31) (1080p) [Geo-blocked]
+https://rthktv31-live.akamaized.net/hls/live/2036818/RTHKTV31/master.m3u8
+
+#EXTGRP:📺 Now TV (1)
+# speed: N/A
+#EXTINF:-1 tvg-name="NOW TV (720p)" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="Hong Kong",NOW TV (720p)
+https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8
+
+#EXTGRP:📺 有线电视 (1)
+# speed: N/A
+#EXTINF:-1 tvg-name="Fort Collins Cable TV (FCTV) (Fort Collins CO) (1080p)" tvg-logo="https://epg.112114.xyz/logo/有线电视.png" group-title="General",Fort Collins Cable TV (FCTV) (Fort Collins CO) (1080p)
+https://reflect-vod-fcgov.cablecast.tv/live-9/live/stream-1/live.m3u8
+
+#EXTGRP:⚽ 体育 (1)
+# speed: N/A
+#EXTINF:-1 tvg-name="FTV (720p)" tvg-logo="https://i.imgur.com/E6RdZfK.png" group-title="Sports",FTV (720p)
+https://master.tucableip.com/ftvhd/index.m3u8
+
+#EXTGRP:🎵 音乐 (1)
+# speed: N/A
+#EXTINF:-1 tvg-name="FTV (576p)" tvg-logo="https://i.imgur.com/E6RdZfK.png" group-title="Music",FTV (576p)
+https://stream8.cinerama.uz/1018/playlist.m3u8
+
+#EXTGRP:📺 Documentary (1)
+# speed: N/A
+#EXTINF:-1 tvg-name="CNA Originals (1080p)" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/CNA_new_logo.svg/500px-CNA_new_logo.svg.png" group-title="Documentary",CNA Originals (1080p)
+https://amg01082-cna-amg01082c1-rlaxx-us-11304.playouts.now.amagi.tv/playlist.m3u8
