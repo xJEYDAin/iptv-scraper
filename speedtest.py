@@ -157,7 +157,7 @@ def speedtest_channels(channels, logger, use_curl=True, min_speed_kb=MIN_SPEED_K
                 futures = {
                     executor.submit(
                         speedtest_url_curl if use_curl else speedtest_url_requests,
-                        url, TIMEOUT_SEC, session
+                        url, TIMEOUT_SEC
                     ): url for url in batch
                 }
                 
