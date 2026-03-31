@@ -39,7 +39,7 @@ def is_hk_region(name, group):
         # hkdtmb CDN 频道
         r"hkdtmb", r"香港台", r"香港電視",
         # TVB 系列 (无\b因为后面可能是中文)
-        r"tvb", r"tv b",
+        r"tvb",
         # 翡翠/明珠 - 中文完整匹配
         r"翡翠台", r"明珠台",
         # J2/J1 (TVB频道)
@@ -59,18 +59,18 @@ def is_hk_region(name, group):
         # 无线/星空
         r"无线电视", r"无线新闻", r"星空卫视",
     ]
-    # TW 精确匹配 (移除对中文无效的\b词边界)
+    # TW 精确匹配 (使用\b词边界避免误匹配)
     tw_exact = [
         r"tvbs", r"tvbs新闻",
         r"台视主频", r"台視主頻",
         r"中视综合台", r"中視綜合台",
-        r"民视无线台", r"民視無彈",
+        r"民视无线台", r"民視無限",
         r"东森电视", r"東森電視", r"东森新闻", r"東森新聞",
         r"三立台湾台", r"三立台灣台",
         r"华视", r"華視", r"中视", r"中視", r"民视", r"民視",
         r"台视", r"台視", r"大爱", r"公视", r"公視",
-        r"ttv", r"cts", r"ftv", r"pts",
-        r"cna",
+        r"\\bttv\\b", r"\\bftv\\b", r"\\bpts\\b",
+        r"\\bcna\\b",
     ]
     # MO 精确匹配
     mo_exact = [r"澳门", r"澳視", "\\bmacau\\b", r"澳广视", r"澳亚卫视"]
@@ -104,14 +104,21 @@ def is_hk_region(name, group):
 
 def categorize(name, group):
     """分类频道"""
+    import re
     name_lower, group_lower = name.lower(), (group or "").lower()
     full_text = name_lower + " " + group_lower
     
     if any(kw in full_text for kw in ['tvb', '翡翠台', '明珠台', 'jade', 'pearl', 'j2']):
-        return "📺 TVB"
+        # 排除非HK的jade/pearl
+        if re.search(r'\bal jadeed\b', full_text):
+            pass  # 黎巴嫩台，非HK
+        elif re.search(r'\bpearl fm\b', full_text) or re.search(r'pearl.*fm', full_text):
+            return "🎵 音乐"
+        else:
+            return "📺 TVB"
     if any(kw in full_text for kw in ['viutv', 'viu tv', 'viu6']):
         return "📺 ViuTV"
-    if any(kw in full_text for kw in ['rthk', 'rthk tv', '香港电台']):
+    if any(kw in full_text for kw in ['rthk', 'rthk tv', '港台電視', '港台電台', '香港电台', '香港電台']):
         return "📺 RTHK"
     if any(kw in full_text for kw in ['hoy', 'hooy', 'hoytv']):
         return "📺 HOY TV"
@@ -286,6 +293,7 @@ def generate_playlist(logger):
     
     for ch in valid_chs:
         cat = categorize(ch["name"], ch["group"])
+        ch["cat"] = cat  # Store for build_extinf to use
         if cat not in categorized:
             categorized[cat] = []
         categorized[cat].append(ch)
@@ -320,8 +328,8 @@ def generate_playlist(logger):
         else:
             logo = ""
 
-        # 2. Determine group: use ch["group"] (normalized from raw_extinf)
-        group = ch.get("group", "") or ""
+        # 2. Determine group: use categorize() result (not raw source group-title)
+        group = ch.get("cat", "") or ch.get("group", "") or ""
 
         # 3. tvg-name: use tvg_name from parse (may differ from display name)
         tvg_name = ch.get("tvg_name", "") or ch.get("name", "") or ""
