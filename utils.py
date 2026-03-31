@@ -238,11 +238,19 @@ HK_CDN_WHITELIST_PATTERNS = [
     re.compile(r'^https?://([^/]+\.)*cable-tvc\.com/', re.IGNORECASE),
     # IP ranges (partial Hong Kong ISP ranges)
     re.compile(r'^https?://61\.238\.\d+\.\d+/'),
-    re.compile(r'^https?://116\.199\.\d+\.\d+/'),
+    re.compile(r'^https?://116\.199\.\d+\.\d+'),
     re.compile(r'^https?://202\.181\.\d+\.\d+/'),
     re.compile(r'^https?://203\.186\.\d+\.\d+/'),
     re.compile(r'^https?://1\.32\.\d+\.\d+/'),
     re.compile(r'^https?://42\.2\.\d+\.\d+/'),
+    # Third-party HK stream aggregators
+    re.compile(r'^https?://([^/]+\.)*jdshipin\.com/'),
+    re.compile(r'^https?://([^/]+\.)*163189\.xyz/'),
+    re.compile(r'^https?://([^/]+\.)*jiduo\.me/'),
+    re.compile(r'^https?://aktv\.top/'),
+    re.compile(r'^https?://122\.152\.\d+\.\d+/'),
+    re.compile(r'^https?://8\.138\.\d+\.\d+/'),
+    re.compile(r'^https?://fm1077\.serv00\.net/'),
 ]
 
 
