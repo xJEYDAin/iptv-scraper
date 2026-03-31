@@ -131,7 +131,7 @@ def batch_validate(all_channels, logger):
             for future in as_completed(futures):
                 url, is_valid = future.result()
                 cache[url] = is_valid
-                if len(cache) % 500 == 0:
+                if len(cache) % 200 == 0:
                     save_cache(cache, CACHE_FILE)  # Fix #1: use unified save_cache
 
         save_cache(cache, CACHE_FILE)  # Fix #1: use unified save_cache
