@@ -3,7 +3,7 @@
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
 #PLAYLIST:All IPTV 2026-03-31
-# Total: 3636 channels, 65 categories, min speed: 100 KB/s
+# Total: 3659 channels, 65 categories, min speed: 100 KB/s
 
 #EXTGRP:📺 TVB (1)
 #EXTINF:-1 tvg-name="Al Jadeed (1080p)" tvg-logo="https://i.imgur.com/CfxR8o3.png" group-title="General",Al Jadeed (1080p)
@@ -39,7 +39,7 @@ https://hls-live-media-gc.cdn01.net/mpegts/232076_2222907/karlKyiKToEdHsTFUcjs9g
 #EXTINF:-1 tvg-name="Hmong Star TV (720p) [Not 24/7]" tvg-logo="https://epg.112114.xyz/logo/星空.png" group-title="Culture",Hmong Star TV (720p) [Not 24/7]
 https://livefta.malimarcdn.com/ftaedge00/hmongstartv.sdp/playlist.m3u8
 
-#EXTGRP:📰 新闻 (438)
+#EXTGRP:📰 新闻 (439)
 #EXTINF:-1 tvg-name="1S News (576p)" group-title="Undefined",1S News (576p)
 https://mumt03.tangotv.in/1SNEWS/index.m3u8
 #EXTINF:-1 tvg-name="3AW Melbourne (1080p)" tvg-logo="https://i.imgur.com/Z4MdB0S.png" group-title="News",3AW Melbourne (1080p)
@@ -240,7 +240,7 @@ https://vs-cmaf-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_c
 https://pb-iiczlgfysam0q.akamaized.net/v1/amcnetworks_bbcnews_1/samsungheadend_us/latest/main/hls/playlist.m3u8
 #EXTINF:-1 tvg-name="BBC News Pashto (720p)" tvg-logo="https://i.imgur.com/4SSHER2.png" group-title="Undefined",BBC News Pashto (720p)
 https://vs-cmaf-pushb-ww.live.cf.md.bbci.co.uk/x=4/i=urn:bbc:pips:service:bbc_afghan_tv/pc_hd_abr_v2.mpd
-# ... and 338 more
+# ... and 339 more
 
 #EXTGRP:🎬 电影 (134)
 #EXTINF:-1 tvg-name="30A TV Classic Movies (720p)" tvg-logo="https://babaktv.com/wp-content/uploads/2023/09/30A-Classi-Movies.jpeg" group-title="Movies",30A TV Classic Movies (720p)
@@ -779,7 +779,7 @@ http://78.130.250.2:8023/play/a04d/index.m3u8
 #EXTINF:-1 tvg-name="RiC (1080p)" tvg-logo="https://i.imgur.com/4wMZ8Em.png" group-title="Family;Kids",RiC (1080p)
 https://rictv.iptv-playoutcenter.de/rictv/rictv-web/playlist.m3u8
 
-#EXTGRP:🎭 综艺 (237)
+#EXTGRP:🎭 综艺 (239)
 #EXTINF:-1 tvg-name="1KZN TV (576p)" tvg-logo="https://admango.cdn.mangomolo.com/analytics/uploads/188/6544bebaae.jpg" group-title="Entertainment;Family;General",1KZN TV (576p)
 https://cdn.freevisiontv.co.za/sttv/smil:1kzn.stream.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="2x2 (576p)" tvg-logo="https://i.imgur.com/fhQFLEl.png" group-title="Entertainment",2x2 (576p)
@@ -980,7 +980,7 @@ https://fort.co-works.org/memfs/87017643-274a-4bc0-a786-7767a0d159c2.m3u8
 http://103.215.194.93:8282/hls/fortunetv/vmix.m3u8
 #EXTINF:-1 tvg-name="Fuse East (1080p) [Not 24/7]" tvg-logo="https://i.imgur.com/mijRpPQ.jpg" group-title="Entertainment",Fuse East (1080p) [Not 24/7]
 https://tvpass.org/live/FuseEast/hd
-# ... and 137 more
+# ... and 139 more
 
 #EXTGRP:📺 纪录片 (21)
 #EXTINF:-1 tvg-name="Alone By History (720p)" tvg-logo="https://i.imgur.com/TxfOCxi.png" group-title="Undefined",Alone By History (720p)
@@ -1026,7 +1026,7 @@ https://amg02333-pbs-amg02333c1-samsung-nz-1254.playouts.now.amagi.tv/playlist/a
 #EXTINF:-1 tvg-name="Polsat Viasat History (1080p)" tvg-logo="https://i.imgur.com/TxfOCxi.png" group-title="Documentary",Polsat Viasat History (1080p)
 https://liveovh011.cda.pl/2SHZi_SkX4h0MDflza1PPw/1753748478/3480440/enc105/polsatviasathistoryhdraw/polsatviasathistoryhdraw.m3u8
 
-#EXTGRP:🎵 音乐 (275)
+#EXTGRP:🎵 音乐 (282)
 #EXTINF:-1 tvg-name="3ABN Praise Him Music Network" tvg-logo="https://i.imgur.com/iBcqT8L.png" group-title="Music;Religious",3ABN Praise Him Music Network
 https://3abn.bozztv.com/3abn1/PraiseHim/smil:PraiseHim.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="4 Fun TV (576i) [Not 24/7]" tvg-logo="https://i.imgur.com/rI1wo2l.png" group-title="Music",4 Fun TV (576i) [Not 24/7]
@@ -1227,7 +1227,7 @@ http://158.180.39.89:5033/hayatovci.m3u8
 https://streamer1.connectto.com/HIGHVISION_WEB_1205/index.m3u8
 #EXTINF:-1 tvg-name="Hype Visual Radio (1080p)" tvg-logo="https://cdn.onlineradiobox.com/img/fblogo/1/97371.v21.png" group-title="Music",Hype Visual Radio (1080p)
 https://streammix.alsolnet.com/hyperadio/live/playlist.m3u8
-# ... and 175 more
+# ... and 182 more
 
 #EXTGRP:📺 Animation (9)
 #EXTINF:-1 tvg-name="Animation+ (1080p) [Geo-blocked]" tvg-logo="https://i.imgur.com/OIFK6JB.png" group-title="Animation",Animation+ (1080p) [Geo-blocked]
@@ -1793,7 +1793,7 @@ https://avr.host247.net/live/Mix-kurdy/playlist.m3u8
 #EXTINF:-1 tvg-name="CWB TV (720p)" tvg-logo="https://i.imgur.com/S0ISpmU.png" group-title="Family;General",CWB TV (720p)
 https://59d39900ebfb8.streamlock.net/cwbtv/cwbtv/playlist.m3u8
 
-#EXTGRP:📺 General (859)
+#EXTGRP:📺 General (863)
 #EXTINF:-1 tvg-name="1Almere TV (720p)" tvg-logo="https://i.imgur.com/XfkbTrU.png" group-title="General",1Almere TV (720p)
 https://d3472rjicrodic.cloudfront.net/nlpo/clr-nlpo/709d5260/index.m3u8
 #EXTINF:-1 tvg-name="1TV (720p)" tvg-logo="https://epg.112114.xyz/logo/TVB翡翠台.png" group-title="General",1TV (720p)
@@ -1994,7 +1994,7 @@ http://186.121.206.197/live/daniel/index.m3u8
 https://streaming5.globalhostla.com/rtplive/atntelevision/playlist.m3u8
 #EXTINF:-1 tvg-name="ATV2 HD (1080p) [Geo-Blocked]" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Logo_ATV2.svg/960px-Logo_ATV2.svg.png" group-title="General",ATV2 HD (1080p) [Geo-Blocked]
 https://viamotionhsi.netplus.ch/live/eds/atv/browser-dash/atv.mpd
-# ... and 759 more
+# ... and 763 more
 
 #EXTGRP:📺 General;Legislative (1)
 #EXTINF:-1 tvg-name="ATXN2 (1080p)" tvg-logo="https://i.imgur.com/tSMtDlz.png" group-title="General;Legislative",ATXN2 (1080p)
@@ -2695,7 +2695,7 @@ http://media4.tripsmarter.com:1935/LiveTV/NOTVHD/playlist.m3u8
 #EXTINF:-1 tvg-name="OEPM TV (720p)" tvg-logo="https://i.imgur.com/QghtwMB.jpeg" group-title="Travel",OEPM TV (720p)
 https://cnn.hostlagarto.com/oepmtelevision/tracks-v1a1/mono.m3u8
 
-#EXTGRP:📺 Undefined (678)
+#EXTGRP:📺 Undefined (687)
 #EXTINF:-1 tvg-name="2x2" tvg-logo="https://www.tvpolsat.info/wp-content/uploads/2023/03/2x2-logo.png" group-title="Undefined",2x2
 https://liveovh010.cda.pl/zkr7GNESGht4_0Wk12c78A/17538736/2782059/enc117/2x2hdraw/2x2hdraw.m3u8
 #EXTINF:-1 tvg-name="4K Travel TV (1080p)" group-title="Undefined",4K Travel TV (1080p)
@@ -2896,7 +2896,7 @@ https://59959724487e3.streamlock.net/stream/live/playlist.m3u8
 https://d13j8jpstr8iqz.cloudfront.net/BYUtv.m3u8
 #EXTINF:-1 tvg-name="Cadena A (720p) [Not 24/7]" tvg-logo="https://i.imgur.com/BxQPPAA.png" group-title="Undefined",Cadena A (720p) [Not 24/7]
 https://5fe2654d6127d.streamlock.net/cadenaa/videocadenaa/playlist.m3u8
-# ... and 578 more
+# ... and 587 more
 
 #EXTGRP:📺 Weather (2)
 #EXTINF:-1 tvg-name="AccuWeather Now (1080p)" tvg-logo="https://i.imgur.com/M8wbVYK.png" group-title="Weather",AccuWeather Now (1080p)
