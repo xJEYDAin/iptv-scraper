@@ -3,4 +3,44 @@
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
 #PLAYLIST:HK & TW IPTV 2026-03-31
-# Total: 0 channels, 0 categories, min speed: 500 KB/s
+# Total: 10 channels, 5 categories, min speed: 100 KB/s
+
+#EXTGRP:📺 TVB (1)
+# speed: N/A
+#EXTINF:-1 tvg-name="Al Jadeed (1080p)" tvg-logo="https://i.imgur.com/CfxR8o3.png" group-title="General",Al Jadeed (1080p)
+http://185.9.2.18/chid_391/mono.m3u8
+
+#EXTGRP:📺 RTHK (1)
+# speed: N/A
+#EXTINF:-1 tvg-name="RTHK TV 31 (港台電視31) (1080p) [Geo-blocked]" tvg-logo="https://epg.112114.xyz/logo/RTHK%2031.png" group-title="Undefined",RTHK TV 31 (港台電視31) (1080p) [Geo-blocked]
+https://rthktv31-live.akamaized.net/hls/live/2036818/RTHKTV31/master.m3u8
+
+#EXTGRP:📺 Now TV (1)
+# speed: N/A
+#EXTINF:-1 tvg-name="NOW TV (720p)" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="Hong Kong",NOW TV (720p)
+https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8
+
+#EXTGRP:📺 有线电视 (4)
+# speed: N/A
+#EXTINF:-1 tvg-name="Africable TV (360p)" tvg-logo="https://epg.112114.xyz/logo/有线电视.png" group-title="General",Africable TV (360p)
+http://69.64.57.208/africable/playlist.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Cable 14 Hamilton" tvg-logo="https://i.imgur.com/bJ7ygTq.png" group-title="Undefined",Cable 14 Hamilton
+https://flowcaster1-ch.cdn.clearcable.net/C14/smil:C14.smil/playlist.m3u8?iimae0UC2aendtime=1665196120&iimae0UC2ahash=NzcDbuotaJAVf1DsNxuGHBlfCXSvHDIt5sqMUMgrRMU=&iimae0UC2astarttime=1665181720
+# speed: N/A
+#EXTINF:-1 tvg-name="Cable Imagen Armstrong (540p) [Not 24/7]" tvg-logo="https://i.imgur.com/U9NuJQC.png" group-title="Undefined",Cable Imagen Armstrong (540p) [Not 24/7]
+https://stream.arcast.com.ar/casse/casse/playlist.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Fort Collins Cable TV (FCTV) (Fort Collins CO) (1080p)" tvg-logo="https://epg.112114.xyz/logo/有线电视.png" group-title="General",Fort Collins Cable TV (FCTV) (Fort Collins CO) (1080p)
+https://reflect-vod-fcgov.cablecast.tv/live-9/live/stream-1/live.m3u8
+
+#EXTGRP:📺 香港其他 (3)
+# speed: N/A
+#EXTINF:-1 tvg-name="Daystar TV (1080p)" tvg-logo="https://epg.112114.xyz/logo/星空.png" group-title="Religious",Daystar TV (1080p)
+https://live-mcl.cdn01.net/smarttv/48vy43564/playlist.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Daystar TV Espanol (1080p)" tvg-logo="https://epg.112114.xyz/logo/星空.png" group-title="Religious",Daystar TV Espanol (1080p)
+https://hls-live-media-gc.cdn01.net/mpegts/232076_2222907/karlKyiKToEdHsTFUcjs9g/1776816000/master_mpegts.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Hmong Star TV (720p) [Not 24/7]" tvg-logo="https://epg.112114.xyz/logo/星空.png" group-title="Culture",Hmong Star TV (720p) [Not 24/7]
+https://livefta.malimarcdn.com/ftaedge00/hmongstartv.sdp/playlist.m3u8
