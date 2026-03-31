@@ -12,6 +12,8 @@ from speedtest import speedtest_channels, filter_by_speed, sort_by_speed, format
 from utils import setup_logging, parse_m3u, load_cache, save_cache
 from lib.whitelist import is_whitelisted as is_hk_cdn_whitelisted
 from logo_map import get_logo_fuzzy
+from lib.helpers import load_aliases
+from group.normalize import normalize_channel_name, normalize_channels
 
 EPG_URL = "https://epg.pw/pp.xml"
 
@@ -99,6 +101,10 @@ def generate_playlist(logger):
     logger.info("Generating playlists")
     logger.info("=" * 50)
 
+    # 加载别名映射
+    aliases = load_aliases()
+    logger.info("Loaded " + str(len(aliases)) + " channel aliases")
+
     # 读取所有过滤后的频道
     all_channels = []
     for sf in sorted(FILTERED_DIR.glob("*.m3u*"), key=lambda p: p.stat().st_mtime, reverse=True):
@@ -109,7 +115,13 @@ def generate_playlist(logger):
         except Exception as e:
             logger.warning("Failed: " + sf.name)
 
-    # 去重
+    # 标准化频道名称
+    for ch in all_channels:
+        raw_name = ch.get("tvg_name", "") or ch.get("name", "")
+        ch["_normalized_name"] = normalize_channel_name(raw_name, aliases)
+    logger.info("Normalized channel names")
+
+    # 去重（按 URL）
     seen_urls = set()
     deduped = []
     for ch in all_channels:
@@ -148,6 +160,11 @@ def generate_playlist(logger):
             logger.info("[Speedtest] Sorted by speed (fastest first)")
     else:
         valid_chs = [ch for ch in all_channels if ch["is_valid"]]
+
+    # 合并同名频道（保留最优 URL + 备用）
+    logger.info("Merging duplicate channels...")
+    valid_chs = normalize_channels(valid_chs, aliases)
+    logger.info("Channels after merging: " + str(len(valid_chs)))
 
     # 分类所有频道
     from output.playlist import generate_playlist as gen_pl

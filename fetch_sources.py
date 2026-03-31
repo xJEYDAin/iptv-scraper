@@ -10,28 +10,31 @@ from config import SOURCES_DIR, LOG_DIR
 from utils import setup_logging, fetch_sources_rate_limited
 
 SOURCES = [
+    # === 最高优先：香港本地源 ===
     {
         "name": "sammy0101",
         "url": "https://raw.gh.registry.cyou/sammy0101/hk-iptv-auto/refs/heads/main/hk_live.m3u",
         "priority": 1
     },
+    # === 高优先：香港/台湾新源（2026更新）===
+    # dongyubin-iptv: 仓库URL已404，暂时移除
     {
-        "name": "nthack",
-        "url": "https://raw.githubusercontent.com/nthack/IPTVM3U/master/HKTW.m3u",
+        "name": "zhi35-iptv",
+        "url": "https://live.zhi35.com/iptv.m3u",
         "priority": 2
     },
-    {
-        "name": "imdazui-hktw",
-        "url": "https://raw.githubusercontent.com/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E5%8F%B0%E6%B9%BE%E9%A6%99%E6%B8%AF%E6%BE%B3%E9%97%A8202506.m3u",
-        "priority": 3
-    },
-    # iptv-org is back - keep for international channels
+    # === 中优先：i18n + 补充源 ===
     {
         "name": "iptv-org",
         "url": "https://iptv-org.github.io/iptv/index.m3u",
         "priority": 4
     },
-    # Free-TV - 15.6K stars, 全球覆盖
+    {
+        "name": "hujingguang-iptv",
+        "url": "https://raw.githubusercontent.com/hujingguang/ChinaIPTV/main/cnTV_AutoUpdate.m3u8",
+        "priority": 4
+    },
+    # === 低优先：Free-TV 各地区 ===
     {
         "name": "free-tv-hk",
         "url": "https://raw.githubusercontent.com/Free-TV/IPTV/master/lists/hong_kong.md",
@@ -55,6 +58,11 @@ SOURCES = [
     {
         "name": "free-tv-kr",
         "url": "https://raw.githubusercontent.com/Free-TV/IPTV/master/lists/korea.md",
+        "priority": 5
+    },
+    {
+        "name": "vbskycn-iptv4",
+        "url": "https://live.zbds.top/tv/iptv4.m3u",
         "priority": 5
     },
     {

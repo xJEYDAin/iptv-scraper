@@ -74,13 +74,23 @@ def categorize(name: str, group: str) -> str:
     name_lower, group_lower = name.lower(), (group or "").lower()
     full_text = name_lower + " " + group_lower
     
-    if any(kw in full_text for kw in ['tvb', '翡翠台', '明珠台', 'jade', 'pearl', 'j2']):
-        if re.search(r'\bal jadeed\b', full_text):
-            pass
-        elif re.search(r'\bpearl fm\b', full_text) or re.search(r'pearl.*fm', full_text):
-            return "🎵 音乐"
-        else:
-            return "📺 TVB"
+    # TVB 系列 - 只匹配真正的TVB频道
+    tvb_patterns = ['tvb', '翡翠台', '明珠台', 'j2']
+    if any(kw in full_text for kw in tvb_patterns):
+        # 排除非HK频道 - 这些也包含 jade/tv 但不是TVB
+        non_hk_patterns = [
+            'aljadeed', 'al jadeed',  # 黎巴嫩
+            'pearl fm', 'pearl',      # 广播电台
+            'citytv', 'city tv',       # 哥伦比亚
+            '16tv', '16 tv',          # 布达佩斯
+            'conectv',                 # 巴西
+            'creatv', 'crea tv',      # Bay Voice TV
+            'canal30', 'canal 30',    # Bethel TV
+        ]
+        for p in non_hk_patterns:
+            if p in full_text:
+                return "🌐 其他"  # 不匹配TVB
+        return "📺 TVB"
     if any(kw in full_text for kw in ['viutv', 'viu tv', 'viu6']):
         return "📺 ViuTV"
     if any(kw in full_text for kw in ['rthk', 'rthk tv', '港台電視', '港台電台', '香港电台', '香港電台']):
@@ -114,6 +124,79 @@ def categorize(name: str, group: str) -> str:
         return "📺 纪录片"
     if any(kw in full_text for kw in ['music', '音乐', 'mv', 'channel v', 'mtv', 'vod']):
         return "🎵 音乐"
+    # 对原始 group 进行规范化
     if group and group.strip():
-        return "📺 " + group
+        normalized_group = group.strip()
+        # 规范化分组名
+        group_mapping = {
+            "Animation": "动漫",
+            "Auto": "汽车",
+            "Business": "商业",
+            "Classic": "经典",
+            "Comedy": "喜剧",
+            "Culture": "文化",
+            "Documentary": "纪录片",
+            "Education": "教育",
+            "Family": "家庭",
+            "Food": "美食",
+            "General": "综合",
+            "Health": "健康",
+            "History": "历史",
+            "Hobby": "爱好",
+            "Home": "家居",
+            "Kids": "儿童",
+            "Legislative": "立法",
+            "Lifestyle": "生活方式",
+            "Movies": "电影",
+            "Music": "音乐",
+            "News": "新闻",
+            "Outdoor": "户外",
+            "Public": "公共",
+            "Religious": "宗教",
+            "Science": "科学",
+            "Series": "剧集",
+            "Shop": "购物",
+            "Sports": "体育",
+            "Travel": "旅游",
+            "Weather": "天气",
+            "Animation;Series": "动漫",
+            "Auto;Series": "汽车",
+            "Business;Culture": "商业",
+            "Business;Documentary": "商业",
+            "Business;Series": "商业",
+            "Classic;Comedy;Public;Series": "经典",
+            "Comedy;Public": "喜剧",
+            "Comedy;Series": "喜剧",
+            "Culture;Documentary": "文化",
+            "Culture;Education": "文化",
+            "Culture;General": "文化",
+            "Culture;Public": "文化",
+            "Education;General": "教育",
+            "Education;Outdoor": "教育",
+            "Family;General": "家庭",
+            "General;Legislative": "综合",
+            "General;Public": "综合",
+            "General;Religious": "综合",
+            "Lifestyle;Relax": "生活方式",
+            "Public;Weather": "公共",
+            "Cooking": "美食",
+            "Relax": "休闲",
+        }
+        
+        if normalized_group in group_mapping:
+            return "📺 " + group_mapping[normalized_group]
+        elif "Hong Kong" in normalized_group or "hk" in normalized_group.lower():
+            return "📺 香港其他"
+        elif "Taiwan" in normalized_group or "tw" in normalized_group.lower():
+            return "🇹🇼 台湾"
+        elif "Macau" in normalized_group or "mo" in normalized_group.lower():
+            return "🇲🇴 澳门"
+        elif ";" in normalized_group:
+            # 多类别分组只取第一个
+            first_cat = normalized_group.split(";")[0].strip()
+            if first_cat in group_mapping:
+                return "📺 " + group_mapping[first_cat]
+            return "📺 " + first_cat
+        else:
+            return "📺 " + normalized_group
     return "🌐 其他"
