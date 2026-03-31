@@ -28,11 +28,11 @@ def is_hk_region(name, group):
     name_lower, group_lower = name.lower(), (group or "").lower()
     full_text = name_lower + " " + group_lower
     
-    hk_kw = ['tvb', '翡翠', '明珠', 'jade', 'pearl', 'j2', 'viutv', 'viu tv', 'rthk', '港台', 'hoy', 'now tv', 'nowtv', 'now news', 'cable', '有线', '开电视', '凤凰', '无线', '新闻台', '星空', 'star tv', 'hooy']
+    # HK 严格匹配
     tw_kw = ['tvbs', '台视', '中视', '华视', '民视', '东森', '三立', '非凡', '大爱', '公视', '客家', '原住民']
     mo_kw = ['澳门', '澳視', 'macau', '澳广视']
     
-    return any(kw in full_text for kw in hk_kw + tw_kw + mo_kw)
+    return any(p in full_text for p in hk_patterns + tw_kw + mo_kw)
 
 
 def categorize(name, group):
