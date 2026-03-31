@@ -11,6 +11,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from config import OUTPUT_DIR, FILTERED_DIR, CACHE_DIR, CACHE_FILE, LOG_DIR, MIN_SPEED_KB, ENABLE_SPEEDTEST, SORT_BY_SPEED
 from speedtest import speedtest_channels, filter_by_speed, sort_by_speed, format_speed
 from utils import setup_logging, parse_m3u, load_cache, save_cache  # Fix #1: unified cache
+from utils import is_hk_cdn_whitelisted  # HK CDN whitelist
 from logo_map import get_logo_fuzzy
 
 CACHE_FILE = CACHE_DIR / "validation_cache.json"
@@ -35,6 +36,8 @@ def is_hk_region(name, group):
     # HK 精确匹配 - 必须完整匹配频道名
     # 注意: 使用 \b词边界 避免误匹配 "tvb" 在 "16tvb" 中
     hk_exact = [
+        # hkdtmb CDN 频道
+        r"hkdtmb", r"香港台", r"香港電視",
         # TVB 系列 - 必须是完整词
         "\\btvb\\b", "\\btv b\\b",
         # 翡翠/明珠 - 中文完整匹配
@@ -144,7 +147,14 @@ def categorize(name, group):
 
 
 def check_url(url, session=None):
-    """Check URL using HEAD-first approach (fast), fallback to GET if needed."""
+    """Check URL using HEAD-first approach (fast), fallback to GET if needed.
+    
+    HK CDN URLs (cdn.hkdtmb.com etc.) are whitelisted and always return valid.
+    """
+    # ── HK CDN Whitelist: skip validation for known HK CDN domains ─────────
+    if is_hk_cdn_whitelisted(url):
+        return (url, True)
+
     if session is None:
         session = requests.Session()
     headers = {"User-Agent": "Mozilla/5.0 (compatible; IPTV-Scraper/1.0)"}

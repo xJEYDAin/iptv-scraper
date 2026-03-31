@@ -220,6 +220,40 @@ def fetch_sources_rate_limited(sources, logger, max_workers=DEFAULT_MAX_CONCURRE
     return results
 
 
+# ─── HK CDN Whitelist ─────────────────────────────────────────────────────────
+# Domains/IPs in this list skip HEAD/GET validation (they require HK IP)
+# to avoid false negatives from non-HK validation servers.
+
+import re
+
+HK_CDN_WHITELIST_PATTERNS = [
+    # Domain wildcards
+    re.compile(r'^https?://([^/]+\.)*hkdtmb\.com/', re.IGNORECASE),
+    re.compile(r'^https?://([^/]+\.)*tdm\.com\.mo/', re.IGNORECASE),
+    re.compile(r'^https?://([^/]+\.)*viutv\.com/', re.IGNORECASE),
+    re.compile(r'^https?://([^/]+\.)*now\.com/', re.IGNORECASE),
+    re.compile(r'^https?://([^/]+\.)*tvb\.com/', re.IGNORECASE),
+    re.compile(r'^https?://([^/]+\.)*rthk\.hk/', re.IGNORECASE),
+    re.compile(r'^https?://([^/]+\.)*hkcable\.com\.hk/', re.IGNORECASE),
+    re.compile(r'^https?://([^/]+\.)*cable-tvc\.com/', re.IGNORECASE),
+    # IP ranges (partial Hong Kong ISP ranges)
+    re.compile(r'^https?://61\.238\.\d+\.\d+/'),
+    re.compile(r'^https?://116\.199\.\d+\.\d+/'),
+    re.compile(r'^https?://202\.181\.\d+\.\d+/'),
+    re.compile(r'^https?://203\.186\.\d+\.\d+/'),
+    re.compile(r'^https?://1\.32\.\d+\.\d+/'),
+    re.compile(r'^https?://42\.2\.\d+\.\d+/'),
+]
+
+
+def is_hk_cdn_whitelisted(url):
+    """Return True if URL matches an HK CDN whitelist pattern."""
+    for pattern in HK_CDN_WHITELIST_PATTERNS:
+        if pattern.match(url):
+            return True
+    return False
+
+
 # ─── HEAD-first URL validator ────────────────────────────────────────────────
 
 def validate_url_head_first(url, session=None, timeout=DEFAULT_TIMEOUT,
@@ -229,6 +263,12 @@ def validate_url_head_first(url, session=None, timeout=DEFAULT_TIMEOUT,
     Returns:
         bool: True if URL is reachable
     """
+    # ── HK CDN Whitelist: skip validation for known HK CDN domains ─────────
+    if is_hk_cdn_whitelisted(url):
+        if logger:
+            logger.debug(f"  [HK CDN whitelist] Skipping validation for {url}")
+        return True
+
     if session is None:
         session = requests.Session()
 
