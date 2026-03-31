@@ -80,10 +80,22 @@ def categorize(name, group):
 
 
 def check_url(url, session=None):
+    """Check URL using HEAD-first approach (fast), fallback to GET if needed."""
     if session is None:
         session = requests.Session()
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; IPTV-Scraper/1.0)"}
+    
+    # Try HEAD first (fast)
     try:
-        r = session.get(url, timeout=TIMEOUT, allow_redirects=True)
+        r = session.head(url, timeout=TIMEOUT, allow_redirects=True, headers=headers)
+        if r.status_code in [200, 206, 301, 302, 303, 307, 308]:
+            return (url, True)
+    except Exception:
+        pass
+    
+    # Fallback to GET (only if HEAD fails)
+    try:
+        r = session.get(url, timeout=TIMEOUT, allow_redirects=True, headers=headers)
         return (url, r.status_code in [200, 301, 302, 303, 307, 308])
     except requests.exceptions.Timeout:
         return (url, False)
