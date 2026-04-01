@@ -12,8 +12,8 @@ from typing import List, Tuple, Optional
 from config import CACHE_DIR
 from lib.whitelist import is_whitelisted
 
-DEFAULT_TIMEOUT = 5
-DEFAULT_MAX_WORKERS = 10
+DEFAULT_TIMEOUT = 3
+DEFAULT_MAX_WORKERS = 50
 
 
 def validate_url(url: str, session: Optional[requests.Session] = None,

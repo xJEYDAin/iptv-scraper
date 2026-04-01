@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """IPTV Validator & Merger"""
 import logging
+import os
 from datetime import datetime
 from pathlib import Path
 import requests
@@ -16,7 +17,7 @@ PRIORITY = {
     "joker-cold": 3
 }
 
-TIMEOUT = 5
+TIMEOUT = 3
 MAX_LINES_PER_CHANNEL = 3
 BATCH_SIZE = 500
 
@@ -35,6 +36,9 @@ def validate_url(url, logger, timeout=TIMEOUT, session=None):
 
 def validate_and_merge(logger):
     logger.info("=" * 50)
+    if os.getenv("SKIP_VALIDATION") == "1":
+        logger.info("SKIP_VALIDATION=1, skipping validation and merge")
+        return None
     logger.info("Starting validation and merge")
     logger.info("=" * 50)
 
