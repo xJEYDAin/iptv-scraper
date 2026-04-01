@@ -3,42 +3,9 @@
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
 #PLAYLIST:HK & TW IPTV 2026-04-01
-<<<<<<< Updated upstream
-# Total: 82 channels, 10 categories, min speed: 30 KB/s
+# Total: 109 channels, 9 categories, min speed: 30 KB/s
 
-#EXTGRP:📺 央视频道 (2)
-# speed: N/A
-#EXTINF:-1 tvg-name="CreaTVBayVoiceTVChannel27" tvg-logo="https://i.imgur.com/IYuv0RF.png" group-title="📺 央视频道",CreaTVBayVoiceTVChannel27
-https://reflect-creatv.cablecast.tv/live-19/live/live.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PeaceTVBangla" tvg-logo="https://i.imgur.com/1ztVXUi.png" group-title="📺 央视频道",PeaceTVBangla
-https://dzkyvlfyge.erbvr.com/PeaceTvBangla/index.m3u8
-
-#EXTGRP:📡 卫视频道 (3)
-# speed: N/A
-#EXTINF:-1 tvg-name="NovaTVBrasov[Not24/7]" tvg-logo="https://i.imgur.com/33Vn0Ij.png" group-title="📡 卫视频道",NovaTVBrasov[Not24/7]
-http://novapress.ro:2022/live/nova/playlist.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="凤凰卫视" tvg-logo="https://epg.112114.xyz/logo/凤凰卫视.png" group-title="📡 卫视频道",凤凰卫视
-http://223.110.245.167/ott.js.chinamobile.com/PLTV/3/224/3221226923/index.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="星空卫视" group-title="📡 卫视频道",星空卫视
-http://218.202.220.2:5000/nn_live.ts?id=STARTV
-
-#EXTGRP:📺 TVB (49)
-# speed: N/A
-#EXTINF:-1 tvg-name="TVB 翡翠台" group-title="📺 TVB",TVB 翡翠台
-http://php.jdshipin.com/smt.php?id=jade_twn
-# speed: N/A
-#EXTINF:-1 tvg-name="TVB無線新闻" group-title="📺 TVB",TVB無線新闻
-http://cdn9.163189.xyz/smt1.1.php?id=inews_twn
-# speed: N/A
-#EXTINF:-1 tvg-name="TVB 明珠台" group-title="📺 TVB",TVB 明珠台
-http://r.jdshipin.com/ZQ4kN
-=======
-# Total: 116 channels, 9 categories, min speed: 30 KB/s
-
-#EXTGRP:📡 卫视频道 (11)
+#EXTGRP:📡 卫视频道 (6)
 # speed: N/A
 #EXTINF:-1 tvg-name="凤凰卫视" tvg-logo="https://epg.112114.xyz/logo/凤凰卫视.png" group-title="📡 卫视频道",凤凰卫视
 http://php.jdshipin.com/TVOD/iptv.php?id=fhzx
@@ -47,33 +14,18 @@ http://php.jdshipin.com/TVOD/iptv.php?id=fhzx
 http://cdn6.163189.xyz/163189/fhzx
 # speed: N/A
 #EXTINF:-1 tvg-name="华视" tvg-logo="https://epg.112114.xyz/logo/华视.png" group-title="📡 卫视频道",华视
-http://fm1077.serv00.net/Smart.php?id=ctshd_twn
-# speed: N/A
-#EXTINF:-1 tvg-name="凤凰卫视-蓝光1" group-title="📡 卫视频道",凤凰卫视-蓝光1
-http://223.110.245.136/PLTV/3/224/3221226975/index.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="凤凰卫视-蓝光2" group-title="📡 卫视频道",凤凰卫视-蓝光2
-http://183.207.249.34/PLTV/3/224/3221226975/index.m3u8
+http://aktv.top/AKTV/live/aktv/null-11/AKTV.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="NovaTVBrasov[Not24/7]" tvg-logo="https://i.imgur.com/33Vn0Ij.png" group-title="📡 卫视频道",NovaTVBrasov[Not24/7]
 http://novapress.ro:2022/live/nova/playlist.m3u8
 # speed: N/A
-#EXTINF:-1 tvg-name="凤凰卫视[Geo-Blocked]" tvg-logo="https://i.imgur.com/T1532t9.png" group-title="📡 卫视频道",凤凰卫视[Geo-Blocked]
-https://viamotionhsi.netplus.ch/live/eds/phoenixhd/browser-dash/phoenixhd.mpd
-# speed: N/A
 #EXTINF:-1 tvg-name="星空卫视" group-title="📡 卫视频道",星空卫视
 http://218.202.220.2:5000/nn_live.ts?id=STARTV
 # speed: N/A
-#EXTINF:-1 tvg-name="CahayaTVBanten" tvg-logo="https://i.imgur.com/Ph9yYpb.png" group-title="📡 卫视频道",CahayaTVBanten
-http://175.158.57.130:8888/stream/channelid/1716535390
-# speed: N/A
-#EXTINF:-1 tvg-name="华视闽南" group-title="📡 卫视频道",华视闽南
-http://aktv.top/AKTV/live/aktv/null-11/AKTV.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="华视闽南频道" group-title="📡 卫视频道",华视闽南频道
+#EXTINF:-1 tvg-name="华视新闻" tvg-logo="https://epg.112114.xyz/logo/华视%E6%96%B0%E8%81%9E.png" group-title="📡 卫视频道",华视新闻
 http://37.27.111.214:8080/live/8/hls.m3u8
 
-#EXTGRP:📺 TVB (53)
+#EXTGRP:📺 TVB (62)
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB 翡翠台" group-title="📺 TVB",TVB 翡翠台
 http://r.jdshipin.com/n90gt
@@ -81,75 +33,9 @@ http://r.jdshipin.com/n90gt
 #EXTINF:-1 tvg-name="TVB 明珠台" group-title="📺 TVB",TVB 明珠台
 http://aktv.top/AKTV/live/aktv/null-2/AKTV.m3u8
 # speed: N/A
-#EXTINF:-1 tvg-name="TVB无线新闻" tvg-logo="https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/TVB无线新闻.png" group-title="📺 TVB",TVB无线新闻
-https://cdn6.163189.xyz/163189/wxxw
-# speed: N/A
-#EXTINF:-1 tvg-name="TVB 无线财经" tvg-logo="https://upload.112114.xyz/logo/TVB5.png" group-title="📺 TVB",TVB 无线财经
-http://live.cooltv.top/tv/tvb.php?id=2&hq
-# speed: N/A
-#EXTINF:-1 tvg-name="TVBS" tvg-logo="https://epg.112114.xyz/logo/TVBS.png" group-title="📺 TVB",TVBS
-http://tianhewan.top/ZIPP.php?url=http://211.72.65.236:8575/.m3u8
->>>>>>> Stashed changes
-# speed: N/A
 #EXTINF:-1 tvg-name="J2" tvg-logo="https://epg.112114.xyz/logo/J2.png" group-title="📺 TVB",J2
 http://fm1077.serv00.net/Smart.php?id=j2_twn
 # speed: N/A
-<<<<<<< Updated upstream
-#EXTINF:-1 tvg-name="EbonyTVbyLionsgate[Geo-blocked]" group-title="📺 TVB",EbonyTVbyLionsgate[Geo-blocked]
-https://pb-6csswagmy4nat.akamaized.net/Ebony_TV_by_Lionsgate.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="EliveTVBrescia[Not24/7]" tvg-logo="https://i.imgur.com/gZxjLph.png" group-title="📺 TVB",EliveTVBrescia[Not24/7]
-https://59d7d6f47d7fc.streamlock.net/elivebresciatv/elivebresciatv/playlist.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="Fashion TVBox" tvg-logo="https://i.imgur.com/Taqj4yi.png" group-title="📺 TVB",Fashion TVBox
-https://liveovh010.cda.pl/zkr7GNESGht4_0Wk12c78A/17538736/278259/enc123/fashionboxhdraw/fashionboxhdraw.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="JawaPosTVBali" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Jawa_Pos_TV_2024.svg/960px-Jawa_Pos_TV_2024.svg.png" group-title="📺 TVB",JawaPosTVBali
-http://122.248.43.242:1935/JAWAPOSTVBALI/_definst_/myStream/playlist.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="KTVBangla" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/channel/2f8e3b371c660faa2f43a7f0942948a4.png" group-title="📺 TVB",KTVBangla
-https://server.livelegitpro.in:9899/tribetv/tribetv/index.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="MTVBiggestPop" group-title="📺 TVB",MTVBiggestPop
-https://jmp2.uk/plu-6047fabfce6e8e00070bcc9f.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="NosTVBonaire" tvg-logo="https://i.ibb.co/R6kb44B/cropped-LOGO-NOSTV-WEBSITE-2019-1.png" group-title="📺 TVB",NosTVBonaire
-http://streaming.flamingotv.net/nostv/live.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PenielTVBibliaAbierta" tvg-logo="https://i.ibb.co/j3gGwYk/D64575438be2a3a54fdf64d4035ade48.png" group-title="📺 TVB",PenielTVBibliaAbierta
-https://s.emisoras.tv:8081/penielbibliaabierta/index.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBackcountry" tvg-logo="https://i.imgur.com/KnlQzs7.png" group-title="📺 TVB",PlutoTVBackcountry
-https://jmp2.uk/plu-5cabdf1437b88b26947346b2.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBangBang" group-title="📺 TVB",PlutoTVBangBang
-https://jmp2.uk/plu-663b9dc7cb3ea10008f1a0ce.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBrigadeCriminelle" group-title="📺 TVB",PlutoTVBrigadeCriminelle
-https://jmp2.uk/plu-684bf01df7d8b74b625b7dd1.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBritainatWar" group-title="📺 TVB",PlutoTVBritainatWar
-https://jmp2.uk/plu-625e8cb585ef320007806caf.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBritischeSerien" group-title="📺 TVB",PlutoTVBritischeSerien
-https://jmp2.uk/plu-677e5a3d7bffa6000808dbf2.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBritishComedy" group-title="📺 TVB",PlutoTVBritishComedy
-https://jmp2.uk/plu-638e11951177840007fdd6b2.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBrittiskCrime&Drama" group-title="📺 TVB",PlutoTVBrittiskCrime&Drama
-https://jmp2.uk/plu-65b91b53dc10a40008d54777.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBud&Terence" group-title="📺 TVB",PlutoTVBud&Terence
-https://jmp2.uk/plu-65b915b1dc10a40008d53797.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBuskis" group-title="📺 TVB",PlutoTVBuskis
-https://jmp2.uk/plu-660d5f2a635c75000828855f.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="RadioTVBasse-Terre" tvg-logo="https://i.imgur.com/OvnRplq.png" group-title="📺 TVB",RadioTVBasse-Terre
-https://vdo.ssl-stream.com:3412/stream/play.m3u8
-# speed: N/A
-=======
 #EXTINF:-1 tvg-name="華麗翡翠台" group-title="📺 TVB",華麗翡翠台
 http://cdn9.163189.xyz/smt1.1.php?id=Tvbjade
 # speed: N/A
@@ -180,9 +66,6 @@ http://php.jdshipin.com/TVOD/iptv.php?id=tvbsh
 #EXTINF:-1 tvg-name="TVB娱乐新闻台" tvg-logo="https://live.fanmingming.cn/tv/TVB娱乐新闻台.png" group-title="📺 TVB",TVB娱乐新闻台
 http://php.jdshipin.com/TVOD/iptv.php?id=tvbylxw
 # speed: N/A
-#EXTINF:-1 tvg-name="TVB 翡翠台2-J2" group-title="📺 TVB",TVB 翡翠台2-J2
-https://cdn.hkdtmb.com/hls/82/index.m3u8
-# speed: N/A
 #EXTINF:-1 tvg-name="EbonyTVbyLionsgate[Geo-blocked]" group-title="📺 TVB",EbonyTVbyLionsgate[Geo-blocked]
 https://pb-6csswagmy4nat.akamaized.net/Ebony_TV_by_Lionsgate.m3u8
 # speed: N/A
@@ -200,9 +83,6 @@ https://server.livelegitpro.in:9899/tribetv/tribetv/index.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="MTVBiggestPop" group-title="📺 TVB",MTVBiggestPop
 https://jmp2.uk/plu-6047fabfce6e8e00070bcc9f.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="NKTVBangla" tvg-logo="https://www.nktvbangla.com/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-12-at-2.59.18-PM.jpg" group-title="📺 TVB",NKTVBangla
-https://nktv.smartstream.video/smartstream-us/nkbangla/nkbangla/playlist.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="NosTVBonaire" tvg-logo="https://i.ibb.co/R6kb44B/cropped-LOGO-NOSTV-WEBSITE-2019-1.png" group-title="📺 TVB",NosTVBonaire
 http://streaming.flamingotv.net/nostv/live.m3u8
@@ -240,7 +120,6 @@ https://jmp2.uk/plu-660d5f2a635c75000828855f.m3u8
 #EXTINF:-1 tvg-name="RadioTVBasse-Terre" tvg-logo="https://i.imgur.com/OvnRplq.png" group-title="📺 TVB",RadioTVBasse-Terre
 https://vdo.ssl-stream.com:3412/stream/play.m3u8
 # speed: N/A
->>>>>>> Stashed changes
 #EXTINF:-1 tvg-name="RadioWeserTVBremen" group-title="📺 TVB",RadioWeserTVBremen
 https://5857499ee635b.streamlock.net/radiowesertv-live/_definst_/mp4:livestreamTV/playlist.m3u8
 # speed: N/A
@@ -262,7 +141,6 @@ https://amg01720-amg01720c1-klowdtv-us-4664.playouts.now.amagi.tv/playlist/amg01
 #EXTINF:-1 tvg-name="SuperTVBrescia" group-title="📺 TVB",SuperTVBrescia
 http://wms.shared.streamshow.it:1935/supertv/supertv/live.m3u8
 # speed: N/A
-<<<<<<< Updated upstream
 #EXTINF:-1 tvg-name="TVBahoriston" tvg-logo="https://i.imgur.com/Dacai5z.png" group-title="📺 TVB",TVBahoriston
 https://live.teleradiocom.tj/3/3m.m3u8
 # speed: N/A
@@ -302,26 +180,14 @@ https://stream.polar.cz/tvbrno1/tvbrno1live-1/playlist.m3u8
 #EXTINF:-1 tvg-name="TVBrusque" tvg-logo="https://i.imgur.com/J2EAZPS.png" group-title="📺 TVB",TVBrusque
 https://5ad482a77183d.streamlock.net/rodrigotvbrusque.com.br/5d880199c902eb4a1e8df00d/playlist.m3u8
 # speed: N/A
-=======
-#EXTINF:-1 tvg-name="TVBirigui" tvg-logo="https://i.imgur.com/z7VlNLR.png" group-title="📺 TVB",TVBirigui
-https://59f2354c05961.streamlock.net:1443/tvdigitalbirigui/_definst_/tvdigitalbirigui/playlist.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="TVBrezová" tvg-logo="https://i.imgur.com/59LpYoF.png" group-title="📺 TVB",TVBrezová
-http://95.105.193.219:88/hls/tvb.m3u8
-# speed: N/A
->>>>>>> Stashed changes
 #EXTINF:-1 tvg-name="TVBUAP" tvg-logo="https://i.imgur.com/hHrIn0r.png" group-title="📺 TVB",TVBUAP
 https://tvenvivo.buap.mx/livestream/stream/index.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="TVBudakalasz[Not24/7]" tvg-logo="https://i.imgur.com/97xpqt0.png" group-title="📺 TVB",TVBudakalasz[Not24/7]
 https://stream.streaming4u.hu/TVBudakalasz/tracks-v1a1/mono.m3u8
 # speed: N/A
-<<<<<<< Updated upstream
 #EXTINF:-1 tvg-name="TVBuzau" tvg-logo="https://i.imgur.com/GhFmUVO.png" group-title="📺 TVB",TVBuzau
 http://78.96.33.89:8080
-# speed: N/A
-#EXTINF:-1 tvg-name="TVBSAsia" tvg-logo="https://i.imgur.com/4S1rkhm.png" group-title="📺 TVB",TVBSAsia
-http://38.64.72.148/hls/modn/list/4005/playlist.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="TVBSNews[Geo-blocked]" tvg-logo="https://i.imgur.com/171lwfg.png" group-title="📺 TVB",TVBSNews[Geo-blocked]
 http://seb.sason.top/sc/tvbsxw_fhd.m3u8
@@ -331,19 +197,6 @@ https://jmp2.uk/plu-6532e8342cf13100083b404c.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="Warner TVBros.TVSweetEscapes" group-title="📺 TVB",Warner TVBros.TVSweetEscapes
 https://jmp2.uk/plu-6532e7fa045c3d0008514ca7.m3u8
-
-#EXTGRP:📺 ViuTV (1)
-# speed: N/A
-#EXTINF:-1 tvg-name="ViuTV" tvg-logo="https://epg.112114.xyz/logo/ViuTV.png" group-title="📺 ViuTV",ViuTV
-http://r.jdshipin.com/vSJvl
-
-#EXTGRP:📺 RTHK (8)
-=======
-#EXTINF:-1 tvg-name="TVBSNews[Geo-blocked]" tvg-logo="https://i.imgur.com/171lwfg.png" group-title="📺 TVB",TVBSNews[Geo-blocked]
-http://seb.sason.top/sc/tvbsxw_fhd.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="CTVBarranquilla[Not24/7]" tvg-logo="https://i.imgur.com/w35ICn7.png" group-title="📺 TVB",CTVBarranquilla[Not24/7]
-https://59a564764e2b6.streamlock.net/ctvbarranquilla/ctv/playlist.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB翡翠" tvg-logo="https://epg.112114.xyz/logo/TVB翡翠台.png" group-title="📺 TVB",TVB翡翠
 https://o11.163189.xyz/stream/tvb/fct/
@@ -351,22 +204,21 @@ https://o11.163189.xyz/stream/tvb/fct/
 #EXTINF:-1 tvg-name="TVB明珠" tvg-logo="https://epg.112114.xyz/logo/TVB明珠台.png" group-title="📺 TVB",TVB明珠
 http://php.jdshipin.com/TVOD/iptv.php?id=mzt
 # speed: N/A
+#EXTINF:-1 tvg-name="TVB无线新闻" tvg-logo="https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/TVB无线新闻.png" group-title="📺 TVB",TVB无线新闻
+https://cdn6.163189.xyz/163189/wxxw
+# speed: N/A
 #EXTINF:-1 tvg-name="TVB娱乐新闻" tvg-logo="https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/TVB娱乐新闻.png" group-title="📺 TVB",TVB娱乐新闻
 http://php.jdshipin.com/PLTV/iptv.php?id=tvbylxw
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB千禧经典" tvg-logo="https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/TVB千禧经典.png" group-title="📺 TVB",TVB千禧经典
 http://php.jdshipin.com/TVOD/iptv.php?id=tvbc
 
-#EXTGRP:📺 ViuTV (2)
+#EXTGRP:📺 ViuTV (1)
 # speed: N/A
 #EXTINF:-1 tvg-name="ViuTV" tvg-logo="https://epg.112114.xyz/logo/ViuTV.png" group-title="📺 ViuTV",ViuTV
 http://r.jdshipin.com/vSJvl
-# speed: N/A
-#EXTINF:-1 tvg-name="ViuTVsix" tvg-logo="https://epg.112114.xyz/logo/ViuTV.png" group-title="📺 ViuTV",ViuTVsix
-https://cdn.hkdtmb.com/hls/96/index.m3u8
 
-#EXTGRP:📺 RTHK (9)
->>>>>>> Stashed changes
+#EXTGRP:📺 RTHK (8)
 # speed: N/A
 #EXTINF:-1 tvg-name="RTHK 31" tvg-logo="https://epg.112114.xyz/logo/RTHK%2031.png" group-title="📺 RTHK",RTHK 31
 https://www.rthk.hk/feeds/dtt/rthktv31_https.m3u8
@@ -374,11 +226,7 @@ https://www.rthk.hk/feeds/dtt/rthktv31_https.m3u8
 #EXTINF:-1 tvg-name="RTHK 32" tvg-logo="https://epg.112114.xyz/logo/RTHK%2032.png" group-title="📺 RTHK",RTHK 32
 https://cdn5.163189.xyz/live/rthk32/stream.m3u8
 # speed: N/A
-<<<<<<< Updated upstream
-#EXTINF:-1 tvg-name="RTHKTV31[Geo-blocked]" tvg-logo="https://i.imgur.com/kf818kM.png" group-title="📺 RTHK",RTHKTV31[Geo-blocked]
-=======
 #EXTINF:-1 tvg-name="RTHKTV31" group-title="📺 RTHK",RTHKTV31
->>>>>>> Stashed changes
 https://rthktv31-live.akamaized.net/hls/live/2036818/RTHKTV31/master.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="RTHKTV32[Geo-blocked]" tvg-logo="https://i.imgur.com/MXLuUoU.png" group-title="📺 RTHK",RTHKTV32[Geo-blocked]
@@ -395,12 +243,6 @@ https://rthktv35-live.akamaized.net/hls/live/2101643/RTHKTV35/master.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="RTHKTV36[Geo-blocked]" group-title="📺 RTHK",RTHKTV36[Geo-blocked]
 https://rthktv36-live.akamaized.net/hls/live/2112176/RTHKTV36/master.m3u8
-<<<<<<< Updated upstream
-=======
-# speed: N/A
-#EXTINF:-1 tvg-name="香港电台普通話台" group-title="📺 RTHK",香港电台普通話台
-https://rthkaudio6-lh.akamaihd.net/i/radiopth_1@355869/index_56_a-p.m3u8
->>>>>>> Stashed changes
 
 #EXTGRP:📺 HOY TV (4)
 # speed: N/A
@@ -409,7 +251,6 @@ http://cdn.163189.xyz/live/hoy/stream.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="HOY TVInfotainment[Geo-blocked]" tvg-logo="https://epg.112114.xyz/logo/HOY%20TV.png" group-title="📺 HOY TV",HOY TVInfotainment[Geo-blocked]
 https://hoytv-live-stream.hoy.tv/ch78/index.m3u8
-<<<<<<< Updated upstream
 # speed: N/A
 #EXTINF:-1 tvg-name="HOY TVInternationalBusinessChannel[Geo-blocked]" tvg-logo="https://epg.112114.xyz/logo/HOY%20TV.png" group-title="📺 HOY TV",HOY TVInternationalBusinessChannel[Geo-blocked]
 https://hoytv-live-stream.hoy.tv/ch76/index-fhd.m3u8
@@ -419,17 +260,6 @@ https://hoytv-live-stream.hoy.tv/ch77/index.m3u8
 
 #EXTGRP:📺 Now TV (8)
 # speed: N/A
-=======
-# speed: N/A
-#EXTINF:-1 tvg-name="HOY TVInternationalBusinessChannel[Geo-blocked]" tvg-logo="https://epg.112114.xyz/logo/HOY%20TV.png" group-title="📺 HOY TV",HOY TVInternationalBusinessChannel[Geo-blocked]
-https://hoytv-live-stream.hoy.tv/ch76/index-fhd.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="HOY TV[Geo-blocked]" tvg-logo="https://epg.112114.xyz/logo/HOY%20TV.png" group-title="📺 HOY TV",HOY TV[Geo-blocked]
-https://hoytv-live-stream.hoy.tv/ch77/index.m3u8
-
-#EXTGRP:📺 Now TV (8)
-# speed: N/A
->>>>>>> Stashed changes
 #EXTINF:-1 tvg-name="Now TVNEWS" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TVNEWS
 http://cdn.163189.xyz/163189/now
 # speed: N/A
@@ -454,41 +284,12 @@ https://videostream.jpbgdigital.com/CHNWTV.m3u8
 #EXTINF:-1 tvg-name="Now TV102.3FMEdmonton" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TV102.3FMEdmonton
 https://videostream.jpbgdigital.com/NOWTV.m3u8
 
-#EXTGRP:🇹🇼 台湾 (2)
+#EXTGRP:📺 有线电视 (1)
 # speed: N/A
-<<<<<<< Updated upstream
-#EXTINF:-1 tvg-name="台视" tvg-logo="https://epg.112114.xyz/logo/台视.png" group-title="🇹🇼 台湾",台视
-http://162.19.247.76:22222/live/taishi/index.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="大爱海外" group-title="🇹🇼 台湾",大爱海外
-https://pulltv3.wanfudaluye.com/live/tv3.m3u8
-
-#EXTGRP:🇲🇴 澳门 (4)
-# speed: N/A
-#EXTINF:-1 tvg-name="澳广视EntertainmentCh.95" tvg-logo="https://i.imgur.com/7ml2bfx.png" group-title="🇲🇴 澳门",澳广视EntertainmentCh.95
-https://live3.tdm.com.mo/ch6/hd_ch6.live/playlist.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="澳广视Info.Macau[Not24/7]" tvg-logo="https://epg.112114.xyz/logo/澳门.png" group-title="🇲🇴 澳门",澳广视Info.Macau[Not24/7]
-https://live3.tdm.com.mo/ch5/info_ch5.live/playlist.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="澳广视OuMunMacauCh.91" tvg-logo="https://epg.112114.xyz/logo/澳门.png" group-title="🇲🇴 澳门",澳广视OuMunMacauCh.91
-http://61.244.22.4/ch1/ch1.live/playlist.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="澳广视SportsCh.93" tvg-logo="https://i.imgur.com/AsWLf8S.png" group-title="🇲🇴 澳门",澳广视SportsCh.93
-https://live3.tdm.com.mo/ch4/sport_ch4.live/playlist.m3u8
-
-#EXTGRP:🌐 国际 (1)
-# speed: N/A
-#EXTINF:-1 tvg-name="Canal30TVBethel[Not24/7]" tvg-logo="https://i.imgur.com/PP4U1JL.png" group-title="🌐 国际",Canal30TVBethel[Not24/7]
-https://s.emisoras.tv:8081/canal30tvbethel/index.m3u8
-=======
 #EXTINF:-1 tvg-name="有线电视 新闻台" tvg-logo="https://epg.112114.xyz/logo/有线电视.png" group-title="📺 有线电视",有线电视 新闻台
 http://aktv.top/AKTV/live/aktv/hoy78/AKTV.m3u8
 
-#EXTGRP:🇹🇼 台湾 (17)
-# speed: N/A
-#EXTINF:-1 tvg-name="台视新闻" tvg-logo="https://epg.112114.xyz/logo/台视%E6%96%B0%E8%81%9E.png" group-title="🇹🇼 台湾",台视新闻
-http://ali.hlspull.yximgs.com/live/tboxproncqqtqqudtqlqcvbcvntqqqsfwetqfvcbcxvdqbqfflvcqtsxw.flv
+#EXTGRP:🇹🇼 台湾 (12)
 # speed: N/A
 #EXTINF:-1 tvg-name="民视 新闻台台" tvg-logo="https://epg.112114.xyz/logo/民视.png" group-title="🇹🇼 台湾",民视 新闻台台
 http://38.64.72.148/hls/modn/list/4012/chunklist1.m3u8
@@ -520,28 +321,13 @@ https://pulltv2.wanfudaluye.com/live/tv2.m3u8
 #EXTINF:-1 tvg-name="大爱海外" group-title="🇹🇼 台湾",大爱海外
 https://pulltv3.wanfudaluye.com/live/tv3.m3u8
 # speed: N/A
-#EXTINF:-1 tvg-name="大爱1" group-title="🇹🇼 台湾",大爱1
-https://pulltv2.wanfudaluye.com/live/tv1.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="大爱2" group-title="🇹🇼 台湾",大爱2
-http://pulltv1.wanfudaluye.com/live/tv2.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="公视戏剧" group-title="🇹🇼 台湾",公视戏剧
-http://litv.zapi.us.kg/?id=4gtv-4gtv042
-# speed: N/A
-#EXTINF:-1 tvg-name="民视闽南频道" group-title="🇹🇼 台湾",民视闽南频道
-http://37.27.111.214:8080/live/6/hls.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="台视财经" group-title="🇹🇼 台湾",台视财经
-http://litv.zapi.us.kg/?id=4gtv-4gtv056
-# speed: N/A
 #EXTINF:-1 tvg-name="中视经典" tvg-logo="https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/中视经典.png" group-title="🇹🇼 台湾",中视经典
 http://fm1077.serv00.net/Smart.php?id=zhongshi_twn
-
-#EXTGRP:🇲🇴 澳门 (11)
 # speed: N/A
-#EXTINF:-1 tvg-name="澳门澳视" tvg-logo="https://ghproxy.zhi35.com/https://raw.githubusercontent.com/wanglindl/TVlogo/main/img/Aoshi1.png" group-title="🇲🇴 澳门",澳门澳视
-https://iptv.hiper25.com/TDM/video.m3u8
+#EXTINF:-1 tvg-name="台视新闻" tvg-logo="https://epg.112114.xyz/logo/台视%E6%96%B0%E8%81%9E.png" group-title="🇹🇼 台湾",台视新闻
+http://38.64.72.148/hls/modn/list/4013/chunklist0.m3u8
+
+#EXTGRP:🇲🇴 澳门 (7)
 # speed: N/A
 #EXTINF:-1 tvg-name="澳广视" tvg-logo="https://epg.112114.xyz/logo/澳广视.png" group-title="🇲🇴 澳门",澳广视
 http://r.jdshipin.com/n2YZI
@@ -561,15 +347,5 @@ http://61.244.22.4/ch1/ch1.live/playlist.m3u8
 #EXTINF:-1 tvg-name="澳广视SportsCh.93" tvg-logo="https://i.imgur.com/AsWLf8S.png" group-title="🇲🇴 澳门",澳广视SportsCh.93
 https://live3.tdm.com.mo/ch4/sport_ch4.live/playlist.m3u8
 # speed: N/A
-#EXTINF:-1 tvg-name="澳门有线CH1" group-title="🇲🇴 澳门",澳门有线CH1
-http://202.175.127.77/live/show/ch1/index.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="澳门有线CH3" group-title="🇲🇴 澳门",澳门有线CH3
-http://202.175.127.77/live/show/ch3/index.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="澳门有线 互动新闻台" group-title="🇲🇴 澳门",澳门有线 互动新闻台
-http://202.175.127.77/live/show/ch2/index.m3u8
-# speed: N/A
 #EXTINF:-1 tvg-name="澳门莲花" tvg-logo="https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/澳门莲花.png" group-title="🇲🇴 澳门",澳门莲花
 http://php.jdshipin.com/amlh.php
->>>>>>> Stashed changes
