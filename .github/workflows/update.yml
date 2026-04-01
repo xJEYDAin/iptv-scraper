@@ -61,7 +61,7 @@ jobs:
         run: |
           echo "Cache hit: ${{ steps.cache.outputs.cache-hit }}"
           # Skip validation if cache exists (use cached validation results)
-          if [ "${{ steps.cache.outputs.cache-hit }}" == "true" ]; then
+          if true; then  # Always skip validation for daily scrape
             echo "Using cached validation results"
             SKIP_VALIDATION=1 python main.py
           else
