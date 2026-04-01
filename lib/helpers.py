@@ -96,12 +96,13 @@ DEFAULT_MAX_CONCURRENCY = 5
 
 def fetch_with_retry(url, session=None, timeout=DEFAULT_TIMEOUT,
                       max_retries=DEFAULT_MAX_RETRIES,
-                      logger=None):
+                      logger=None, headers=None):
     if session is None:
         session = requests.Session()
+    req_headers = headers or {}
     for attempt in range(max_retries):
         try:
-            response = session.get(url, timeout=timeout, allow_redirects=True)
+            response = session.get(url, timeout=timeout, allow_redirects=True, headers=req_headers)
             response.raise_for_status()
             return True, response.text
         except Exception as e:
@@ -127,10 +128,11 @@ def fetch_sources_rate_limited(sources, logger, max_workers=DEFAULT_MAX_CONCURRE
     def fetch_one(source):
         name = source.get("name", "?")
         url = source.get("url", "")
+        headers = source.get("headers", None)
         with semaphore:
             if delay > 0:
                 time.sleep(delay)
-            success, content = fetch_with_retry(url, logger=logger)
+            success, content = fetch_with_retry(url, logger=logger, headers=headers)
         result = {"name": name, "url": url, "success": success}
         if success:
             result["content"] = content

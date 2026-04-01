@@ -16,14 +16,48 @@ SOURCES = [
         "url": "https://raw.gh.registry.cyou/sammy0101/hk-iptv-auto/refs/heads/main/hk_live.m3u",
         "priority": 1
     },
+    {
+        "name": "xiweiwong-hk-iptv",
+        "url": "https://raw.gh.registry.cyou/xiweiwong/hk-iptv-auto/refs/heads/main/hk_live.m3u",
+        "priority": 2
+    },
+    # nthack: 仓库已删除/不可访问
     # === 高优先：香港/台湾新源（2026更新）===
-    # dongyubin-iptv: 仓库URL已404，暂时移除
     {
         "name": "zhi35-iptv",
         "url": "https://live.zhi35.com/iptv.m3u",
         "priority": 2
     },
+    {
+        "name": "freetv-fun",
+        "url": "https://t.freetv.fun/m3u/playlist.m3u",
+        "priority": 2,
+        "headers": {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"}
+    },
+    {
+        "name": "epg-pw",
+        "url": "https://epg.pw/test_channels.m3u",
+        "priority": 2
+    },
     # === 中优先：i18n + 补充源 ===
+    # Guovin-TV: tv.giti.space DNS不可解析，仓库已迁移至Guovin/iptv-api（无直接M3U）
+    {
+        "name": "fanmingming-live",
+        "url": "https://raw.githubusercontent.com/fanmingming/live/main/tv/m3u/ipv6.m3u",
+        "priority": 3
+    },
+    {
+        "name": "CCSH-iptv",
+        "url": "https://raw.githubusercontent.com/CCSH/IPTV/master/live.m3u",
+        "priority": 3
+    },
+    # imdazui-hktw: 仓库已删除/不可访问
+    {
+        "name": "gitee-why006-TV",
+        "url": "https://gitee.com/why006/TV/raw/master/output/result.m3u",
+        "priority": 3
+    },
+    # === 低优先：i18n 补充源 ===
     {
         "name": "iptv-org",
         "url": "https://iptv-org.github.io/iptv/index.m3u",
@@ -32,6 +66,16 @@ SOURCES = [
     {
         "name": "hujingguang-iptv",
         "url": "https://raw.githubusercontent.com/hujingguang/ChinaIPTV/main/cnTV_AutoUpdate.m3u8",
+        "priority": 4
+    },
+    {
+        "name": "Harbin-byte-iptv",
+        "url": "https://raw.githubusercontent.com/Harbin-byte/iptv/master/lists/hong_kong.md",
+        "priority": 4
+    },
+    {
+        "name": "suxuang-myIPTV",
+        "url": "https://gh-proxy.com/raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u",
         "priority": 4
     },
     # === 低优先：Free-TV 各地区 ===
