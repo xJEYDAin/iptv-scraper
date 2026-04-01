@@ -7,11 +7,6 @@ from pathlib import Path
 from config import SOURCES_DIR, FILTERED_DIR, LOG_DIR
 from lib.helpers import setup_logging, parse_m3u
 
-BLACKLIST_KEYWORDS = [
-    "成人", "18+", "AV", "色情", "情色", "sexy", "xxx",
-    "onlyfans", "porn", "redtube", "xvideo",
-]
-
 FORCE_BLACKLIST = ["成人", "18+", "AV", "色情", "sexy", "xxx", "porn", "Canal30TVBethel"]
 
 
@@ -49,7 +44,11 @@ def filter_file(filepath, logger):
         
         if kept:
             output_path = FILTERED_DIR / filepath.name
-            output_path.write_text(content, encoding='utf-8')
+            m3u_lines = []
+            for ch in kept:
+                m3u_lines.append(ch.get('raw_extinf', f'#EXTINF:-1,{ch.get("name", "Unknown")}'))
+                m3u_lines.append(ch.get('url', ''))
+            output_path.write_text('\n'.join(m3u_lines), encoding='utf-8')
             logger.info(f"  -> {output_path.name} ({len(kept)} channels)")
         
         return kept, removed

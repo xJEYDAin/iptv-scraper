@@ -292,10 +292,11 @@ def normalize_channels(channels: List[dict], aliases: Dict[str, str]) -> List[di
     - 合并同名频道
     - 返回合并后的列表
     """
-    # 1. 标准化每个频道的名称
+    # 1. 标准化每个频道的名称（跳过已计算过的）
     for ch in channels:
-        raw_name = ch.get("tvg_name", "") or ch.get("name", "")
-        ch["_normalized_name"] = normalize_channel_name(raw_name, aliases)
+        if "_normalized_name" not in ch:
+            raw_name = ch.get("tvg_name", "") or ch.get("name", "")
+            ch["_normalized_name"] = normalize_channel_name(raw_name, aliases)
 
     # 2. 合并同名频道
     merged = merge_duplicate_channels(channels)

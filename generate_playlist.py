@@ -26,7 +26,6 @@ BATCH_SIZE = 50
 
 def check_url(url, session=None):
     """Check URL using HEAD-first approach (fast), fallback to GET if needed."""
-    from lib.whitelist import is_whitelisted
     if is_whitelisted(url):
         return (url, True)
     if session is None:
