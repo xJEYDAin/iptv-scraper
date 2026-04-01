@@ -87,14 +87,14 @@ def batch_validate(all_channels, logger):
     return all_channels, cache
 
 
-def categorize(name, group):
+def categorize(name, group, logo=""):
     from group.categorizer import categorize as _cat
-    return _cat(name, group)
+    return _cat(name, group, logo)
 
 
-def is_hk_region(name, group):
+def is_hk_region(name, group, cat=None):
     from group.categorizer import is_hk_region as _hk
-    return _hk(name, group)
+    return _hk(name, group, cat)
 
 
 def generate_playlist(logger):

@@ -10,7 +10,8 @@ from typing import Dict, List
 PROVINCE_KEYWORDS = {
     "📺 北京":          [r"北京卫视", r"北京科教", r"北京文艺", r"北京影视", r"北京财经", r"北京新闻", r"北京生活", r"北京青年", r"北京文艺频道"],
     "📺 上海":          [r"上海卫视", r"上海东方", r"上海新闻", r"上海都市", r"上海第一", r"上海艺术", r"上海生活", r"上海外语", r"上海综艺"],
-    "📺 广东":          [r"广东卫视", r"广东珠江", r"广东新闻", r"广东体育", r"广东影视", r"广东综艺", r"广州卫视", r"广州新闻", r"深圳卫视", r"深圳娱乐", r"深圳都市"],
+    "📺 广东":          [r"广东卫视", r"广东珠江", r"广东新闻", r"广东体育", r"广东影视", r"广东综艺", r"广州卫视", r"广州新闻"],
+    "📺 深圳":          [r"深圳卫视", r"深圳娱乐", r"深圳都市", r"深圳新闻", r"深圳公共", r"深圳财经"],
     "📺 浙江":          [r"浙江卫视", r"浙江新闻", r"浙江钱江", r"浙江经济", r"浙江教育", r"浙江影视", r"浙江民生", r"浙江体育"],
     "📺 江苏":          [r"江苏卫视", r"江苏新闻", r"江苏城市", r"江苏综艺", r"江苏影视", r"江苏体育", r"江苏教育", r"江苏公共"],
     "📺 湖南":          [r"湖南卫视", r"湖南新闻", r"湖南经视", r"湖南都市", r"湖南娱乐", r"湖南电视剧", r"湖南公共", r"湖南教育"],
@@ -97,8 +98,14 @@ def _excluded(name_lower: str, group_lower: str) -> bool:
 # ──────────────────────────────────────────────────────────────
 #  is_hk_region — 保留（其他模块仍用）
 # ──────────────────────────────────────────────────────────────
-def is_hk_region(name: str, group: str) -> bool:
-    """判断是否为港台地区频道 (HK/TW/MO)"""
+def is_hk_region(name: str, group: str, cat: str = None) -> bool:
+    """判断是否为港台地区频道 (HK/TW/MO)
+    
+    Args:
+        name: channel name
+        group: group-title from m3u
+        cat: optional category (from categorize()) for exclusion
+    """
     name_lower, group_lower = name.lower(), (group or "").lower()
     full_text = name_lower + " " + group_lower
 
@@ -127,9 +134,11 @@ def is_hk_region(name: str, group: str) -> bool:
     mo_exact = [r"澳门", r"澳視", r"\\bmacau\b", r"澳广视", r"澳亚卫视"]
 
     exclude = [
-        r"\bcctv\b", r"\bcetv\b",
+        r"\bcctv\b", r"\bcetv\b", r"教育台",
+        r"\bcctv[_\- ]", r"\bcetv[_\- ]",
         r"\bbbc\b", r"\bcnn\b",
-        r"\bal jazeera\b", r"\bfrance 24\b",
+        r"\bal jazeera\b", r"\baljazeera\b", r"\bfrance 24\b",
+        r"bloomberg", r"cnbc", r"euronews",
         r"16tv", r"16 tv",
         r"african", r"africable",
         r"budapest",
@@ -139,11 +148,34 @@ def is_hk_region(name: str, group: str) -> bool:
         r"star tv", r"startv",
         r"daystar",
         r"café", r"cafe",
+        r"国际频道", r"国际新闻",
+        r"央视频道", r"央视新闻",
     ]
 
     for p in exclude:
         if re.search(p, full_text):
             return False
+
+    # Explicitly reject CCTV/CETV (must check before positive matches)
+    if re.search(r"\bcctv[\-_\s]?\d*\b", name_lower) or re.search(r"\bcetv[\-_\s]?\d*\b", name_lower):
+        return False
+    if "教育台" in name or "央视" in name:
+        return False
+    # Reject 央视频道 / 央视新闻
+    if re.search(r"央视频道|央视新闻", full_text):
+        return False
+    # Reject non-HK group categories
+    non_hk_groups = [
+        "央视频道", "国际频道", "国际新闻", "新闻财经",
+        "电影频道", "音乐频道", "儿童频道", "体育频道",
+        "纪录片", "综艺频道", "地方频道",
+        "欧洲", "北美", "拉丁美洲", "中东", "非洲", "大洋洲",
+        "日本", "韩国", "亚洲（东南亚）", "亚洲（其他）", "印度",
+        "🌐 国际",
+    ]
+    check_text = (group or "") + " " + (cat or "")
+    if any(g in check_text for g in non_hk_groups):
+        return False
 
     for p in hk_exact + tw_exact + mo_exact:
         if re.search(p, full_text):
@@ -153,9 +185,67 @@ def is_hk_region(name: str, group: str) -> bool:
 
 
 # ──────────────────────────────────────────────────────────────
+#  Logo URL 和频道名 → 国家/地区映射
+# ──────────────────────────────────────────────────────────────
+LOGO_REGION_PATTERNS = [
+    # 中国源
+    ("epg.112114.xyz/logo/TVB", "📺 TVB"),
+    ("epg.112114.xyz/logo/翡翠台", "📺 TVB"),
+    ("live.fanmingming.cn/tv/CH", "📺 央视频道"),
+    ("gitee.com/suxuang", "🇨🇳 中国源"),
+    # Astro 马来西亚
+    ("ASTRO", "🇲🇾 马来西亚"),
+    ("Astro", "🇲🇾 马来西亚"),
+    # 澳大利亚
+    ("Adelaide", "🇦🇺 澳大利亚"),
+    ("Melbourne", "🇦🇺 澳大利亚"),
+    ("Sydney", "🇦🇺 澳大利亚"),
+]
+
+CHANNEL_REGION_PATTERNS = [
+    # Astro 马来西亚
+    ("MOMOTV", "🇲🇾 马来西亚"),
+    ("ASTROAOD", "🇲🇾 马来西亚"),
+    # 澳大利亚
+    ("Bold Adelaide", "🇦🇺 澳大利亚"),
+    ("BoldAdelaide", "🇦🇺 澳大利亚"),
+    # 荷兰
+    ("AlmereTV", "🇳🇱 荷兰"),
+    ("TwenteTV", "🇳🇱 荷兰"),
+    # 宗教广播网
+    ("3ABN", "🌐 宗教广播"),
+    # 西班牙
+    ("Televalencia", "🇪🇸 西班牙"),
+    ("TeleValencia", "🇪🇸 西班牙"),
+    # 意大利
+    ("3Cat", "🇮🇹 意大利"),
+    # 俄罗斯
+    ("канал", "🇷🇺 俄罗斯"),
+    # 北欧
+    ("TV2", "🇳🇴 北欧"),
+    # 非洲
+    ("DSTV", "🌍 非洲"),
+    ("Mnet", "🌍 非洲"),
+    # 拉丁美洲 - 常见频道名模式
+    ("TVCorrientes", "🌎 拉丁美洲"),
+    ("TV Chile", "🌎 拉丁美洲"),
+    ("Canal 13", "🌎 拉丁美洲"),
+    ("Canal13", "🌎 拉丁美洲"),
+    ("TV Brasil", "🌎 拉丁美洲"),
+    ("TV Cultura", "🌎 拉丁美洲"),
+    ("TV UNAM", "🌎 拉丁美洲"),
+    ("VTV", "🌎 拉丁美洲"),
+    # 波兰
+    ("TVP", "🌍 欧洲"),
+    ("Polsat", "🌍 欧洲"),
+    ("TVN", "🌍 欧洲"),
+]
+
+
+# ──────────────────────────────────────────────────────────────
 #  recategorize_others — 对"其他"分组中的频道进行二次分类
 # ──────────────────────────────────────────────────────────────
-def recategorize_others(name: str, group: str) -> str:
+def recategorize_others(name: str, group: str, logo: str = "") -> str:
     """对"其他"分组中的频道进行二次分类，返回更精确的分组。
     
     处理：
@@ -164,18 +254,27 @@ def recategorize_others(name: str, group: str) -> str:
     """
     name_lower, group_lower = name.lower(), (group or "").lower()
     full_text = name_lower + " " + group_lower
+    logo_lower = logo.lower() if logo else ""
 
     # ── 检测是否包含中文 ─────────────────────────────────────
     def has_cjk(s: str) -> bool:
         return any('\u4e00' <= c <= '\u9fff' for c in s)
 
     # ══════════════════════════════════════════════════════════
+    #  0. 按 Logo URL 识别国家/地区（优先）
+    # ══════════════════════════════════════════════════════════
+    if logo_lower:
+        for pattern, region in LOGO_REGION_PATTERNS:
+            if pattern.lower() in logo_lower:
+                return region
+
+    # ══════════════════════════════════════════════════════════
     #  1. 中文频道分类
     # ══════════════════════════════════════════════════════════
     if has_cjk(name):
-        # 新闻/资讯
+        # 新闻/资讯 → 合并到新闻财经
         if any(kw in name for kw in ['新闻', '资讯', '信息']):
-            return "📺 新闻"
+            return "📰 新闻财经"
         # TVB 变体（黄金翡翠、翡翠台变体）
         if any(kw in name for kw in ['翡翠', '明珠', 'J2', 'j2']):
             return "📺 TVB"
@@ -209,7 +308,7 @@ def recategorize_others(name: str, group: str) -> str:
         if any(kw in name for kw in ['体育', '足球', '篮球', '高尔夫', '赛事']):
             return "⚽ 体育频道"
         # 卫视频道（各地方卫视）
-        if any(kw in name for kw in ['卫视', '卫视']):
+        if any(kw in name for kw in ['卫视']):
             return "📡 卫视频道"
         # 综合/综艺
         if any(kw in name for kw in ['综合', '综艺', '娱乐', '戏剧', '电视剧', '人文']):
@@ -217,6 +316,39 @@ def recategorize_others(name: str, group: str) -> str:
         # 购物/生活
         if any(kw in name for kw in ['购物', '生活', '科教', '教育', '科技', '经济', '文旅', '文体', '公共']):
             return "📺 地方频道"
+
+        # ── 中国省级频道（更精细匹配）──────────────────────────
+        province_patterns = [
+            ("北京", "📺 北京"), ("北京卫视", "📺 北京"),
+            ("上海", "📺 上海"), ("上海卫视", "📺 上海"),
+            ("广东", "📺 广东"), ("广州", "📺 广东"),
+            ("深圳", "📺 深圳"),
+            ("浙江", "📺 浙江"), ("浙江卫视", "📺 浙江"),
+            ("江苏", "📺 江苏"), ("江苏卫视", "📺 江苏"),
+            ("湖南", "📺 湖南"), ("湖南卫视", "📺 湖南"),
+            ("安徽", "📺 安徽"), ("安徽卫视", "📺 安徽"),
+            ("山东", "📺 山东"), ("山东卫视", "📺 山东"),
+            ("四川", "📺 四川"), ("四川卫视", "📺 四川"),
+            ("湖北", "📺 湖北"), ("湖北卫视", "📺 湖北"),
+            ("福建", "📺 福建"), ("陕西", "📺 陕西"),
+            ("黑龙江", "📺 黑龙江"), ("吉林", "📺 吉林"),
+            ("辽宁", "📺 辽宁"), ("河北", "📺 河北"),
+            ("河南", "📺 河南"), ("江西", "📺 江西"),
+            ("山西", "📺 山西"), ("内蒙古", "📺 内蒙古"),
+            ("宁夏", "📺 宁夏"), ("青海", "📺 青海"),
+            ("甘肃", "📺 甘肃"), ("新疆", "📺 新疆"),
+            ("西藏", "📺 西藏"), ("贵州", "📺 贵州"),
+            ("云南", "📺 云南"), ("广西", "📺 广西"),
+            ("海南", "📺 海南"), ("重庆", "📺 重庆"),
+            ("天津", "📺 天津"),
+            # BTV 变体
+            ("BTV", "📺 北京"), ("北京台", "📺 北京"),
+            ("北京文艺", "📺 北京"), ("北京新闻", "📺 北京"),
+        ]
+        for keyword, cat in province_patterns:
+            if keyword in name:
+                return cat
+
         # 默认中文频道 → 地方频道
         return "📺 地方频道"
 
@@ -228,8 +360,16 @@ def recategorize_others(name: str, group: str) -> str:
         'news', 'cnn', 'bbc', 'bloomberg', 'cnbc', 'al jazeera', 'aljazeera',
         'france 24', 'france24', 'dw ', 'trt ', 'rt ', 'euronews',
         'sky news', 'abc news', 'nbc news', 'cbs news',
+        'sky news', 'zdf', 'ard', 'rsi', 'rtbf', 'rtve',
+        'ansa', 'afp', 'reuters',
+        'fox news', 'msnbc',
     ]):
         return "🌐 国际新闻"
+
+    # ── 按频道名识别国家/地区（优先于通用类别）────────────────
+    for pattern, region in CHANNEL_REGION_PATTERNS:
+        if pattern in name:
+            return region
 
     # 音乐频道
     if any(kw in full_text for kw in [' channel ', 'music', ' pop ', 'hit ', 'radio ']):
@@ -252,20 +392,40 @@ def recategorize_others(name: str, group: str) -> str:
         return "📺 纪录片"
 
     # ── 国家/地区映射 ──────────────────────────────────────────
-    # 亚洲
-    asia_countries = [
+    # 日本/韩国
+    japan_korea = [
+        ('japan', 'japan'), ('japanese', 'japan'),
+        ('korea', 'korea'), ('korean', 'korea'),
+        ('kbs', 'korea'), ('mbc', 'korea'), ('sbs', 'korea'),
+        ('nhk', 'japan'), ('tbs', 'japan'), ('tvtokyo', 'japan'),
+        ('tv asahi', 'japan'), ('fuji tv', 'japan'),
+    ]
+
+    # 东南亚
+    se_asia = [
+        ('thailand', 'se_asia'), ('vietnam', 'se_asia'),
+        ('indonesia', 'se_asia'), ('malaysia', 'se_asia'),
+        ('philippine', 'se_asia'), ('philippin', 'se_asia'),
+        ('singapore', 'se_asia'), ('brunei', 'se_asia'),
+        ('myanmar', 'se_asia'), ('cambodia', 'se_asia'),
+        ('laos', 'se_asia'), ('macao', 'se_asia'),
+        ('thai', 'se_asia'), ('viet', 'se_asia'),
+        ('channel 3', 'se_asia'),  #泰国
+        ('channel 5', 'se_asia'),  #泰国
+        ('channel 7', 'se_asia'),  #泰国
+        ('pptv', 'se_asia'),       #老挝
+    ]
+
+    # 印度次大陆
+    india_subcontinent = [
         ('india', 'india'), ('indian', 'india'),
         ('pakistan', 'india'), ('banglades', 'india'),
         ('nepal', 'india'), ('sri lanka', 'india'),
-        ('indonesia', 'india'), ('malaysia', 'india'),
-        ('thailand', 'india'), ('vietnam', 'india'),
-        ('philippine', 'india'), ('philippin', 'india'),
-        ('korea', 'india'), ('korean', 'india'),
-        ('japan', 'india'), ('japanese', 'india'),
-        ('singapore', 'india'), ('brunei', 'india'),
-        ('myanmar', 'india'), ('cambodia', 'india'),
-        ('laos', 'india'), ('macao', 'india'),
-        ('taiwan', 'india'), ('hong kong', 'india'),
+    ]
+
+    # 亚洲其他
+    asia_other = [
+        ('taiwan', 'asia_other'), ('hong kong', 'asia_other'),
     ]
 
     # 欧洲
@@ -296,65 +456,130 @@ def recategorize_others(name: str, group: str) -> str:
         ('london', 'europe'), ('paris', 'europe'), ('berlin', 'europe'),
         ('madrid', 'europe'), ('rome', 'europe'), ('lisbon', 'europe'),
         ('vienna', 'europe'), ('zurich', 'europe'), ('athens', 'europe'),
-        ('warsaw', 'europe'), ('prague', 'europe'), ('vienna', 'europe'),
+        ('warsaw', 'europe'), ('prague', 'europe'),
         ('amsterdam', 'europe'), ('brussels', 'europe'), ('oslo', 'europe'),
         ('stockholm', 'europe'), ('copenhagen', 'europe'), ('helsinki', 'europe'),
-        ('zurich', 'europe'), ('geneva', 'europe'),
+        ('geneva', 'europe'),
+        # 欧洲电视台
+        ('bbc one', 'europe'), ('bbc two', 'europe'), ('bbc world', 'europe'),
+        ('bbc news', 'europe'), ('itv ', 'europe'), ('channel 4', 'europe'),
+        ('sky one', 'europe'), ('sky news', 'europe'),
+        ('zdf', 'europe'), ('ard', 'europe'), ('pro7', 'europe'),
+        ('rtl', 'europe'), ('arte', 'europe'),
+        ('tv5', 'europe'), ('tv5monde', 'europe'), ('france 2', 'europe'),
+        ('france 3', 'europe'), ('france 4', 'europe'), ('france 5', 'europe'),
+        ('rai', 'europe'), ('mediaset', 'europe'),
+        ('tve', 'europe'), ('telecinco', 'europe'), ('antena 3', 'europe'),
+        ('rtve', 'europe'), ('rtp', 'europe'),
+        ('rtbf', 'europe'), ('vrt', 'europe'), ('één', 'europe'), ('canvas', 'europe'),
+        ('nrk', 'europe'), ('dr tv', 'europe'), ('svt', 'europe'),
+        ('YLE', 'europe'), ('YLE TV', 'europe'),
+        ('rtvi', 'europe'), ('ntv', 'europe'), ('match tv', 'europe'),
+        ('trt', 'europe'), ('trt world', 'europe'), ('trt avaz', 'europe'),
+        ('pbc', 'europe'), ('prime', 'europe'),
     ]
 
-    # 美洲
-    americas_countries = [
-        ('usa', 'americas'), ('united states', 'americas'), ('america', 'americas'),
-        ('canada', 'americas'), ('canadian', 'americas'),
-        ('brazil', 'americas'), ('brazilian', 'americas'), ('brasil', 'americas'),
-        ('mexico', 'americas'), ('mexican', 'americas'),
-        ('argentina', 'americas'), ('colombia', 'americas'), ('bogota', 'americas'),
-        ('peru', 'americas'), ('chile', 'americas'),
-        ('venezuela', 'americas'), ('ecuador', 'americas'),
-        ('uruguay', 'americas'), ('paraguay', 'americas'),
-        ('bolivia', 'americas'), ('panama', 'americas'),
-        ('costa rica', 'americas'), ('salvador', 'americas'),
-        ('guatemala', 'americas'), ('honduras', 'americas'),
-        ('nicaragua', 'americas'), ('cuba', 'americas'),
-        ('jamaica', 'americas'), ('trinidad', 'americas'),
-        ('new york', 'americas'), ('los angeles', 'americas'), ('chicago', 'americas'),
-        ('miami', 'americas'), ('toronto', 'americas'), ('vancouver', 'americas'),
-        ('sao paulo', 'americas'), ('rio de janeiro', 'americas'),
-        ('buenos aires', 'americas'), ('mexico city', 'americas'),
+    # 北美
+    usa_canada = [
+        ('usa', 'usa_canada'), ('united states', 'usa_canada'),
+        ('canada', 'usa_canada'), ('canadian', 'usa_canada'),
+        ('new york', 'usa_canada'), ('los angeles', 'usa_canada'),
+        ('chicago', 'usa_canada'), ('miami', 'usa_canada'),
+        ('toronto', 'usa_canada'), ('vancouver', 'usa_canada'),
+        # 北美电视台
+        ('abc ', 'usa_canada'), ('cbs ', 'usa_canada'), ('nbc ', 'usa_canada'),
+        ('fox ', 'usa_canada'), ('pbs ', 'usa_canada'),
+        ('hbo', 'usa_canada'), ('showtime', 'usa_canada'),
+        ('cinemax', 'usa_canada'), ('starz', 'usa_canada'),
+        ('cnn ', 'usa_canada'), ('msnbc', 'usa_canada'), ('fox news', 'usa_canada'),
+        ('cw ', 'usa_canada'), ('tnt ', 'usa_canada'), ('tbs ', 'usa_canada'),
+        ('amc ', 'usa_canada'), ('fx ', 'usa_canada'),
+        ('vice', 'usa_canada'), ('voa', 'usa_canada'),
+        ('global', 'usa_canada'), ('ctv', 'usa_canada'),
+        ('citytv', 'usa_canada'), ('city tv', 'usa_canada'),
+        ('cp24', 'usa_canada'), ('citynews', 'usa_canada'),
     ]
 
-    # 中东/非洲
-    me_africa_countries = [
+    # 拉丁美洲
+    latam = [
+        ('brazil', 'latam'), ('brazilian', 'latam'), ('brasil', 'latam'),
+        ('mexico', 'latam'), ('mexican', 'latam'),
+        ('argentina', 'latam'), ('colombia', 'latam'), ('bogota', 'latam'),
+        ('peru', 'latam'), ('chile', 'latam'),
+        ('venezuela', 'latam'), ('ecuador', 'latam'),
+        ('uruguay', 'latam'), ('paraguay', 'latam'),
+        ('bolivia', 'latam'), ('panama', 'latam'),
+        ('costa rica', 'latam'), ('salvador', 'latam'),
+        ('guatemala', 'latam'), ('honduras', 'latam'),
+        ('nicaragua', 'latam'), ('cuba', 'latam'),
+        ('jamaica', 'latam'), ('trinidad', 'latam'),
+        ('buenos aires', 'latam'), ('mexico city', 'latam'),
+        ('sao paulo', 'latam'), ('rio de janeiro', 'latam'),
+        # 拉美电视台
+        ('telemundo', 'latam'), ('uni', 'latam'), ('univision', 'latam'),
+        ('tv azteca', 'latam'), ('canal 5', 'latam'), ('canal 13', 'latam'),
+        ('globo', 'latam'), ('band', 'latam'), ('record', 'latam'),
+        ('sbt', 'latam'), ('tv cultura', 'latam'),
+        ('caracol', 'latam'), ('rcn', 'latam'),
+        ('atv', 'latam'), ('america tv', 'latam'), ('canal 9', 'latam'),
+        ('trece', 'latam'), ('tvn', 'latam'),
+    ]
+
+    # 中东
+    mideast = [
         ('dubai', 'mideast'), ('uae', 'mideast'), ('qatar', 'mideast'),
         ('saudi', 'mideast'), ('egypt', 'mideast'), ('iran', 'mideast'),
         ('iraq', 'mideast'), ('israel', 'mideast'), ('jordan', 'mideast'),
         ('lebanon', 'mideast'), ('kuwait', 'mideast'), ('oman', 'mideast'),
         ('bahrain', 'mideast'), ('yemen', 'mideast'), ('syria', 'mideast'),
         ('palestin', 'mideast'),
+        # 中东电视台
+        ('al jazeera', 'mideast'), ('aljazeera', 'mideast'),
+        ('al arabiya', 'mideast'), ('al mayadeen', 'mideast'),
+        ('sky news arabia', 'mideast'), ('mbc', 'mideast'),
+        ('mbc', 'mideast'), ('art', 'mideast'),
+    ]
+
+    # 非洲
+    africa = [
         ('africa', 'africa'), ('nigeria', 'africa'), ('kenya', 'africa'),
         ('south africa', 'africa'), ('ghana', 'africa'),
         ('ivory coast', 'africa'), ('cameroon', 'africa'),
         ('ethiopia', 'africa'), ('tanzania', 'africa'),
         ('algeria', 'africa'), ('morocco', 'africa'), ('tunisia', 'africa'),
+        # 非洲电视台
+        ('sabc', 'africa'), ('dstv', 'africa'), ('mnet', 'africa'),
+        ('tv5', 'africa'), ('rtga', 'africa'),
+        ('nigerian', 'africa'), ('kan', 'africa'),
     ]
 
     # 大洋洲
-    oceania_countries = [
+    oceania = [
         ('australia', 'oceania'), ('australian', 'oceania'),
         ('new zealand', 'oceania'), ('pacific', 'oceania'),
         ('fiji', 'oceania'), ('png', 'oceania'),
+        # 大洋洲电视台
+        ('abc', 'oceania'), ('sbs', 'oceania'), ('nine', 'oceania'),
+        ('seven', 'oceania'), ('ten', 'oceania'),
+        ('sky news', 'oceania'), ('maori tv', 'oceania'),
     ]
 
     region_map = {
-        'india':    '🌏 亚洲',
-        'europe':   '🌍 欧洲',
-        'americas': '🌎 美洲',
-        'mideast':  '🌍 中东',
-        'africa':   '🌍 非洲',
-        'oceania':  '🌏 大洋洲',
+        'japan':      '🇯🇵 日本',
+        'korea':      '🇰🇷 韩国',
+        'se_asia':    '🌏 亚洲（东南亚）',
+        'india':      '🇮🇳 印度',
+        'asia_other': '🌏 亚洲（其他）',
+        'europe':     '🌍 欧洲',
+        'usa_canada': '🇺🇸 北美',
+        'latam':      '🌎 拉丁美洲',
+        'mideast':    '🌍 中东',
+        'africa':     '🌍 非洲',
+        'oceania':    '🌏 大洋洲',
     }
 
-    for keyword, region_key in asia_countries + europe_countries + americas_countries + me_africa_countries + oceania_countries:
+    for keyword, region_key in (japan_korea + se_asia + india_subcontinent + asia_other +
+                                europe_countries + usa_canada + latam + mideast + africa + oceania):
         if keyword in full_text:
             return region_map[region_key]
 
@@ -365,7 +590,7 @@ def recategorize_others(name: str, group: str) -> str:
 # ──────────────────────────────────────────────────────────────
 #  categorize — 完全重写
 # ──────────────────────────────────────────────────────────────
-def categorize(name: str, group: str) -> str:
+def categorize(name: str, group: str, logo: str = "") -> str:
     """分类频道，返回分组名称（按新规范）"""
 
     name_lower, group_lower = name.lower(), (group or "").lower()
@@ -405,7 +630,7 @@ def categorize(name: str, group: str) -> str:
         non_hk = [r"aljadeed", r"al jadeed", r"pearl fm", r"citytv", r"city tv",
                   r"16tv", r"conectv", r"creatv", r"canal30"]
         if _match(name_lower, group_lower, non_hk):
-            return recategorize_others(name, group)
+            return recategorize_others(name, group, logo)
         return "📺 TVB"
 
     # ViuTV
@@ -566,4 +791,4 @@ def categorize(name: str, group: str) -> str:
         return "📺 纪录片"
 
     # ── 13. 未能分类 → 其他（二次分类）─────────────────────────
-    return recategorize_others(name, group)
+    return recategorize_others(name, group, logo)

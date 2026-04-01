@@ -17,13 +17,13 @@ CATEGORY_ORDER = [
     # 央视频道
     "📺 央视频道",
     # 各省频道
-    "📺 北京", "📺 上海", "📺 广东", "📺 浙江", "📺 江苏",
+    "📺 北京", "📺 上海", "📺 广东", "📺 深圳", "📺 浙江", "📺 江苏",
     "📺 湖南", "📺 安徽", "📺 山东", "📺 四川", "📺 湖北",
     "📺 福建", "📺 陕西", "📺 黑龙江", "📺 吉林", "📺 辽宁",
     "📺 河北", "📺 河南", "📺 江西", "📺 山西", "📺 内蒙古",
     "📺 宁夏", "📺 青海", "📺 甘肃", "📺 新疆", "📺 西藏",
     "📺 贵州", "📺 云南", "📺 广西", "📺 海南", "📺 重庆",
-    "📺 天津", "📺 深圳",
+    "📺 天津",
     # 卫视频道
     "📡 卫视频道",
     # 港澳台
@@ -34,7 +34,9 @@ CATEGORY_ORDER = [
     "🎬 电影频道",
     # 音乐
     "🎵 音乐频道",
-    # 国际
+    # 国际（细分）
+    "🇯🇵 日本", "🇰🇷 韩国", "🌏 亚洲（东南亚）", "🇮🇳 印度", "🌏 亚洲（其他）",
+    "🌍 欧洲", "🇺🇸 北美", "🌎 拉丁美洲", "🌍 中东", "🌍 非洲", "🌏 大洋洲",
     "🌐 国际频道",
     # 新闻财经
     "📰 新闻财经",
@@ -105,13 +107,13 @@ def generate_playlist(valid_chs: List[dict], min_speed_kb: int) -> Dict[str, dic
     hk_categorized = {}
     
     for ch in valid_chs:
-        cat = categorize(ch["name"], ch["group"])
+        cat = categorize(ch["name"], ch["group"], ch.get("tvg_logo", ""))
         ch["cat"] = cat
         if cat not in categorized:
             categorized[cat] = []
         categorized[cat].append(ch)
         
-        if is_hk_region(ch["name"], ch["group"]):
+        if is_hk_region(ch["name"], ch["group"], cat):
             if cat not in hk_categorized:
                 hk_categorized[cat] = []
             hk_categorized[cat].append(ch)

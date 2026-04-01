@@ -12,7 +12,7 @@ BLACKLIST_KEYWORDS = [
     "onlyfans", "porn", "redtube", "xvideo",
 ]
 
-FORCE_BLACKLIST = ["成人", "18+", "AV", "色情", "sexy", "xxx", "porn"]
+FORCE_BLACKLIST = ["成人", "18+", "AV", "色情", "sexy", "xxx", "porn", "Canal30TVBethel"]
 
 
 def is_valid_channel(channel):
