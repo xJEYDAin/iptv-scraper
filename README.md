@@ -28,21 +28,17 @@ iptv-scraper/
 ├── main.py                 # 🚀 主入口
 ├── fetch_sources.py        # 📡 数据源配置
 ├── filter_hk.py           # 🇭🇰 HK 频道过滤
-├── validate_and_merge.py  # 🔍 验证和合并
-├── generate_playlist.py    # 📝 生成播放列表
-├── legacy.py              # 🔧 兼容层
+├── generate_playlist.py   # 📝 生成播放列表（含验证 + 测速）
 │
 ├── lib/                    # 🛠️ 工具库
-│   ├── helpers.py          # 通用辅助函数
-│   └── whitelist.py        # CDN 白名单
+│   ├── cache.py           # 统一缓存管理
+│   ├── helpers.py         # 通用辅助函数
+│   ├── speedtest.py       # 测速（iptv-validator 不可用时的 fallback）
+│   └── whitelist.py       # CDN 白名单
 │
 ├── fetch/                  # 🌐 抓取模块
 │   ├── sources.py          # 数据源定义
 │   └── download.py         # 下载器
-│
-├── validate/               # ✅ 验证模块
-│   ├── validators.py      # 速度验证器
-│   └── cache.py           # 缓存管理
 │
 ├── group/                  # 🗂️ 分组模块
 │   ├── categorizer.py     # 频道分类器
@@ -51,10 +47,48 @@ iptv-scraper/
 ├── output/                 # 📤 输出模块
 │   └── playlist.py        # M3U 生成器
 │
-├── sources/                # 📥 抓取的源数据
+├── cache/                  # 💾 缓存
+├── sources/               # 📥 抓取的源数据
 └── output/                 # 📤 输出的 M3U 文件
     ├── hk_merged.m3u      # 🇭🇰 香港台湾频道
     └── all_merged.m3u     # 🌍 全球频道
+```
+
+---
+
+## 🔄 工作流
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    main.py (主入口)                          │
+└─────────────────┬───────────────────────────────────────────┘
+                  │
+        ┌─────────▼──────────┐
+        │  1. fetch_sources   │  从多个数据源下载 M3U
+        └─────────┬──────────┘
+                  │
+        ┌─────────▼──────────┐
+        │  2. filter_hk      │  过滤 HK/TW/MO 频道
+        └─────────┬──────────┘
+                  │
+        ┌─────────▼──────────────────────────────┐
+        │  3. generate_playlist                   │
+        │  ┌─────────────────────────────────┐   │
+        │  │  SKIP_VALIDATION=0:             │   │
+        │  │    → batch_validate (HEAD+GET)  │   │
+        │  │    → speedtest_channels (curl)   │   │
+        │  │    → filter + sort by speed      │   │
+        │  │                                  │   │
+        │  │  SKIP_VALIDATION=1:             │   │
+        │  │    → 使用缓存 + CDN 白名单        │   │
+        │  │    → speedtest fallback           │   │
+        │  └─────────────────────────────────┘   │
+        └─────────────────┬────────────────────┘
+                          │
+              ┌───────────▼───────────┐
+              │  output/hk_merged.m3u │
+              │  output/all_merged.mu │
+              └───────────────────────┘
 ```
 
 ---
@@ -115,6 +149,7 @@ iptv-scraper/
 
 - Python 3.8+
 - FFmpeg（用于测速）
+- curl（用于速度测试）
 
 ### 安装依赖
 
@@ -125,10 +160,10 @@ pip install requests
 ### 运行
 
 ```bash
-# 完整抓取（下载 + 测速 + 合并）
+# 完整抓取（下载 + 验证 + 测速 + 合并）
 python3 main.py
 
-# 跳过验证（使用缓存数据，适合快速测试）
+# 快速模式：跳过验证，使用缓存 + CDN 白名单
 SKIP_VALIDATION=1 python3 main.py
 
 # 调整最低速度阈值（单位：KB/s）
@@ -142,7 +177,7 @@ OUTPUT_DIR=/path/to/output python3 main.py
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `SKIP_VALIDATION` | `0` | 设为 `1` 跳过速度验证 |
+| `SKIP_VALIDATION` | `0` | 设为 `1` 跳过验证，使用缓存数据 |
 | `MIN_SPEED_KB` | `30` | 最低速度阈值（KB/s） |
 | `OUTPUT_DIR` | `./output` | 输出目录 |
 | `CACHE_DIR` | `./cache` | 缓存目录 |
@@ -181,16 +216,38 @@ from fetch.download import download_all
 sources_data = download_all(SOURCES)
 ```
 
-### 验证模块 (`validate/`)
+### 生成播放列表 (`generate_playlist.py`)
 
-对频道 URL 进行速度测试：
+核心模块，包含验证、测速、合并逻辑：
 
 ```python
-from validate.validators import speed_test
-from validate.cache import Cache
+from generate_playlist import main as generate_main
 
-# 速度测试
-result = speed_test(url, min_speed=30)
+# 生成播放列表（自动验证 + 测速）
+generate_main()
+```
+
+### 测速 fallback（`lib/speedtest.py`）
+
+当 iptv-validator 不可用时，使用 curl/requests 进行速度测试：
+
+```python
+from lib.speedtest import speedtest_channels, filter_by_speed
+
+# 测速所有频道
+cache = speedtest_channels(channels, logger, min_speed_kb=30)
+```
+
+### CDN 白名单（`lib/whitelist.py`）
+
+已知的可靠 CDN 域名列表，跳过验证和测速：
+
+```python
+from lib.whitelist import is_whitelisted
+
+if is_whitelisted(url):
+    # 可信 CDN，无需验证
+    pass
 ```
 
 ### 分组模块 (`group/`)

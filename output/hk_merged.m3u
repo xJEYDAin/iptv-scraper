@@ -2,6 +2,7 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
+<<<<<<< Updated upstream
 #PLAYLIST:HK & TW IPTV 2026-04-01
 # Total: 109 channels, 9 categories, min speed: 30 KB/s
 
@@ -349,3 +350,7 @@ https://live3.tdm.com.mo/ch4/sport_ch4.live/playlist.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="澳门莲花" tvg-logo="https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/澳门莲花.png" group-title="🇲🇴 澳门",澳门莲花
 http://php.jdshipin.com/amlh.php
+=======
+#PLAYLIST:HK & TW IPTV 2026-03-31
+# Total: 0 channels, 0 categories, min speed: 100 KB/s
+>>>>>>> Stashed changes

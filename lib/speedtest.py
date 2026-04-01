@@ -10,7 +10,7 @@ from datetime import datetime
 from pathlib import Path
 
 from config import CACHE_DIR, LOG_DIR
-from validate.cache import load_cache, save_cache  # Fix #1: unified cache functions
+from lib.cache import load_cache, save_cache
 from lib.whitelist import is_hk_cdn_whitelisted
 
 # Speed test settings

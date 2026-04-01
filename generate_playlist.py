@@ -10,7 +10,7 @@ from pathlib import Path
 from config import OUTPUT_DIR, FILTERED_DIR, CACHE_DIR, CACHE_FILE, LOG_DIR, MIN_SPEED_KB, ENABLE_SPEEDTEST, SORT_BY_SPEED
 from lib.speedtest import speedtest_channels, filter_by_speed, sort_by_speed, format_speed
 from lib.helpers import setup_logging, parse_m3u
-from validate.cache import load_cache, save_cache
+from lib.cache import load_cache, save_cache
 from lib.whitelist import is_whitelisted as is_hk_cdn_whitelisted
 from logo_map import get_logo_fuzzy
 from lib.helpers import load_aliases
