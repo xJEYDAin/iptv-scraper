@@ -10,7 +10,8 @@ from datetime import datetime
 from pathlib import Path
 
 from config import CACHE_DIR, LOG_DIR
-from utils import load_cache, save_cache, is_hk_cdn_whitelisted  # Fix #1: unified cache functions
+from validate.cache import load_cache, save_cache  # Fix #1: unified cache functions
+from lib.whitelist import is_hk_cdn_whitelisted
 
 # Speed test settings
 MIN_SPEED_KB = float(os.getenv("MIN_SPEED_KB", "500"))   # Minimum speed in KB/s (default 500KB/s)
@@ -214,7 +215,7 @@ def sort_by_speed(channels, descending=True):
 
 def main():
     """Test speedtest standalone."""
-    from utils import setup_logging
+    from lib.helpers import setup_logging
     logger = setup_logging(LOG_DIR, "speedtest")
     
     # Test a few URLs if called standalone

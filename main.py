@@ -11,7 +11,7 @@ from fetch_sources import main as fetch_main
 from filter_hk import main as filter_main
 from validate_and_merge import main as validate_main
 from generate_playlist import main as generate_main
-from utils import setup_logging
+from lib.helpers import setup_logging
 
 LOG_DIR = Path(__file__).parent / "logs"
 

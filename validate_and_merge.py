@@ -6,8 +6,8 @@ from pathlib import Path
 import requests
 
 from config import FILTERED_DIR, OUTPUT_DIR, LOG_DIR, CACHE_DIR, CACHE_FILE
-from utils import setup_logging, parse_m3u, load_aliases, normalize_channel_name
-from utils import load_cache, save_cache
+from lib.helpers import setup_logging, parse_m3u, load_aliases, normalize_channel_name
+from validate.cache import load_cache, save_cache
 from validate.validators import validate_url_head_first
 
 PRIORITY = {

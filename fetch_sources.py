@@ -7,7 +7,7 @@ from pathlib import Path
 # Import shared config
 sys.path.insert(0, str(Path(__file__).parent))
 from config import SOURCES_DIR, LOG_DIR
-from utils import setup_logging, fetch_sources_rate_limited
+from lib.helpers import setup_logging, fetch_sources_rate_limited
 
 SOURCES = [
     # === 最高优先：香港本地源 ===

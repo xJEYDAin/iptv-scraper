@@ -24,7 +24,7 @@ from lib.whitelist import (
     HK_CDN_WHITELIST_PATTERNS,
 )
 # helpers (re-exports from utils)
-from utils.helpers import (
+from lib.helpers import (
     load_aliases,
     normalize_channel_name,
     setup_logging,

@@ -5,7 +5,7 @@ from datetime import datetime
 from pathlib import Path
 
 from config import SOURCES_DIR, FILTERED_DIR, LOG_DIR
-from utils import setup_logging, parse_m3u
+from lib.helpers import setup_logging, parse_m3u
 
 BLACKLIST_KEYWORDS = [
     "成人", "18+", "AV", "色情", "情色", "sexy", "xxx",
