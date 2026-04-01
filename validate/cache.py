@@ -1,8 +1,17 @@
 #!/usr/bin/env python3
 """Unified cache management for IPTV scraper.
 
-Combines validation_cache and speedtest_cache into a single store.
-Supports TTL expiration and LRU eviction.
+Supports tier-based TTL, last_validated tracking, and LRU eviction.
+Cache entry format:
+    {
+        "url": {
+            "valid": True/False,           # validation result
+            "last_validated": "2026-04-01", # date string
+            "tier": "hk_tw_mo",            # validation tier
+            "speed": 512000,               # speed in bytes/sec (0 if not tested)
+            "timestamp": 1234567890.0      # unix timestamp
+        }
+    }
 """
 import json
 import logging
@@ -15,21 +24,11 @@ from config import CACHE_DIR
 logger = logging.getLogger(__name__)
 
 DEFAULT_MAX_ENTRIES = 20000
-DEFAULT_TTL_DAYS = 7
+DEFAULT_TTL_DAYS = 30  # Global default for entries without tier info
 
 
 class ChannelCache:
-    """Unified cache for channel validation and speedtest results.
-    
-    Cache entry format:
-        {
-            "url": {
-                "valid": True/False,       # validation result
-                "speed": 512000,            # speed in bytes/sec (0 if not tested)
-                "timestamp": 1234567890.0   # last update time
-            }
-        }
-    """
+    """Unified cache for channel validation and speedtest results."""
 
     def __init__(self, cache_file: Path = None, max_entries: int = DEFAULT_MAX_ENTRIES,
                  ttl_days: int = DEFAULT_TTL_DAYS):
@@ -46,7 +45,6 @@ class ChannelCache:
         if self.cache_file.exists():
             try:
                 data = json.loads(self.cache_file.read_text(encoding='utf-8'))
-                # Validate structure
                 if isinstance(data, dict):
                     self._cache = data
                 else:
@@ -79,7 +77,6 @@ class ChannelCache:
         """Evict oldest entries if cache exceeds max_entries."""
         if len(self._cache) <= self.max_entries:
             return
-        # Sort by timestamp, keep newest max_entries
         sorted_items = sorted(
             self._cache.items(),
             key=lambda x: x[1].get("timestamp", 0),
@@ -89,15 +86,10 @@ class ChannelCache:
         logger.info(f"Cache: evicted to {len(self._cache)} entries (limit: {self.max_entries})")
 
     def get(self, url: str) -> Optional[Dict[str, Any]]:
-        """Get cache entry for URL.
-        
-        Returns:
-            dict with keys: valid, speed, timestamp or None if not found/expired
-        """
+        """Get cache entry for URL."""
         entry = self._cache.get(url)
         if entry is None:
             return None
-        # Check TTL
         if time.time() - entry.get("timestamp", 0) >= self.ttl_seconds:
             del self._cache[url]
             return None
@@ -115,27 +107,37 @@ class ChannelCache:
             return 0.0
         return entry.get("speed", 0.0)
 
-    def set(self, url: str, valid: bool, speed: float = 0.0):
-        """Set cache entry for URL.
-        
-        Args:
-            url: Channel URL
-            valid: Whether URL passed validation
-            speed: Speed in bytes/sec (from speedtest)
-        """
-        self._cache[url] = {
+    def set(self, url: str, valid: bool, speed: float = 0.0,
+            last_validated: str = None, tier: str = None):
+        """Set cache entry for URL with full metadata."""
+        from datetime import date as date_cls
+        entry = {
             "valid": valid,
             "speed": speed,
-            "timestamp": time.time()
+            "timestamp": time.time(),
         }
+        if last_validated:
+            entry["last_validated"] = last_validated
+        else:
+            entry["last_validated"] = date_cls.today().strftime("%Y-%m-%d")
+        if tier:
+            entry["tier"] = tier
+        self._cache[url] = entry
         if len(self._cache) > self.max_entries:
             self._evict_lru()
 
-    def set_valid(self, url: str):
+    def set_valid(self, url: str, last_validated: str = None, tier: str = None):
         """Mark URL as valid without changing speed."""
+        from datetime import date as date_cls
         entry = self._cache.get(url, {})
         entry["valid"] = True
         entry["timestamp"] = time.time()
+        if last_validated:
+            entry["last_validated"] = last_validated
+        elif "last_validated" not in entry:
+            entry["last_validated"] = date_cls.today().strftime("%Y-%m-%d")
+        if tier:
+            entry["tier"] = tier
         self._cache[url] = entry
 
     def set_speed(self, url: str, speed: float):
@@ -156,34 +158,56 @@ class ChannelCache:
         return self.get(url) is not None
 
 
-# ─── Legacy compatibility functions ─────────────────────────────────────────
+# ─── Legacy compatibility functions ──────────────────────────────────────────
 
-def load_cache(cache_file: Path) -> Dict[str, bool]:
-    """Legacy: load validation_cache.json.
-    
-    Returns dict: url -> is_valid (bool)
+def _migrate_entry(v) -> Dict[str, Any]:
+    """Migrate legacy bool/simple entries to new dict format."""
+    if isinstance(v, bool):
+        from datetime import date as date_cls
+        return {"valid": v, "last_validated": date_cls.today().strftime("%Y-%m-%d"), "tier": "global", "speed": 0}
+    if isinstance(v, dict):
+        # Ensure required fields exist
+        v.setdefault("last_validated", None)
+        v.setdefault("tier", "global")
+        v.setdefault("speed", 0)
+        return v
+    return {"valid": bool(v), "last_validated": None, "tier": "global", "speed": 0}
+
+
+def load_cache(cache_file: Path) -> Dict[str, Dict[str, Any]]:
+    """Load validation_cache.json.
+
+    Returns dict: url -> {valid, last_validated, tier, ...}
+    Migrates legacy bool entries automatically.
     """
     cache_file = Path(cache_file)
     if cache_file.exists():
         try:
             data = json.loads(cache_file.read_text(encoding='utf-8'))
             if isinstance(data, dict):
-                # Convert to bool-only format
-                return {k: bool(v) if not isinstance(v, bool) else v
-                        for k, v in data.items()}
+                migrated = {}
+                for k, v in data.items():
+                    if isinstance(v, bool):
+                        migrated[k] = _migrate_entry(v)
+                    elif isinstance(v, dict):
+                        migrated[k] = _migrate_entry(v)
+                    else:
+                        migrated[k] = _migrate_entry(bool(v))
+                return migrated
         except (json.JSONDecodeError, IOError):
             cache_file.unlink(missing_ok=True)
     return {}
 
 
-def save_cache(cache: Dict[str, bool], cache_file: Path):
-    """Legacy: save validation_cache.json atomically.
-    
-    Accepts dict: url -> is_valid (bool)
+def save_cache(cache: Dict, cache_file: Path):
+    """Save validation_cache.json atomically.
+
+    Handles both legacy (url->bool) and new (url->dict) formats.
     """
     cache_file = Path(cache_file)
     cache_file.parent.mkdir(parents=True, exist_ok=True)
 
+    # Prune if too large
     if len(cache) > 10000:
         sorted_items = sorted(cache.items(), key=lambda x: str(x[1]))
         cache = dict(sorted_items[:10000])

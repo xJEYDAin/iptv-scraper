@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-"""IPTV Validator & Merger"""
+"""IPTV Validator & Merger - with tier-based layered validation."""
 import logging
 import os
-from datetime import datetime
+import re
+from datetime import datetime, date
 from pathlib import Path
+from typing import Dict, Optional
+
 import requests
 
 from config import FILTERED_DIR, OUTPUT_DIR, LOG_DIR, CACHE_DIR, CACHE_FILE
@@ -20,6 +23,102 @@ PRIORITY = {
 TIMEOUT = 3
 MAX_LINES_PER_CHANNEL = 3
 BATCH_SIZE = 500
+
+# ─── Validation Tiers ───────────────────────────────────────────────────────────
+
+VALIDATE_TIERS = {
+    "hk_tw_mo": {
+        "name": "HK / TW / MO",
+        "patterns": [
+            "tvb", "viutv", "rthk", "nowtv", "hoytv", "cable",
+            "凤凰", "澳视", "台视", "中视", "华视", "民视", "东森",
+            "viu", "rthktv", "tdm", "tvb", "hkcable",
+        ],
+        "validate_days": 1,   # Daily validation
+    },
+    "china": {
+        "name": "China Mainland",
+        "patterns": [
+            "cctv", "cetv", "卫视", "北京", "上海", "广东", "浙江",
+            "江苏", "四川", "山东", "湖南", "安徽", "福建", "黑龙江",
+            "吉林", "辽宁", "河北", "河南", "湖北", "江西", "山西",
+            "陕西", "甘肃", "青海", "宁夏", "新疆", "内蒙古", "广西",
+            "贵州", "云南", "海南", "天津", "重庆", "深圳",
+        ],
+        "validate_days": 7,   # Weekly validation
+    },
+    "global": {
+        "name": "Global",
+        "patterns": [],        # Default tier - no specific patterns
+        "validate_days": 30,  # Monthly validation
+    },
+}
+
+
+def get_url_tier(url: str) -> str:
+    """Determine the validation tier for a URL based on channel name patterns."""
+    # Try to extract channel name from URL (some URLs embed channel names)
+    url_lower = url.lower()
+
+    for tier_name, tier_cfg in VALIDATE_TIERS.items():
+        if tier_name == "global":
+            continue  # Global is the fallback
+        for pattern in tier_cfg["patterns"]:
+            # Match pattern in URL path or as substring
+            if pattern.lower() in url_lower:
+                return tier_name
+
+    return "global"
+
+
+def should_validate_url(url: str, cache: Dict) -> bool:
+    """Decide if a URL should be validated based on tier and cache state.
+
+    Returns False (skip) if:
+      1. URL is in whitelist
+      2. URL is cached as valid AND within tier's validate_days period
+    Returns True otherwise:
+      - New URL
+      - URL not in cache
+      - Cache expired for its tier
+      - URL was previously invalid
+      - FORCE_VALIDATION=1 is set
+    """
+    from lib.whitelist import is_whitelisted
+
+    # 0. Force validation mode
+    if os.getenv("FORCE_VALIDATION") == "1":
+        return True
+
+    # 1. Whitelist check - skip validation
+    if is_whitelisted(url):
+        return False
+
+    # 2. Cache check
+    today = date.today()
+
+    if url in cache:
+        entry = cache[url]
+
+        # If previously invalid, always revalidate
+        if not entry.get("valid", True):
+            return True
+
+        # Check tier-based expiration
+        last_validated_str = entry.get("last_validated")
+        if last_validated_str:
+            try:
+                last_validated = datetime.strptime(last_validated_str, "%Y-%m-%d").date()
+                tier = entry.get("tier", "global")
+                days_since = (today - last_validated).days
+                tier_days = VALIDATE_TIERS.get(tier, {}).get("validate_days", 30)
+                if days_since < tier_days:
+                    return False  # Still within valid period
+            except ValueError:
+                pass  # Invalid date format, revalidate
+
+    # 3. Not in cache or expired - needs validation
+    return True
 
 
 def get_source_priority(filename):
@@ -70,7 +169,10 @@ def validate_and_merge(logger):
     total_valid = 0
     total_invalid = 0
     newly_validated = 0
+    skipped_validation = 0
     alias_mapped_count = 0
+
+    today_str = date.today().strftime("%Y-%m-%d")
 
     for filepath in filtered_files:
         priority = get_source_priority(filepath.name)
@@ -99,17 +201,33 @@ def validate_and_merge(logger):
                     all_channels[name_key] = []
 
                 url = ch["url"]
-                if url in cache:
-                    is_valid = cache[url]
-                else:
-                    is_valid = validate_url(url, logger, session=session)
-                    cache[url] = is_valid
+                tier = get_url_tier(url)
+
+                # ── Tier-aware validation decision ─────────────────────────────────
+                if should_validate_url(url, cache):
+                    is_valid = validate_url(url, logger, session=session, timeout=TIMEOUT)
+                    # Update cache with new structure
+                    cache[url] = {
+                        "valid": is_valid,
+                        "last_validated": today_str,
+                        "tier": tier,
+                    }
                     newly_validated += 1
                     batch_count += 1
-
-                    if batch_count % BATCH_SIZE == 0:
-                        save_cache(cache, CACHE_FILE)
-                        logger.info(f"  [Cache saved: {len(cache)} entries, {newly_validated} newly validated this file]")
+                else:
+                    # Use cached result (must be valid + within tier period or whitelisted)
+                    entry = cache.get(url)
+                    if entry:
+                        is_valid = entry.get("valid", False)
+                    else:
+                        # Whitelisted URL not in cache - treat as valid
+                        is_valid = True
+                        cache[url] = {
+                            "valid": True,
+                            "last_validated": today_str,
+                            "tier": tier,
+                        }
+                    skipped_validation += 1
 
                 all_channels[name_key].append({
                     "url": url,
@@ -119,12 +237,18 @@ def validate_and_merge(logger):
                     "original_name": original_name
                 })
 
+                if batch_count % BATCH_SIZE == 0:
+                    save_cache(cache, CACHE_FILE)
+                    logger.info(f"  [Cache saved: {len(cache)} entries, {newly_validated} newly validated]")
+
             if batch_count > 0:
                 save_cache(cache, CACHE_FILE)
                 logger.info(f"  File done: +{batch_count} validated, cache now {len(cache)} entries")
 
         except Exception as e:
             logger.error("  Failed " + filepath.name + ": " + str(e))
+
+    # ── Merge channels ──────────────────────────────────────────────────────────
 
     merged_channels = []
 
@@ -156,6 +280,8 @@ def validate_and_merge(logger):
     logger.info("  Invalid streams: " + str(total_invalid))
     logger.info("  Merged channels: " + str(len(merged_channels)))
     logger.info("  Aliases mapped: " + str(alias_mapped_count))
+    logger.info("  Newly validated: " + str(newly_validated))
+    logger.info("  Skipped (cached): " + str(skipped_validation))
     logger.info("  Cache: " + str(len(cache)) + " total entries")
 
     return merged_channels

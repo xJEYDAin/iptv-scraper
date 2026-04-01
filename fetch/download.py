@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 
 from config import SOURCES_DIR
-from utils.helpers import fetch_with_retry, fetch_sources_rate_limited, setup_logging
+from lib.helpers import fetch_with_retry, fetch_sources_rate_limited, setup_logging
 
 logger = logging.getLogger(__name__)
 
