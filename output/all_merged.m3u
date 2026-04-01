@@ -2,7 +2,6 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-<<<<<<< Updated upstream
 #PLAYLIST:All IPTV 2026-04-01
 # Total: 10161 channels, 71 categories, min speed: 30 KB/s
 
@@ -4642,19 +4641,3 @@ http://live.hnxttv.com:9601/live/dspd/800K/tzwj_video.m3u8?BVUUID=C236454D-5355-
 #EXTINF:-1 tvg-name="岷县电视台" group-title="📺 地方频道",岷县电视台
 http://117.156.28.119/270000001111/1110000130/index.m3u8
 # ... and 84 more
-=======
-#PLAYLIST:All IPTV 2026-03-31
-# Total: 3 channels, 3 categories, min speed: 100 KB/s
-
-#EXTGRP:📺 General (1)
-#EXTINF:-1 tvg-name="Vásárhelyi Televízió (576p)" tvg-logo="https://i.imgur.com/WOEqdmx.png" group-title="General",Vásárhelyi Televízió (576p)
-https://stream.vasarhelyitelevizio.hu/stream/stream.m3u8
-
-#EXTGRP:📺 Hong Kong (1)
-#EXTINF:-1 tvg-name="有線新聞" group-title="Hong Kong",有線新聞
-http://iptv.4666888.xyz/iptv2A.php?id=31
-
-#EXTGRP:📺 Undefined (1)
-#EXTINF:-1 tvg-name="TV Trwam (1080p) [Geo-blocked]" tvg-logo="https://i.imgur.com/yq10wS5.png" group-title="Undefined",TV Trwam (1080p) [Geo-blocked]
-https://live-ch1.trwam.cf.insyscd.net/out/v1/b99041a282774d4a8fe84a54243af5de/trwamtv-live-ch1.mpd
->>>>>>> Stashed changes
