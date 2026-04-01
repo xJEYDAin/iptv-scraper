@@ -133,48 +133,26 @@ iptv-scraper/
 
 ## 📊 数据源
 
-当前配置 **21 个数据源**，按优先级排序：
+当前配置 **20 个数据源**，按优先级排序：
 
-| # | 源 | URL | 优先级 | 预估频道数 |
-|---|-----|-----|--------|-----------|
-| 1 | sammy0101 | raw.gh.registry.cyou/sammy0101/hk-iptv-auto | 1 | ~55 |
-| 2 | xiweiwong-hk-iptv | raw.gh.registry.cyou/xiweiwong/hk-iptv-auto | 2 | ~100 |
-| 3 | zhi35-iptv | live.zhi35.com/iptv.m3u | 2 | ~522 |
-| 4 | freetv-fun | t.freetv.fun/m3u/playlist.m3u | 2 | ~4000 |
-| 5 | epg-pw | epg.pw/test_channels.m3u | 2 | ~4000 |
-| 6 | fanmingming-live | raw.githubusercontent.com/fanmingming/live | 3 | ~100 |
-| 7 | CCSH-iptv | raw.githubusercontent.com/CCSH/IPTV | 3 | ~2000 |
-| 8 | gitee-why006-TV | gitee.com/why006/TV | 3 | ~1000 |
-| 9 | iptv-org | iptv-org.github.io/iptv/index.m3u | 4 | ~11000 |
-| 10 | hujingguang-iptv | raw.githubusercontent.com/hujingguang/ChinaIPTV | 4 | ~65 |
-| 11 | Harbin-byte-iptv | raw.githubusercontent.com/Harbin-byte/iptv | 4 | ~50 |
-| 12 | suxuang-myIPTV | gh-proxy.com/suxuang/myIPTV | 4 | ~1000 |
-| 13 | free-tv-hk | Free-TV/IPTV/lists/hong_kong.md | 5 | ~20 |
-| 14 | free-tv-tw | Free-TV/IPTV/lists/taiwan.md | 5 | ~50 |
-| 15 | free-tv-cn | Free-TV/IPTV/lists/china.md | 5 | ~500 |
-| 16 | free-tv-jp | Free-TV/IPTV/lists/japan.md | 5 | ~200 |
-| 17 | free-tv-kr | Free-TV/IPTV/lists/korea.md | 5 | ~100 |
-| 18 | vbskycn-iptv4 | live.zbds.top/tv/iptv4.m3u | 5 | ~600 |
-| 19 | free-tv-us | Free-TV/IPTV/lists/usa.md | 6 | ~500 |
-| 20 | free-tv-uk | Free-TV/IPTV/lists/uk.md | 6 | ~200 |
+| 优先级 | 源 | 频道数 | 更新 | 特点 |
+|--------|------|--------|------|-------|
+| 1 | [sammy0101](https://github.com/sammy0101/hk-iptv-auto) | ~62 | 每日 | HK CDN |
+| 2 | [xiweiwong-hk-iptv](https://github.com/xiweiwong/hk-iptv-auto) | ~100+ | 每日 | HK CDN |
+| 2 | [zhi35-iptv](https://live.zhi35.com/iptv.m3u) | ~522 | 不定期 | 台标 |
+| 2 | [freetv-fun](https://t.freetv.fun/m3u/playlist.m3u) | ~4187 | 每日 | 最大综合 |
+| 2 | [epg-pw](https://epg.pw/test_channels.m3u) | ~4084 | 每日 | 测试源 |
+| 3 | [fanmingming-live](https://github.com/fanmingming/live) | ~82 | 每日 | 官方源 |
+| 3 | [CCSH-iptv](https://github.com/CCSH/IPTV) | ~4414 | 每日 | 综合源 |
+| 3 | [gitee-why006-TV](https://gitee.com/why006/TV) | ~1162 | 每日2次 | Gitee |
+| 4 | [iptv-org](https://github.com/iptv-org/iptv) | ~11000+ | 社区 | 全球最大 |
+| 4 | [hujingguang-iptv](https://github.com/hujingguang/ChinaIPTV) | ~100+ | 不定期 | 湖南台 |
+| 4 | [Harbin-byte-iptv](https://github.com/Harbin-byte/iptv) | ~50+ | 不定期 | 质量优先 |
+| 4 | [suxuang-myIPTV](https://github.com/suxuang/myIPTV) | ~1271 | 不定期 | 手动 |
+| 5 | [vbskycn-iptv4](https://live.zbds.top/tv/iptv4.m3u) | ~800+ | 每6小时 | IPv4/IPv6 |
 
-### 优先级说明
+**Free-TV 系列**（按地区）: [HK](https://github.com/Free-TV/IPTV/tree/master/lists) · [TW](https://github.com/Free-TV/IPTV/tree/master/lists) · [CN](https://github.com/Free-TV/IPTV/tree/master/lists) · [JP](https://github.com/Free-TV/IPTV/tree/master/lists) · [KR](https://github.com/Free-TV/IPTV/tree/master/lists) · [US](https://github.com/Free-TV/IPTV/tree/master/lists) · [UK](https://github.com/Free-TV/IPTV/tree/master/lists)
 
-| 优先级 | 说明 |
-|--------|------|
-| 1 | 最高，HK 本地源 |
-| 2-3 | CDN 加速或活跃维护源 |
-| 4-5 | 通用源 |
-| 6 | 其他国家/地区源 |
-
-### 数据源特点
-
-- **CDN 加速**：`raw.gh.registry.cyou` 提供 GitHub 资源加速
-- **每日更新**：sammy0101、xiweiwong、fanmingming、iptv-org 等每日自动更新
-- **台标支持**：fanmingming、epg.pw 等自带台标信息
-- **EPG 支持**：多个源集成电子节目单
-
----
 
 ## 🚀 快速开始
 
