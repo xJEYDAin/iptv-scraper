@@ -20,23 +20,12 @@ jobs:
         with:
           persist-credentials: false
       
-      - name: Checkout iptv-validator (for validation cache)
+      - name: Checkout iptv-validator
         uses: actions/checkout@v4
         with:
           repository: xJEYDAin/iptv-validator
           path: iptv-validator
           fetch-depth: 1
-      
-      - name: Copy validation cache from iptv-validator
-        run: |
-          mkdir -p cache
-          if [ -f "iptv-validator/cache/validation_cache.json" ]; then
-            cp iptv-validator/cache/validation_cache.json cache/
-            echo "Copied validation cache from iptv-validator"
-            cat cache/validation_cache.json | python3 -c "import sys,json; d=json.load(sys.stdin); print(f'Cache entries: {len(d)}')"
-          else
-            echo "No validation cache found in iptv-validator, will run without cache"
-          fi
       
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -51,11 +40,10 @@ jobs:
 
       - name: Run scraper
         run: |
-          # Skip validation since we rely on iptv-validator's results
           echo "Using validation cache from iptv-validator"
           SKIP_VALIDATION=1 python main.py
       
-      - name: Commit and push
+      - name: Commit and push scraper outputs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -71,3 +59,28 @@ jobs:
           # 总是尝试 commit 并推送
           git commit -m "Auto update: $(date +'%Y-%m-%d %H:%M')" --allow-empty || true
           git push origin master
+      
+      - name: Push filtered files to iptv-validator
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd iptv-validator
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/xJEYDAin/iptv-validator.git"
+          
+          # 同步 filtered 文件
+          mkdir -p filtered
+          rm -rf filtered/* 2>/dev/null || true
+          if [ "$(ls -A ../iptv-scraper/filtered/*.m3u* 2>/dev/null)" ]; then
+            cp ../iptv-scraper/filtered/*.m3u* filtered/
+          fi
+          
+          # 提交并推送
+          git add -f filtered/
+          if git diff --staged --quiet; then
+            echo "No filtered changes"
+          else
+            git commit -m "Sync filtered: $(date +'%Y-%m-%d %H:%M')" || true
+            git push
+          fi
