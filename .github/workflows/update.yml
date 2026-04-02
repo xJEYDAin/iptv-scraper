@@ -20,13 +20,6 @@ jobs:
         with:
           persist-credentials: false
       
-      - name: Checkout iptv-validator
-        uses: actions/checkout@v4
-        with:
-          repository: xJEYDAin/iptv-validator
-          path: iptv-validator
-          fetch-depth: 1
-      
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -51,7 +44,7 @@ jobs:
           git config --local user.name "GitHub Action"
           
           # 强制添加输出文件
-          git add -f output/hk_merged.m3u output/all_merged.m3u
+          git add -f output/hk_merged.m3u output/all_merged.m3u filtered/
           
           # 重写 remote URL 使用 token 认证
           git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/xJEYDAin/iptv-scraper.git"
@@ -59,28 +52,3 @@ jobs:
           # 总是尝试 commit 并推送
           git commit -m "Auto update: $(date +'%Y-%m-%d %H:%M')" --allow-empty || true
           git push origin master
-      
-      - name: Push filtered files to iptv-validator
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cd iptv-validator
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/xJEYDAin/iptv-validator.git"
-          
-          # 同步 filtered 文件
-          mkdir -p filtered
-          rm -rf filtered/* 2>/dev/null || true
-          if [ "$(ls -A ../filtered/*.m3u* 2>/dev/null)" ]; then
-            cp ../filtered/*.m3u* filtered/
-          fi
-          
-          # 提交并推送
-          git add -f filtered/
-          if git diff --staged --quiet; then
-            echo "No filtered changes"
-          else
-            git commit -m "Sync filtered: $(date +'%Y-%m-%d %H:%M')" || true
-            git push
-          fi
