@@ -1,54 +1,61 @@
-name: Update HK IPTV
+name: Daily IPTV Scrape
 
 on:
   schedule:
     # 每天凌晨3点自动运行
     - cron: '0 3 * * *'
-  workflow_dispatch:  # 支持手动触发
-  push:
-    branches: [master]
+  workflow_dispatch:
 
 jobs:
-  update:
+  scrape:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Required for git push
-    
+      contents: write
+
     steps:
-      - name: Checkout
+      - name: Checkout iptv-scraper
         uses: actions/checkout@v4
         with:
           persist-credentials: false
-      
+
+      - name: Checkout iptv-validator (read-only, 获取最新 cache)
+        uses: actions/checkout@v4
+        with:
+          repository: xJEYDAin/iptv-validator
+          path: iptv-validator
+          fetch-depth: 1
+
+      - name: Copy validation cache from iptv-validator
+        run: |
+          mkdir -p cache
+          if [ -f iptv-validator/cache/validation_cache.json ]; then
+            cp iptv-validator/cache/validation_cache.json cache/validation_cache.json
+            echo "✓ 使用来自 iptv-validator 的 validation cache"
+          else
+            echo "⚠ iptv-validator 暂无 cache，从空开始"
+          fi
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
+
       - name: Install dependencies
         run: pip install requests
-      
+
       - name: Create required directories
         run: mkdir -p cache logs sources filtered output
 
-      - name: Run scraper
-        run: |
-          echo "Using validation cache from iptv-validator"
-          SKIP_VALIDATION=1 python main.py
-      
-      - name: Commit and push scraper outputs
+      - name: Run scraper (SKIP_VALIDATION=1，使用 iptv-validator 的 cache)
+        run: SKIP_VALIDATION=1 python main.py
+
+      - name: Commit and push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          
-          # 强制添加输出文件
           git add -f output/hk_merged.m3u output/all_merged.m3u filtered/
-          
-          # 重写 remote URL 使用 token 认证
           git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/xJEYDAin/iptv-scraper.git"
-          
-          # 总是尝试 commit 并推送
           git commit -m "Auto update: $(date +'%Y-%m-%d %H:%M')" --allow-empty || true
           git push origin master
