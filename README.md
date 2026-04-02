@@ -213,6 +213,61 @@ output/
 
 ---
 
+
+
+---
+
+## 🏗️ 架构说明
+
+本项目采用 **iptv-scraper + iptv-validator** 分离架构：
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ iptv-scraper (每天 03:00 AM)                              │
+│                                                              │
+│ 1. 从 iptv-validator pull 验证缓存                         │
+│ 2. 运行 scraper（SKIP_VALIDATION=1，使用缓存验证结果）     │
+│ 3. Push output/ + filtered/ → iptv-scraper                 │
+└─────────────────────────────────────────────────────────────┘
+                              ↓ filtered/
+┌─────────────────────────────────────────────────────────────┐
+│ iptv-validator (每天 03:30 AM)                             │
+│                                                              │
+│ 1. 从 iptv-scraper pull filtered 文件                      │
+│ 2. 并发验证 URL（100 workers）                             │
+│ 3. Push cache → iptv-validator                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 优势
+
+| 优势 | 说明 |
+|------|------|
+| ⚡ **快速抓取** | scraper 不做验证，只负责抓取和输出 |
+| ✅ **准确验证** | validator 专门做 URL 验证，支持并发 |
+| 🔒 **权限安全** | 每个项目只推送自己的仓库，无跨仓库权限问题 |
+| 📊 **分级调度** | HK: 1天 / China: 7天 / Global: 30天 |
+
+### 缓存机制
+
+- **iptv-validator** 生成 `cache/validation_cache.json`
+- **iptv-scraper** 使用该缓存跳过验证
+- 缓存格式：URL → {valid, last_validated, tier}
+
+### 独立运行
+
+如需单独运行 scraper：
+
+```bash
+# 使用 iptv-validator 的缓存（推荐）
+SKIP_VALIDATION=1 python main.py
+
+# 不使用缓存（使用内置 speedtest fallback）
+python main.py
+```
+
+---
+
 ## 🔧 模块说明
 
 ### 抓取模块 (`fetch/`)
