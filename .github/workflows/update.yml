@@ -72,8 +72,8 @@ jobs:
           # 同步 filtered 文件
           mkdir -p filtered
           rm -rf filtered/* 2>/dev/null || true
-          if [ "$(ls -A ../iptv-scraper/filtered/*.m3u* 2>/dev/null)" ]; then
-            cp ../iptv-scraper/filtered/*.m3u* filtered/
+          if [ "$(ls -A ../filtered/*.m3u* 2>/dev/null)" ]; then
+            cp ../filtered/*.m3u* filtered/
           fi
           
           # 提交并推送
