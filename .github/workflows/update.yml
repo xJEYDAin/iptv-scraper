@@ -20,54 +20,40 @@ jobs:
         with:
           persist-credentials: false
       
+      - name: Checkout iptv-validator (for validation cache)
+        uses: actions/checkout@v4
+        with:
+          repository: xJEYDAin/iptv-validator
+          path: iptv-validator
+          fetch-depth: 1
+      
+      - name: Copy validation cache from iptv-validator
+        run: |
+          mkdir -p cache
+          if [ -f "iptv-validator/cache/validation_cache.json" ]; then
+            cp iptv-validator/cache/validation_cache.json cache/
+            echo "Copied validation cache from iptv-validator"
+            cat cache/validation_cache.json | python3 -c "import sys,json; d=json.load(sys.stdin); print(f'Cache entries: {len(d)}')"
+          else
+            echo "No validation cache found in iptv-validator, will run without cache"
+          fi
+      
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       
       - name: Install dependencies
-        run: |
-          pip install requests
+        run: pip install requests
       
       - name: Create required directories
-        run: |
-          mkdir -p cache logs sources filtered output
+        run: mkdir -p cache logs sources filtered output
 
-      - name: Compute sources cache key
-        id: cache-key
-        run: |
-          # Fix #6: dynamic cache key based on sources hash + date
-          # Cache refreshes when sources change or daily run
-          DATE_KEY=$(date +'%Y%m%d')
-          if [ -d "sources" ]; then
-            SOURCES_HASH=$(find sources -type f -name "*.m3u" | sort | xargs cat 2>/dev/null | md5sum | cut -c1-8)
-          else
-            SOURCES_HASH="empty"
-          fi
-          CACHE_KEY="validation-cache-${DATE_KEY}-${SOURCES_HASH}"
-          echo "cache_key=${CACHE_KEY}" >> $GITHUB_OUTPUT
-          echo "date_key=${DATE_KEY}" >> $GITHUB_OUTPUT
-
-      - name: Restore validation cache
-        id: cache
-        uses: actions/cache@v4
-        with:
-          path: cache/
-          key: ${{ steps.cache-key.outputs.cache_key }}
-          restore-keys: |
-            validation-cache
-      
       - name: Run scraper
         run: |
-          echo "Cache hit: ${{ steps.cache.outputs.cache-hit }}"
-          # Skip validation if cache exists (use cached validation results)
-          if true; then  # Always skip validation for daily scrape
-            echo "Using cached validation results"
-            SKIP_VALIDATION=1 python main.py
-          else
-            echo "No cache - running full validation"
-            python main.py
-          fi
+          # Skip validation since we rely on iptv-validator's results
+          echo "Using validation cache from iptv-validator"
+          SKIP_VALIDATION=1 python main.py
       
       - name: Commit and push
         env:
@@ -85,9 +71,3 @@ jobs:
           # 总是尝试 commit 并推送
           git commit -m "Auto update: $(date +'%Y-%m-%d %H:%M')" --allow-empty || true
           git push origin master
-      
-      - name: Upload cache
-        uses: actions/cache@v4
-        with:
-          path: cache/
-          key: ${{ steps.cache-key.outputs.cache_key }}
