@@ -49,6 +49,18 @@ jobs:
       - name: Run scraper (SKIP_VALIDATION=1，使用 iptv-validator 的 cache)
         run: SKIP_VALIDATION=1 python main.py
 
+      - name: Cleanup old files
+        run: |
+          # 清理日志（只保留最近3天）
+          find logs/ -name "*.log" -mtime +3 -delete 2>/dev/null || true
+          
+          # 清理 filtered 历史文件（每个数据源只保留最新）
+          for src in $(ls filtered/*.m3u* 2>/dev/null | sed 's/.*\///' | sed 's/_[0-9]*\.m3u.*//' | sort -u); do
+            files=$(ls -t filtered/${src}_*.m3u* 2>/dev/null | tail -n +2)
+            for f in $files; do rm -f "$f"; done
+          done
+          echo "✓ 清理完成"
+
       - name: Commit and push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
