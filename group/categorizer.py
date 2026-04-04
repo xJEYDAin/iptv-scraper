@@ -489,13 +489,13 @@ def recategorize_others(name: str, group: str, logo: str = "") -> str:
         # 北美电视台
         ('abc ', 'usa_canada'), ('cbs ', 'usa_canada'), ('nbc ', 'usa_canada'),
         ('fox ', 'usa_canada'), ('pbs ', 'usa_canada'),
-        ('hbo', 'usa_canada'), ('showtime', 'usa_canada'),
+        ('\bhbo\b', 'usa_canada'), ('showtime', 'usa_canada'),
         ('cinemax', 'usa_canada'), ('starz', 'usa_canada'),
         ('cnn ', 'usa_canada'), ('msnbc', 'usa_canada'), ('fox news', 'usa_canada'),
         ('cw ', 'usa_canada'), ('tnt ', 'usa_canada'), ('tbs ', 'usa_canada'),
         ('amc ', 'usa_canada'), ('fx ', 'usa_canada'),
-        ('vice', 'usa_canada'), ('voa', 'usa_canada'),
-        ('global', 'usa_canada'), ('ctv', 'usa_canada'),
+        ('\bvice\b', 'usa_canada'), ('\bvoa\b', 'usa_canada'),
+        ('global', 'usa_canada'), ('\bctv\b', 'usa_canada'),
         ('citytv', 'usa_canada'), ('city tv', 'usa_canada'),
         ('cp24', 'usa_canada'), ('citynews', 'usa_canada'),
     ]
@@ -597,11 +597,16 @@ def categorize(name: str, group: str, logo: str = "") -> str:
     full_text = name_lower + " " + group_lower
 
     # ── 1. 央视频道 ──────────────────────────────────────────
-    if re.search(r"\bcctv[\-_ ]?(\d+|news|english|4k|15|16|17)\b", full_text):
+    if re.search(r"\bcctv[\-_ ]?(\d+|news|english|4k|8k|15|16|17)\b", full_text):
         return "📺 央视频道"
     if re.search(r"\bcetv[\-_ ]?(\d+|1|2|3|4)\b", full_text):
         return "📺 央视频道"
     if "cetv" in full_text or "教育台" in full_text:
+        return "📺 央视频道"
+    # 裸 CCTV 兜底（排除 BBC/ABC/CNN 等）
+    if re.search(r"\bcctv\b", name_lower) and not any(
+        kw in full_text for kw in ["bbc", "abc ", "cnn", "al jazeera", "ntv"]
+    ):
         return "📺 央视频道"
 
     # ── 2. 各省频道 ──────────────────────────────────────────
@@ -664,7 +669,7 @@ def categorize(name: str, group: str, logo: str = "") -> str:
         r"华视", r"華視",
         r"大爱", r"公视", r"公視",
         r"非凡", r"非視",
-        r"ttv", r"ftv", r"pts", r"cna",
+        r"\bttv\b", r"\bftv\b", r"\bpts\b", r"\bcna\b",
         r"台湾台", r"台灣台",
     ]
     if _match(name_lower, group_lower, tw_kw):
@@ -728,6 +733,7 @@ def categorize(name: str, group: str, logo: str = "") -> str:
         r"euronews",
         r"香港新闻", r"香港财经",
         r"凤凰财经", r"凤凰新闻",
+        r"voa", r"美国之音",
     ]
     if _match(name_lower, group_lower, news_kw):
         return "📰 新闻财经"

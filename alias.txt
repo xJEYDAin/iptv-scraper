@@ -510,6 +510,7 @@ CCTV-5+ HD -> CCTV-5+ 体育赛事
 CCTV-6 -> CCTV-6 电影
 CCTV-6 HD -> CCTV-6 电影
 CCTV6 -> CCTV-6 电影
+CCTV-6电影 -> CCTV-6 电影
 CCTV-7 -> CCTV-7 军事农业
 CCTV-7 HD -> CCTV-7 军事农业
 CCTV7 -> CCTV-7 军事农业
@@ -891,3 +892,6 @@ RTHK 33 -> RTHK 33
 重温经典 -> 重温经典
 时差资讯 -> 时差资讯
 MTV Live ->
+# ===== CCTV 央视 =====
+# 注意：仅处理精确匹配 "CCTV"，不在 alias.txt 中处理
+# CCTV4K/CCTV-4K 等在代码中标准化

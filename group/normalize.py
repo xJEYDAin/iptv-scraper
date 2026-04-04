@@ -122,6 +122,10 @@ def normalize_channel_name(name: str, aliases: Dict[str, str]) -> str:
         "港台电视31": "RTHK 31",
         "港台电视32": "RTHK 32",
         "港台电视33": "RTHK 33",
+        # CCTV 系列（根据 Logo 标准化）
+        "CCTV": "CCTV-4K",  # Logo 为 CCTV4K.png 的裸 CCTV
+        # 去除重复词
+        "CCTV-6 电影电影": "CCTV-6 电影",
     }
     if name in _SPECIAL_MAPPING:
         return _SPECIAL_MAPPING[name]
