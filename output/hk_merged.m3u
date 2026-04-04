@@ -3,7 +3,7 @@
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
 #PLAYLIST:HK & TW IPTV 2026-04-04
-# Total: 165 channels, 9 categories, min speed: 30 KB/s
+# Total: 168 channels, 9 categories, min speed: 30 KB/s
 
 #EXTGRP:📡 卫视频道 (10)
 # speed: N/A
@@ -385,7 +385,7 @@ https://t.freetv.fun/live/nowcai-jing.m3u8
 #EXTINF:-1 tvg-name="有线电视 新闻台" tvg-logo="https://epg.112114.xyz/logo/有线电视.png" group-title="📺 有线电视",有线电视 新闻台
 http://aktv.top/AKTV/live/aktv/hoy78/AKTV.m3u8
 
-#EXTGRP:🇹🇼 台湾 (34)
+#EXTGRP:🇹🇼 台湾 (37)
 # speed: N/A
 #EXTINF:-1 tvg-name="台视新闻" tvg-logo="https://epg.112114.xyz/logo/台视%E6%96%B0%E8%81%9E.png" group-title="🇹🇼 台湾",台视新闻
 http://ali.hlspull.yximgs.com/live/tboxproncqqtqqudtqlqcvbcvntqqqsfwetqfvcbcxvdqbqfflvcqtsxw.flv
@@ -438,6 +438,9 @@ https://pulltv2.wanfudaluye.com/live/tv2.m3u8
 #EXTINF:-1 tvg-name="大爱海外" group-title="🇹🇼 台湾",大爱海外
 https://pulltv3.wanfudaluye.com/live/tv3.m3u8
 # speed: N/A
+#EXTINF:-1 tvg-name="中视 新闻台臺" tvg-logo="https://epg.112114.xyz/logo/中视.png" group-title="🇹🇼 台湾",中视 新闻台臺
+https://t.freetv.fun/live/zhong-shi-xin-wen-1-1.php
+# speed: N/A
 #EXTINF:-1 tvg-name="中视经典" tvg-logo="https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/中视经典.png" group-title="🇹🇼 台湾",中视经典
 http://fm1077.serv00.net/Smart.php?id=zhongshi_twn
 # speed: N/A
@@ -453,8 +456,14 @@ https://t.freetv.fun/live/gong-shi-tai-yu.m3u8
 #EXTINF:-1 tvg-name="民视影劇臺" tvg-logo="https://epg.pw/media/images/channel/2023/07/24/large/20230724152803394226_33.png" group-title="🇹🇼 台湾",民视影劇臺
 https://t.freetv.fun/live/min-shi-ying-ju.m3u8
 # speed: N/A
+#EXTINF:-1 tvg-name="民视旅游臺" tvg-logo="https://epg.pw/media/images/channel/2022/02/10/large/20220210223228622836_46.png" group-title="🇹🇼 台湾",民视旅游臺
+https://t.freetv.fun/live/min-shi-lu-you.php
+# speed: N/A
 #EXTINF:-1 tvg-name="民视第一臺" tvg-logo="https://epg.pw/media/images/channel/2022/03/23/large/20220323172047199293_67.png" group-title="🇹🇼 台湾",民视第一臺
 https://t.freetv.fun/live/min-shi-di-yi-1.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="民视综艺臺" tvg-logo="https://epg.pw/media/images/channel/2022/02/10/large/20220210223807030725_31.png" group-title="🇹🇼 台湾",民视综艺臺
+https://t.freetv.fun/live/min-shi-zong-yi.php
 # speed: N/A
 #EXTINF:-1 tvg-name="民视臺灣台" tvg-logo="https://epg.pw/media/images/channel/2023/07/24/large/20230724151611469778_92.png" group-title="🇹🇼 台湾",民视臺灣台
 https://t.freetv.fun/live/min-shi-tai-wan.m3u8
