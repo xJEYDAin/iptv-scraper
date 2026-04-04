@@ -35,12 +35,6 @@ def load_aliases(alias_file=None):
     return aliases
 
 
-def normalize_channel_name(name, aliases):
-    if not name:
-        return name
-    name_stripped = name.strip()
-    return aliases.get(name_stripped, name_stripped)
-
 
 def setup_logging(log_dir, prefix):
     log_dir = Path(log_dir)

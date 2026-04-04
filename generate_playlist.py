@@ -84,18 +84,6 @@ def batch_validate(all_channels, logger):
     logger.info("Validation complete: " + str(valid_count) + "/" + str(len(all_channels)) + " valid")
 
     return all_channels, cache
-
-
-def categorize(name, group, logo=""):
-    from group.categorizer import categorize as _cat
-    return _cat(name, group, logo)
-
-
-def is_hk_region(name, group, cat=None):
-    from group.categorizer import is_hk_region as _hk
-    return _hk(name, group, cat)
-
-
 def generate_playlist(logger):
     logger.info("=" * 50)
     logger.info("Generating playlists")
