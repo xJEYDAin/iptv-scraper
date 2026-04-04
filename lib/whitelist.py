@@ -62,3 +62,21 @@ def is_whitelisted(url: str) -> bool:
 
 
 is_hk_cdn_whitelisted = is_whitelisted
+
+# 代理域名黑名单（返回网页而非视频流）
+PROXY_BLACKLIST_DOMAINS = [
+    "jdshipin.com",
+    "jiduo.me",
+    "v2h.jdshipin.com",
+    "php.jdshipin.com",
+]
+
+
+def is_proxy_domain(url: str) -> bool:
+    """检测是否为代理/播放器页面 URL"""
+    from urllib.parse import urlparse
+    try:
+        domain = urlparse(url).netloc.lower()
+        return any(proxy in domain for proxy in PROXY_BLACKLIST_DOMAINS)
+    except:
+        return False
