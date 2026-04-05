@@ -3,7 +3,7 @@
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
 #PLAYLIST:HK & TW IPTV 2026-04-05
-# Total: 157 channels, 9 categories, min speed: 30 KB/s
+# Total: 156 channels, 9 categories, min speed: 30 KB/s
 
 #EXTGRP:📡 卫视频道 (10)
 # speed: N/A
@@ -37,7 +37,7 @@ https://t.freetv.fun/live/hua-shi-xin-wen-zi-xun.m3u8
 #EXTINF:-1 tvg-name="凤凰卫视中文" tvg-logo="https://epg.pw/media/images/channel/2025/01/28/large/20250128061049622730_55.png" group-title="📡 卫视频道",凤凰卫视中文
 https://t.freetv.fun/live/feng-huang-zhong-wen-4.m3u8
 
-#EXTGRP:📺 TVB (76)
+#EXTGRP:📺 TVB (75)
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB 翡翠台" group-title="📺 TVB",TVB 翡翠台
 http://r.jdshipin.com/qClQf
@@ -263,9 +263,6 @@ https://o11.163189.xyz/stream/tvb/mzt/
 # speed: N/A
 #EXTINF:-1 tvg-name="TVBS精采台" tvg-logo="https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/TVBS精采台.png" group-title="📺 TVB",TVBS精采台
 http://breezy-audrie-zspace-7524863c.koyeb.app/vipsir?token=leifeng&id=4gtv-4gtv067
-# speed: N/A
-#EXTINF:-1 tvg-name="TVBS歡樂臺" tvg-logo="https://epg.pw/media/images/channel/2025/01/28/large/20250128055954129777_18.png" group-title="📺 TVB",TVBS歡樂臺
-https://t.freetv.fun/live/tvbshuan-le.m3u8
 
 #EXTGRP:📺 ViuTV (4)
 # speed: N/A
