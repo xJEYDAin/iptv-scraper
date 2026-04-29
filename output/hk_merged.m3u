@@ -2,13 +2,13 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-#PLAYLIST:HK & TW IPTV 2026-04-28
-# Total: 151 channels, 8 categories, min speed: 30 KB/s
+#PLAYLIST:HK & TW IPTV 2026-04-29
+# Total: 152 channels, 8 categories, min speed: 30 KB/s
 
 #EXTGRP:📡 卫视频道 (13)
 # speed: N/A
 #EXTINF:-1 tvg-name="凤凰卫视" tvg-logo="https://epg.112114.xyz/logo/凤凰卫视.png" group-title="📡 卫视频道",凤凰卫视
-http://aktv.top/AKTV/live/aktv/null-4/AKTV.m3u8
+http://php.jdshipin.com/TVOD/iptv.php?id=fhzx
 # speed: N/A
 #EXTINF:-1 tvg-name="凤凰卫视高清" group-title="📡 卫视频道",凤凰卫视高清
 http://cdn6.163189.xyz/163189/fhzx
@@ -20,7 +20,7 @@ https://stream1.freetv.fun/befd2cea5524857b26687c6c5ede8b698f02c45d4ae98400ee0fd
 https://stream1.freetv.fun/c3ea4ea86c58594aa80ca15cbc03968e7481243ea39ad553e617442c6017362a.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="凤凰卫视中文" group-title="📡 卫视频道",凤凰卫视中文
-https://stream1.freetv.fun/daeb9e15e92a937b5997e93493291a0f77778084da1e26df1a0c79d869766fb6.m3u8
+https://stream1.freetv.fun/e6fd2d09a19cbeb78145f445436d44d9ec43c79a9ce2ffcdd4116a5c8bafdc6f.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="星空卫视" tvg-logo="https://live.fanmingming.cn/tv/星空卫视.png" group-title="📡 卫视频道",星空卫视
 http://iot-mqqt.111yao.cn:8080/live/diyp_xingkong.m3u8
@@ -52,7 +52,7 @@ https://t.freetv.fun/live/feng-huang-wei-shi-mei-zhou.m3u8
 http://cdn9.163189.xyz/smt1.1.php?id=jade_twn
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB 明珠台" group-title="📺 TVB",TVB 明珠台
-http://aktv.top/AKTV/live/aktv/null-2/AKTV.m3u8
+http://cdn9.163189.xyz/smt1.1.php?id=pearl_twn
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB无线新闻" tvg-logo="https://upload.112114.xyz/logo/TVB4.png" group-title="📺 TVB",TVB无线新闻
 http://avd.iptviptv.site:9694/hls/906/index.m3u8
@@ -63,11 +63,11 @@ http://live.cooltv.top/tv/tvb.php?id=2&hq
 #EXTINF:-1 tvg-name="TVBS" tvg-logo="https://epg.112114.xyz/logo/TVBS.png" group-title="📺 TVB",TVBS
 http://fm1077.serv00.net/Smart.php?id=tvbs
 # speed: N/A
-#EXTINF:-1 tvg-name="華麗翡翠台" group-title="📺 TVB",華麗翡翠台
-http://cdn9.163189.xyz/smt1.1.php?id=Tvbjade
-# speed: N/A
 #EXTINF:-1 tvg-name="J2" tvg-logo="https://epg.112114.xyz/logo/J2.png" group-title="📺 TVB",J2
 http://fm1077.serv00.net/Smart.php?id=j2_twn
+# speed: N/A
+#EXTINF:-1 tvg-name="華麗翡翠台" group-title="📺 TVB",華麗翡翠台
+http://cdn9.163189.xyz/smt1.1.php?id=Tvbjade
 # speed: N/A
 #EXTINF:-1 tvg-name="TVBS 亚洲台" tvg-logo="https://epg.112114.xyz/logo/TVBS.png" group-title="📺 TVB",TVBS 亚洲台
 http://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index_5.m3u8?zshijd
@@ -84,9 +84,6 @@ http://r.jdshipin.com/Nr5jq
 #EXTINF:-1 tvg-name="TVB星河" tvg-logo="https://epg.112114.xyz/logo/TVB星河台.png" group-title="📺 TVB",TVB星河
 http://r.jdshipin.com/sXuuD
 # speed: N/A
-#EXTINF:-1 tvg-name="华丽翡翠台" tvg-logo="https://gitee.com/suxuang/logo/raw/master/mylogo/华丽翡翠台.png" group-title="📺 TVB",华丽翡翠台
-http://r.jdshipin.com/thuYX
-# speed: N/A
 #EXTINF:-1 tvg-name="TVB 翡翠台backup" tvg-logo="https://gitee.com/suxuang/logo/raw/master/mylogo/翡翠台 backup.png" group-title="📺 TVB",TVB 翡翠台backup
 http://api.kkitv.itv888.vip:8080/streams/jutaw8wu0j9/index.m3u8
 # speed: N/A
@@ -95,6 +92,9 @@ http://cdn3.163189.xyz/live/j1/stream.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="TVBS欢乐台" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/TVBS欢乐台.png" group-title="📺 TVB",TVBS欢乐台
 http://fm1077.serv00.net/Smart.php?id=tvbshuanle_twn
+# speed: N/A
+#EXTINF:-1 tvg-name="华丽翡翠台" tvg-logo="https://live.fanmingming.cn/tv/华丽翡翠台.png" group-title="📺 TVB",华丽翡翠台
+http://php.jdshipin.com/TVOD/iptv.php?id=huali2
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB生活台" tvg-logo="https://live.fanmingming.cn/tv/TVB生活台.png" group-title="📺 TVB",TVB生活台
 http://php.jdshipin.com/TVOD/iptv.php?id=tvbsh
@@ -280,11 +280,11 @@ https://t.freetv.fun/live/viutvsix.m3u8
 
 #EXTGRP:📺 RTHK (9)
 # speed: N/A
-#EXTINF:-1 tvg-name="RTHK 32" tvg-logo="https://epg.112114.xyz/logo/RTHK%2032.png" group-title="📺 RTHK",RTHK 32
-https://www.rthk.hk/feeds/dtt/rthktv32_https.m3u8
-# speed: N/A
 #EXTINF:-1 tvg-name="RTHK 31" tvg-logo="https://epg.112114.xyz/logo/RTHK%2031.png" group-title="📺 RTHK",RTHK 31
-https://www.rthk.hk/feeds/dtt/rthktv31_https.m3u8
+https://cdn5.163189.xyz/live/rthk31/stream.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="RTHK 32" tvg-logo="https://epg.112114.xyz/logo/RTHK%2032.png" group-title="📺 RTHK",RTHK 32
+https://cdn5.163189.xyz/live/rthk32/stream.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="RTHKTV31[Geo-blocked]" group-title="📺 RTHK",RTHKTV31[Geo-blocked]
 https://rthklive1-lh.akamaihd.net/i/rthk31_1@167495/master.m3u8
@@ -324,7 +324,7 @@ https://hoytv-live-stream.hoy.tv/ch76/index-fhd.m3u8
 #EXTINF:-1 tvg-name="HOY TV[Geo-blocked]" tvg-logo="https://epg.112114.xyz/logo/HOY%20TV.png" group-title="📺 HOY TV",HOY TV[Geo-blocked]
 https://hoytv-live-stream.hoy.tv/ch77/index.m3u8
 
-#EXTGRP:📺 Now TV (9)
+#EXTGRP:📺 Now TV (10)
 # speed: N/A
 #EXTINF:-1 tvg-name="Now TVNEWS" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TVNEWS
 http://cdn.163189.xyz/163189/now
@@ -352,6 +352,9 @@ https://videostream.jpbgdigital.com/CHNWTV.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="Now TV102.3FMEdmonton" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TV102.3FMEdmonton
 https://videostream.jpbgdigital.com/NOWTV.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Now TV星影臺" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TV星影臺
+https://t.freetv.fun/live/nowxing-ying.m3u8
 
 #EXTGRP:🇹🇼 台湾 (31)
 # speed: N/A
@@ -361,11 +364,11 @@ http://ali.hlspull.yximgs.com/live/tboxproncqqtqqudtqlqcvbcvntqqqsfwetqfvcbcxvdq
 #EXTINF:-1 tvg-name="民视 新闻台" tvg-logo="https://epg.112114.xyz/logo/民视.png" group-title="🇹🇼 台湾",民视 新闻台
 http://38.64.72.148:80/hls/modn/list/4012/chunklist0.m3u8
 # speed: N/A
-#EXTINF:-1 tvg-name="中视 新闻台" tvg-logo="https://epg.112114.xyz/logo/中视.png" group-title="🇹🇼 台湾",中视 新闻台
-https://raw.gh.registry.cyou/ChiSheng9/iptv/master/TV09.m3u8
-# speed: N/A
 #EXTINF:-1 tvg-name="中视" tvg-logo="https://epg.112114.xyz/logo/中视.png" group-title="🇹🇼 台湾",中视
 http://fm1077.serv00.net/Smart.php?id=zhongshihd_twn
+# speed: N/A
+#EXTINF:-1 tvg-name="中视 新闻台" tvg-logo="https://epg.112114.xyz/logo/中视.png" group-title="🇹🇼 台湾",中视 新闻台
+https://raw.gh.registry.cyou/ChiSheng9/iptv/master/TV09.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="中视闽南" group-title="🇹🇼 台湾",中视闽南
 http://aktv.top/AKTV/live/aktv/null-10/AKTV.m3u8
@@ -413,7 +416,7 @@ https://pulltv2.wanfudaluye.com/live/tv2.m3u8
 https://pulltv3.wanfudaluye.com/live/tv3.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="中视 新闻台臺" tvg-logo="https://epg.112114.xyz/logo/中视.png" group-title="🇹🇼 台湾",中视 新闻台臺
-https://t.freetv.fun/live/zhong-shi-xin-wen-1.m3u8
+https://t.freetv.fun/live/zhong-shi-xin-wen-1-1.php
 # speed: N/A
 #EXTINF:-1 tvg-name="中视经典" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/中视经典.png" group-title="🇹🇼 台湾",中视经典
 http://fm1077.serv00.net/Smart.php?id=zhongshi_twn
@@ -453,18 +456,6 @@ http://fm1077.serv00.net/Smart.php?id=ttvnews_twn
 #EXTINF:-1 tvg-name="澳门澳视" tvg-logo="https://ghproxy.zhi35.com/https://raw.githubusercontent.com/wanglindl/TVlogo/main/img/Aoshi1.png" group-title="🇲🇴 澳门",澳门澳视
 https://iptv.hiper25.com/TDM/video.m3u8
 # speed: N/A
-#EXTINF:-1 tvg-name="澳广视SportsCh.93" group-title="🇲🇴 澳门",澳广视SportsCh.93
-https://live3.tdm.com.mo/ch4/sport_ch4.live/playlist.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="澳广视EntertainmentCh.95" group-title="🇲🇴 澳门",澳广视EntertainmentCh.95
-https://live3.tdm.com.mo/ch6/hd_ch6.live/playlist.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="澳广视Info.Macau" tvg-logo="https://epg.112114.xyz/logo/澳门.png" group-title="🇲🇴 澳门",澳广视Info.Macau
-https://live3.tdm.com.mo/ch5/info_ch5.live/playlist.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="澳广视OuMunMacauCh.91" tvg-logo="https://epg.112114.xyz/logo/澳门.png" group-title="🇲🇴 澳门",澳广视OuMunMacauCh.91
-https://live3.tdm.com.mo/ch1/ch1.live/playlist.m3u8
-# speed: N/A
 #EXTINF:-1 tvg-name="澳门卫视" tvg-logo="https://gitee.com/suxuang/epglogo/raw/master/gangaotai/Aoshi1.png" group-title="🇲🇴 澳门",澳门卫视
 http://php.jdshipin.com:8880/TVOD/iptv.php?id=as
 # speed: N/A
@@ -473,3 +464,15 @@ http://php.jdshipin.com:8880/TVOD/iptv.php?id=asam
 # speed: N/A
 #EXTINF:-1 tvg-name="澳亚卫视" tvg-logo="https://gitee.com/suxuang/epglogo/raw/master/gangaotai/Aoya.png" group-title="🇲🇴 澳门",澳亚卫视
 http://cdn9.163189.xyz/live/as/stream.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="澳广视EntertainmentCh.95" tvg-logo="https://i.imgur.com/7ml2bfx.png" group-title="🇲🇴 澳门",澳广视EntertainmentCh.95
+https://live3.tdm.com.mo/ch6/hd_ch6.live/playlist.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="澳广视Info.Macau[Not24/7]" tvg-logo="https://epg.112114.xyz/logo/澳门.png" group-title="🇲🇴 澳门",澳广视Info.Macau[Not24/7]
+https://live3.tdm.com.mo/ch5/info_ch5.live/playlist.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="澳广视OuMunMacauCh.91" tvg-logo="https://epg.112114.xyz/logo/澳门.png" group-title="🇲🇴 澳门",澳广视OuMunMacauCh.91
+https://live3.tdm.com.mo/ch1/ch1.live/playlist.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="澳广视SportsCh.93" tvg-logo="https://i.imgur.com/AsWLf8S.png" group-title="🇲🇴 澳门",澳广视SportsCh.93
+https://live3.tdm.com.mo/ch4/sport_ch4.live/playlist.m3u8
