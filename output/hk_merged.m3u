@@ -2,8 +2,8 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-#PLAYLIST:HK & TW IPTV 2026-06-01
-# Total: 148 channels, 10 categories, min speed: 30 KB/s
+#PLAYLIST:HK & TW IPTV 2026-06-02
+# Total: 136 channels, 10 categories, min speed: 30 KB/s
 
 #EXTGRP:📡 卫视频道 (7)
 # speed: N/A
@@ -28,7 +28,7 @@ https://viamotionhsi.netplus.ch/live/eds/phoenixhd/browser-dash/phoenixhd.mpd
 #EXTINF:-1 tvg-name="凤凰卫视中文" tvg-logo="https://epg.pw/media/images/channel/2025/01/28/large/20250128061049622730_55.png" group-title="📡 卫视频道",凤凰卫视中文
 https://t.freetv.fun/live/feng-huang-zhong-wen.php
 
-#EXTGRP:📺 TVB (76)
+#EXTGRP:📺 TVB (64)
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB 翡翠台" tvg-logo="https://gitee.com/suxuang/logo/raw/master/mylogo/翡翠台.png" group-title="📺 TVB",TVB 翡翠台
 http://r.jdshipin.com/qClQf
@@ -221,42 +221,6 @@ http://cdn6.163189.xyz/163189/mzt
 # speed: N/A
 #EXTINF:-1 tvg-name="tvbs闽南" group-title="📺 TVB",tvbs闽南
 http://aktv.top/AKTV/live/aktv/tvbs/AKTV.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="MTVBiggestPop" group-title="📺 TVB",MTVBiggestPop
-https://jmp2.uk/plu-6047fabfce6e8e00070bcc9f.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBackcountry" tvg-logo="https://i.imgur.com/KnlQzs7.png" group-title="📺 TVB",PlutoTVBackcountry
-https://jmp2.uk/plu-5cabdf1437b88b26947346b2.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBangBang" group-title="📺 TVB",PlutoTVBangBang
-https://jmp2.uk/plu-663b9dc7cb3ea10008f1a0ce.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBrigadeCriminelle" group-title="📺 TVB",PlutoTVBrigadeCriminelle
-https://jmp2.uk/plu-684bf01df7d8b74b625b7dd1.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBritainatWar" group-title="📺 TVB",PlutoTVBritainatWar
-https://jmp2.uk/plu-625e8cb585ef320007806caf.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBritischeSerien" group-title="📺 TVB",PlutoTVBritischeSerien
-https://jmp2.uk/plu-677e5a3d7bffa6000808dbf2.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBritishComedy" group-title="📺 TVB",PlutoTVBritishComedy
-https://jmp2.uk/plu-638e11951177840007fdd6b2.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBrittiskCrime&Drama" group-title="📺 TVB",PlutoTVBrittiskCrime&Drama
-https://jmp2.uk/plu-65b91b53dc10a40008d54777.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBud&Terence" group-title="📺 TVB",PlutoTVBud&Terence
-https://jmp2.uk/plu-65b915b1dc10a40008d53797.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBuskis" group-title="📺 TVB",PlutoTVBuskis
-https://jmp2.uk/plu-660d5f2a635c75000828855f.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="Warner TVBros.TVSayYestotheDress" group-title="📺 TVB",Warner TVBros.TVSayYestotheDress
-https://jmp2.uk/plu-6532e8342cf13100083b404c.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="Warner TVBros.TVSweetEscapes" group-title="📺 TVB",Warner TVBros.TVSweetEscapes
-https://jmp2.uk/plu-6532e7fa045c3d0008514ca7.m3u8
 
 #EXTGRP:📺 ViuTV (3)
 # speed: N/A
@@ -341,8 +305,8 @@ https://videostream.jpbgdigital.com/CHNWTV.m3u8
 #EXTINF:-1 tvg-name="Now TV102.3FMEdmonton" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TV102.3FMEdmonton
 https://videostream.jpbgdigital.com/NOWTV.m3u8
 # speed: N/A
-#EXTINF:-1 tvg-name="Now TV70's" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TV70's
-https://jmp2.uk/plu-64c37e710e086a0009e824ab.m3u8
+#EXTINF:-1 tvg-name="Now TV爆谷台" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TV爆谷台
+https://t.freetv.fun/live/nowbao-gu.m3u8
 
 #EXTGRP:📺 有线电视 (1)
 # speed: N/A
@@ -397,7 +361,7 @@ https://pulltv3.wanfudaluye.com/live/tv3.m3u8
 https://raw.githubusercontent.com/ChiSheng9/iptv/master/TV17.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="中视 新闻台臺" tvg-logo="https://epg.112114.xyz/logo/中视.png" group-title="🇹🇼 台湾",中视 新闻台臺
-https://t.freetv.fun/live/zhong-shi-xin-wen-1.m3u8
+https://t.freetv.fun/live/zhong-shi-xin-wen.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="公视" tvg-logo="https://epg.112114.xyz/logo/公视.png" group-title="🇹🇼 台湾",公视
 http://fm1077.serv00.net/Smart.php?id=ctv_taiwan
@@ -406,19 +370,19 @@ http://fm1077.serv00.net/Smart.php?id=ctv_taiwan
 https://t.freetv.fun/live/gong-shi-xi-ju.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="大爱二臺" tvg-logo="https://epg.pw/media/uploads/tmp_logo/2016/11/22/20161122132027545644_22.png" group-title="🇹🇼 台湾",大爱二臺
-https://t.freetv.fun/live/da-ai-er.m3u8
+https://t.freetv.fun/live/da-ai-er-6.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="大爱电视臺" tvg-logo="https://epg.pw/media/uploads/tmp_logo/2016/11/22/20161122130613801542_95.jpg" group-title="🇹🇼 台湾",大爱电视臺
 https://t.freetv.fun/live/da-ai-dian-shi.m3u8
 # speed: N/A
-#EXTINF:-1 tvg-name="民视影劇臺" tvg-logo="https://epg.pw/media/images/channel/2023/07/24/large/20230724152803394226_33.png" group-title="🇹🇼 台湾",民视影劇臺
-https://t.freetv.fun/live/min-shi-ying-ju.m3u8
+#EXTINF:-1 tvg-name="民视影劇臺" tvg-logo="https://epg.pw/media/images/channel/2022/02/10/large/20220210223252835797_79.png" group-title="🇹🇼 台湾",民视影劇臺
+https://t.freetv.fun/live/min-shi-ying-ju-1.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="民视旅游臺" tvg-logo="https://epg.pw/media/images/channel/2022/02/10/large/20220210223228622836_46.png" group-title="🇹🇼 台湾",民视旅游臺
 https://t.freetv.fun/live/min-shi-lu-you.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="民视第一臺" tvg-logo="https://epg.pw/media/images/channel/2022/03/23/large/20220323172047199293_67.png" group-title="🇹🇼 台湾",民视第一臺
-https://t.freetv.fun/live/min-shi-di-yi.m3u8
+https://t.freetv.fun/live/min-shi-di-yi-1.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="民视综艺臺" tvg-logo="https://epg.pw/media/images/channel/2022/02/10/large/20220210223807030725_31.png" group-title="🇹🇼 台湾",民视综艺臺
 https://t.freetv.fun/live/min-shi-zong-yi.m3u8
