@@ -2,8 +2,8 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-#PLAYLIST:HK & TW IPTV 2026-06-03
-# Total: 136 channels, 10 categories, min speed: 30 KB/s
+#PLAYLIST:HK & TW IPTV 2026-06-04
+# Total: 135 channels, 10 categories, min speed: 30 KB/s
 
 #EXTGRP:📡 卫视频道 (7)
 # speed: N/A
@@ -26,9 +26,9 @@ http://novapress.ro:2022/live/nova/playlist.m3u8
 https://viamotionhsi.netplus.ch/live/eds/phoenixhd/browser-dash/phoenixhd.mpd
 # speed: N/A
 #EXTINF:-1 tvg-name="凤凰卫视中文" tvg-logo="https://epg.pw/media/images/channel/2025/01/28/large/20250128061049622730_55.png" group-title="📡 卫视频道",凤凰卫视中文
-https://t.freetv.fun/live/feng-huang-zhong-wen-1.m3u8
+https://t.freetv.fun/live/feng-huang-zhong-wen.php
 
-#EXTGRP:📺 TVB (64)
+#EXTGRP:📺 TVB (63)
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB 翡翠台" tvg-logo="https://gitee.com/suxuang/logo/raw/master/mylogo/翡翠台.png" group-title="📺 TVB",TVB 翡翠台
 http://r.jdshipin.com/qClQf
@@ -218,9 +218,6 @@ http://cdn6.163189.xyz/163189/mzt
 # speed: N/A
 #EXTINF:-1 tvg-name="tvbs闽南" group-title="📺 TVB",tvbs闽南
 http://aktv.top/AKTV/live/aktv/tvbs/AKTV.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="MITVBurmese" tvg-logo="https://epg.pw/media/uploads/tmp_logo/2017/03/12/20170312021120503161_80.jpg" group-title="📺 TVB",MITVBurmese
-https://t.freetv.fun/live/mitv.m3u8
 
 #EXTGRP:📺 ViuTV (3)
 # speed: N/A
@@ -376,7 +373,7 @@ https://t.freetv.fun/live/da-ai-er-6.m3u8
 https://t.freetv.fun/live/da-ai-dian-shi.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="民视影劇臺" tvg-logo="https://epg.pw/media/images/channel/2022/02/10/large/20220210223252835797_79.png" group-title="🇹🇼 台湾",民视影劇臺
-https://t.freetv.fun/live/min-shi-ying-ju-1.m3u8
+https://t.freetv.fun/live/min-shi-ying-ju.php
 # speed: N/A
 #EXTINF:-1 tvg-name="民视旅游臺" tvg-logo="https://epg.pw/media/images/channel/2022/02/10/large/20220210223228622836_46.png" group-title="🇹🇼 台湾",民视旅游臺
 https://t.freetv.fun/live/min-shi-lu-you.m3u8
@@ -385,7 +382,7 @@ https://t.freetv.fun/live/min-shi-lu-you.m3u8
 https://t.freetv.fun/live/min-shi-di-yi-1.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="民视综艺臺" tvg-logo="https://epg.pw/media/images/channel/2022/02/10/large/20220210223807030725_31.png" group-title="🇹🇼 台湾",民视综艺臺
-https://t.freetv.fun/live/min-shi-zong-yi.m3u8
+https://t.freetv.fun/live/min-shi-zong-yi-1.php
 # speed: N/A
 #EXTINF:-1 tvg-name="民视臺灣台" tvg-logo="https://epg.pw/media/images/channel/2023/07/24/large/20230724151611469778_92.png" group-title="🇹🇼 台湾",民视臺灣台
 https://t.freetv.fun/live/min-shi-tai-wan.m3u8
