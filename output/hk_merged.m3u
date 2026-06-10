@@ -2,8 +2,8 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-#PLAYLIST:HK & TW IPTV 2026-06-09
-# Total: 132 channels, 10 categories, min speed: 30 KB/s
+#PLAYLIST:HK & TW IPTV 2026-06-10
+# Total: 131 channels, 10 categories, min speed: 30 KB/s
 
 #EXTGRP:📡 卫视频道 (7)
 # speed: N/A
@@ -22,11 +22,11 @@ http://litv.zapi.us.kg/?id=4gtv-4gtv052
 #EXTINF:-1 tvg-name="NovaTVBrasov[Not24/7]" tvg-logo="https://i.imgur.com/33Vn0Ij.png" group-title="📡 卫视频道",NovaTVBrasov[Not24/7]
 http://novapress.ro:2022/live/nova/playlist.m3u8
 # speed: N/A
+#EXTINF:-1 tvg-name="凤凰卫视中文" tvg-logo="https://epg.pw/media/images/channel/2025/01/28/large/20250128061049622730_55.png" group-title="📡 卫视频道",凤凰卫视中文
+https://t.freetv.fun/live/feng-huang-zhong-wen-1.m3u8
+# speed: N/A
 #EXTINF:-1 tvg-name="凤凰卫视[Geo-Blocked]" tvg-logo="https://i.imgur.com/T1532t9.png" group-title="📡 卫视频道",凤凰卫视[Geo-Blocked]
 https://viamotionhsi.netplus.ch/live/eds/phoenixhd/browser-dash/phoenixhd.mpd
-# speed: N/A
-#EXTINF:-1 tvg-name="凤凰卫视中文" tvg-logo="https://epg.pw/media/images/channel/2025/01/28/large/20250128061049622730_55.png" group-title="📡 卫视频道",凤凰卫视中文
-https://t.freetv.fun/live/feng-huang-zhong-wen.php
 
 #EXTGRP:📺 TVB (61)
 # speed: N/A
@@ -301,7 +301,7 @@ https://videostream.jpbgdigital.com/NOWTV.m3u8
 #EXTINF:-1 tvg-name="有线电视 新闻台" tvg-logo="https://epg.112114.xyz/logo/有线电视.png" group-title="📺 有线电视",有线电视 新闻台
 http://iptv.4666888.xyz/iptv2A.php?id=31
 
-#EXTGRP:🇹🇼 台湾 (27)
+#EXTGRP:🇹🇼 台湾 (26)
 # speed: N/A
 #EXTINF:-1 tvg-name="台视新闻" tvg-logo="https://epg.112114.xyz/logo/台视%E6%96%B0%E8%81%9E.png" group-title="🇹🇼 台湾",台视新闻
 http://ali.hlspull.yximgs.com/live/tboxproncqqtqqudtqlqcvbcvntqqqsfwetqfvcbcxvdqbqfflvcqtsxw.flv
@@ -380,9 +380,6 @@ http://74.91.26.218:82/live/ctvjd.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="民视旅游台" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/民视旅游台.png" group-title="🇹🇼 台湾",民视旅游台
 https://t.freetv.fun/live/min-shi-lu-you-1.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="民视旅游臺" tvg-logo="https://epg.pw/media/images/channel/2022/02/10/large/20220210223228622836_46.png" group-title="🇹🇼 台湾",民视旅游臺
-https://stream1.freetv.fun/7eb88c8dcba7157b24d2178f3bf3b910a89aea566463b4cf586fcfd2c67afd27.ctv
 
 #EXTGRP:🇲🇴 澳门 (10)
 # speed: N/A
