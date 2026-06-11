@@ -2,10 +2,10 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-#PLAYLIST:HK & TW IPTV 2026-06-10
-# Total: 131 channels, 10 categories, min speed: 30 KB/s
+#PLAYLIST:HK & TW IPTV 2026-06-11
+# Total: 144 channels, 10 categories, min speed: 30 KB/s
 
-#EXTGRP:📡 卫视频道 (7)
+#EXTGRP:📡 卫视频道 (6)
 # speed: N/A
 #EXTINF:-1 tvg-name="凤凰卫视" tvg-logo="https://epg.112114.xyz/logo/凤凰卫视.png" group-title="📡 卫视频道",凤凰卫视
 http://r.jdshipin.com/0Rp07
@@ -23,12 +23,9 @@ http://litv.zapi.us.kg/?id=4gtv-4gtv052
 http://novapress.ro:2022/live/nova/playlist.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="凤凰卫视中文" tvg-logo="https://epg.pw/media/images/channel/2025/01/28/large/20250128061049622730_55.png" group-title="📡 卫视频道",凤凰卫视中文
-https://t.freetv.fun/live/feng-huang-zhong-wen-1.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="凤凰卫视[Geo-Blocked]" tvg-logo="https://i.imgur.com/T1532t9.png" group-title="📡 卫视频道",凤凰卫视[Geo-Blocked]
-https://viamotionhsi.netplus.ch/live/eds/phoenixhd/browser-dash/phoenixhd.mpd
+https://t.freetv.fun/live/feng-huang-zhong-wen.php
 
-#EXTGRP:📺 TVB (61)
+#EXTGRP:📺 TVB (74)
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB 翡翠台" tvg-logo="https://gitee.com/suxuang/logo/raw/master/mylogo/翡翠台.png" group-title="📺 TVB",TVB 翡翠台
 http://r.jdshipin.com/qClQf
@@ -90,6 +87,9 @@ http://122.248.43.242:1935/JAWAPOSTVBALI/_definst_/myStream/playlist.m3u8
 #EXTINF:-1 tvg-name="KTVBangla" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/channel/2f8e3b371c660faa2f43a7f0942948a4.png" group-title="📺 TVB",KTVBangla
 https://server.livelegitpro.in:9899/tribetv/tribetv/index.m3u8
 # speed: N/A
+#EXTINF:-1 tvg-name="MTVBiggestPop" tvg-logo="https://i.imgur.com/AOaZmlS.png" group-title="📺 TVB",MTVBiggestPop
+https://jmp2.uk/plu-6047fbdbbb776a0007e7f2ff.m3u8
+# speed: N/A
 #EXTINF:-1 tvg-name="NKTVBangla" tvg-logo="https://www.nktvbangla.com/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-12-at-2.59.18-PM.jpg" group-title="📺 TVB",NKTVBangla
 https://nktv.smartstream.video/smartstream-us/nkbangla/nkbangla/playlist.m3u8
 # speed: N/A
@@ -98,6 +98,33 @@ http://streaming.flamingotv.net/nostv/live.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="PenielTVBibliaAbierta" tvg-logo="https://i.ibb.co/j3gGwYk/D64575438be2a3a54fdf64d4035ade48.png" group-title="📺 TVB",PenielTVBibliaAbierta
 https://s.emisoras.tv:8081/penielbibliaabierta/index.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="PlutoTVBackcountry" tvg-logo="https://i.imgur.com/KnlQzs7.png" group-title="📺 TVB",PlutoTVBackcountry
+https://jmp2.uk/plu-5cabdf1437b88b26947346b2.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="PlutoTVBangBang" group-title="📺 TVB",PlutoTVBangBang
+https://jmp2.uk/plu-663b9dc7cb3ea10008f1a0ce.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="PlutoTVBrigadeCriminelle" group-title="📺 TVB",PlutoTVBrigadeCriminelle
+https://jmp2.uk/plu-684bf01df7d8b74b625b7dd1.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="PlutoTVBritainatWar" group-title="📺 TVB",PlutoTVBritainatWar
+https://jmp2.uk/plu-625e8cb585ef320007806caf.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="PlutoTVBritischeSerien" group-title="📺 TVB",PlutoTVBritischeSerien
+https://jmp2.uk/plu-677e5a3d7bffa6000808dbf2.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="PlutoTVBritishComedy" tvg-logo="https://i.imgur.com/LlwoR74.png" group-title="📺 TVB",PlutoTVBritishComedy
+https://jmp2.uk/plu-638e11951177840007fdd6b2.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="PlutoTVBrittiskCrime&Drama" group-title="📺 TVB",PlutoTVBrittiskCrime&Drama
+https://jmp2.uk/plu-65b91b53dc10a40008d54777.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="PlutoTVBud&Terence" group-title="📺 TVB",PlutoTVBud&Terence
+https://jmp2.uk/plu-65b915b1dc10a40008d53797.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="PlutoTVBuskis" group-title="📺 TVB",PlutoTVBuskis
+https://jmp2.uk/plu-660d5f2a635c75000828855f.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="RadioTVBasse-Terre" tvg-logo="https://i.imgur.com/OvnRplq.png" group-title="📺 TVB",RadioTVBasse-Terre
 https://vdo.ssl-stream.com:3412/stream/play.m3u8
@@ -177,11 +204,20 @@ http://38.64.72.148/hls/modn/list/4005/playlist.m3u8
 #EXTINF:-1 tvg-name="TVBSNews[Geo-blocked]" tvg-logo="https://i.imgur.com/171lwfg.png" group-title="📺 TVB",TVBSNews[Geo-blocked]
 http://seb.sason.top/sc/tvbsxw_fhd.m3u8
 # speed: N/A
+#EXTINF:-1 tvg-name="Warner TVBros.TVSayYestotheDress" group-title="📺 TVB",Warner TVBros.TVSayYestotheDress
+https://jmp2.uk/plu-6532e8342cf13100083b404c.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Warner TVBros.TVSweetEscapes" group-title="📺 TVB",Warner TVBros.TVSweetEscapes
+https://jmp2.uk/plu-6532e7fa045c3d0008514ca7.m3u8
+# speed: N/A
 #EXTINF:-1 tvg-name="TVBS 亚洲台" tvg-logo="https://epg.112114.xyz/logo/TVBS.png" group-title="📺 TVB",TVBS 亚洲台
 http://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index_5.m3u8?zshijd
 # speed: N/A
 #EXTINF:-1 tvg-name="Fashion TVBiH" tvg-logo="https://epg.pw/media/uploads/tmp_logo/2014/09/19/20140919034234983587_72.jpg" group-title="📺 TVB",Fashion TVBiH
 https://t.freetv.fun/live/ftv.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Fashion TVBox" tvg-logo="https://epg.pw/media/uploads/tmp_logo/2014/05/19/20140519010718145952_44.png" group-title="📺 TVB",Fashion TVBox
+https://t.freetv.fun/live/fashionbox.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="TVBrics" tvg-logo="https://epg.pw/media/images/channel/2023/01/15/large/20230115035835827206_81.jpg" group-title="📺 TVB",TVBrics
 https://t.freetv.fun/live/tv-brics-russian.m3u8
@@ -270,10 +306,13 @@ https://hoytv-live-stream.hoy.tv/ch76/index-fhd.m3u8
 #EXTINF:-1 tvg-name="HOY TV[Geo-blocked]" tvg-logo="https://epg.112114.xyz/logo/HOY%20TV.png" group-title="📺 HOY TV",HOY TV[Geo-blocked]
 https://hoytv-live-stream.hoy.tv/ch77/index.m3u8
 
-#EXTGRP:📺 Now TV (8)
+#EXTGRP:📺 Now TV (9)
 # speed: N/A
 #EXTINF:-1 tvg-name="Now TVNEWS" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TVNEWS
 http://cdn.163189.xyz/163189/now
+# speed: N/A
+#EXTINF:-1 tvg-name="Now TV70's" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TV70's
+https://jmp2.uk/plu-64c37e710e086a0009e824ab.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="Now TV70s" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TV70s
 https://lightning-now70s-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-lightning-now70s-rakuten/CDN/playlist.m3u8
