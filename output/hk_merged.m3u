@@ -2,8 +2,8 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-#PLAYLIST:HK & TW IPTV 2026-06-16
-# Total: 144 channels, 10 categories, min speed: 30 KB/s
+#PLAYLIST:HK & TW IPTV 2026-06-17
+# Total: 143 channels, 10 categories, min speed: 30 KB/s
 
 #EXTGRP:📡 卫视频道 (7)
 # speed: N/A
@@ -123,7 +123,7 @@ https://jmp2.uk/plu-625e8cb585ef320007806caf.m3u8
 #EXTINF:-1 tvg-name="PlutoTVBritischeSerien" group-title="📺 TVB",PlutoTVBritischeSerien
 https://jmp2.uk/plu-677e5a3d7bffa6000808dbf2.m3u8
 # speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBritishComedy" tvg-logo="https://i.imgur.com/LlwoR74.png" group-title="📺 TVB",PlutoTVBritishComedy
+#EXTINF:-1 tvg-name="PlutoTVBritishComedy" tvg-logo="https://images.pluto.tv/channels/638e11951177840007fdd6b2/colorLogoPNG_1745597179027.png" group-title="📺 TVB",PlutoTVBritishComedy
 https://jmp2.uk/plu-638e11951177840007fdd6b2.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="PlutoTVBrittiskCrime&Drama" group-title="📺 TVB",PlutoTVBrittiskCrime&Drama
@@ -222,9 +222,6 @@ https://jmp2.uk/plu-6532e7fa045c3d0008514ca7.m3u8
 #EXTINF:-1 tvg-name="TVBS 亚洲台" tvg-logo="https://epg.112114.xyz/logo/TVBS.png" group-title="📺 TVB",TVBS 亚洲台
 http://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index_5.m3u8?zshijd
 # speed: N/A
-#EXTINF:-1 tvg-name="Fashion TVBiH" tvg-logo="https://epg.pw/media/uploads/tmp_logo/2014/09/19/20140919034234983587_72.jpg" group-title="📺 TVB",Fashion TVBiH
-https://t.freetv.fun/live/ftv.m3u8
-# speed: N/A
 #EXTINF:-1 tvg-name="TVBrics" tvg-logo="https://epg.pw/media/images/channel/2023/01/15/large/20230115035835827206_81.jpg" group-title="📺 TVB",TVBrics
 https://t.freetv.fun/live/tv-brics-russian-1.m3u8
 # speed: N/A
@@ -257,6 +254,9 @@ https://stream1.freetv.fun/5bf2b1b6e25985960785ccef6dc0acddc7424b6fc178ba1530817
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB J2" tvg-logo="https://epg.112114.xyz/logo/J2.png" group-title="📺 TVB",TVB J2
 https://stream1.freetv.fun/8be534f8e9fd65158d8caee0104146164383687d3a6aa3b0721edd031ddb6279.ctv
+# speed: N/A
+#EXTINF:-1 tvg-name="Fashion TVBiH" tvg-logo="https://epg.pw/media/uploads/tmp_logo/2014/09/19/20140919034234983587_72.jpg" group-title="📺 TVB",Fashion TVBiH
+https://t.freetv.fun/live/ftv.m3u8
 
 #EXTGRP:📺 ViuTV (3)
 # speed: N/A
@@ -349,7 +349,7 @@ https://videostream.jpbgdigital.com/NOWTV.m3u8
 #EXTINF:-1 tvg-name="有线电视 新闻台" tvg-logo="https://epg.112114.xyz/logo/有线电视.png" group-title="📺 有线电视",有线电视 新闻台
 http://iptv.4666888.xyz/iptv2A.php?id=31
 
-#EXTGRP:🇹🇼 台湾 (23)
+#EXTGRP:🇹🇼 台湾 (22)
 # speed: N/A
 #EXTINF:-1 tvg-name="台视新闻" tvg-logo="https://epg.112114.xyz/logo/台视%E6%96%B0%E8%81%9E.png" group-title="🇹🇼 台湾",台视新闻
 http://ali.hlspull.yximgs.com/live/tboxproncqqtqqudtqlqcvbcvntqqqsfwetqfvcbcxvdqbqfflvcqtsxw.flv
@@ -407,9 +407,6 @@ https://t.freetv.fun/live/min-shi-di-yi.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="民视综艺臺" tvg-logo="https://epg.pw/media/images/channel/2022/02/10/large/20220210223807030725_31.png" group-title="🇹🇼 台湾",民视综艺臺
 https://t.freetv.fun/live/min-shi-zong-yi.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="民视臺灣台" tvg-logo="https://epg.pw/media/images/channel/2023/07/24/large/20230724151611469778_92.png" group-title="🇹🇼 台湾",民视臺灣台
-https://t.freetv.fun/live/min-shi-tai-wan.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="中视经典" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/中视经典.png" group-title="🇹🇼 台湾",中视经典
 http://74.91.26.218:82/live/ctvjd.m3u8
