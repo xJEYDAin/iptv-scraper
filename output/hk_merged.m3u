@@ -2,8 +2,8 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-#PLAYLIST:HK & TW IPTV 2026-06-20
-# Total: 144 channels, 10 categories, min speed: 30 KB/s
+#PLAYLIST:HK & TW IPTV 2026-06-21
+# Total: 141 channels, 10 categories, min speed: 30 KB/s
 
 #EXTGRP:📡 卫视频道 (7)
 # speed: N/A
@@ -23,12 +23,12 @@ http://litv.zapi.us.kg/?id=4gtv-4gtv052
 http://novapress.ro:2022/live/nova/playlist.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="凤凰卫视中文" tvg-logo="https://epg.pw/media/images/channel/2025/01/28/large/20250128061049622730_55.png" group-title="📡 卫视频道",凤凰卫视中文
-https://t.freetv.fun/live/feng-huang-zhong-wen-1.m3u8
+https://t.freetv.fun/live/feng-huang-zhong-wen.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="凤凰卫视香港" group-title="📡 卫视频道",凤凰卫视香港
 https://stream1.freetv.fun/b0d788f53809f59ca776e28fc7ec4f8e2618c6e7120298fbfb1f9fb9ab99621e.m3u8
 
-#EXTGRP:📺 TVB (76)
+#EXTGRP:📺 TVB (75)
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB 翡翠台" tvg-logo="https://gitee.com/suxuang/logo/raw/master/mylogo/翡翠台.png" group-title="📺 TVB",TVB 翡翠台
 http://r.jdshipin.com/qClQf
@@ -234,6 +234,9 @@ https://t.freetv.fun/live/asian.m3u8
 #EXTINF:-1 tvg-name="TVB亚洲劇" tvg-logo="https://epg.pw/media/images/channel/2023/12/08/large/20231208223626594389_27.png" group-title="📺 TVB",TVB亚洲劇
 https://t.freetv.fun/live/tvbsya-zhou.m3u8
 # speed: N/A
+#EXTINF:-1 tvg-name="TVB功夫台" tvg-logo="https://epg.pw/media/images/channel/2019/11/22/large/20191122230402926478_41.png" group-title="📺 TVB",TVB功夫台
+https://t.freetv.fun/live/tvbgong-fu.m3u8
+# speed: N/A
 #EXTINF:-1 tvg-name="TVB 明珠台臺" tvg-logo="https://epg.pw/media/images/channel/2024/12/26/large/20241226141312380293_76.png" group-title="📺 TVB",TVB 明珠台臺
 https://t.freetv.fun/live/ming-zhu.m3u8
 # speed: N/A
@@ -251,14 +254,8 @@ https://stream1.freetv.fun/5bf2b1b6e25985960785ccef6dc0acddc7424b6fc178ba1530817
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB J2" tvg-logo="https://epg.112114.xyz/logo/J2.png" group-title="📺 TVB",TVB J2
 https://stream1.freetv.fun/8be534f8e9fd65158d8caee0104146164383687d3a6aa3b0721edd031ddb6279.ctv
-# speed: N/A
-#EXTINF:-1 tvg-name="TVBS歡樂臺" tvg-logo="https://epg.pw/media/images/channel/2025/01/28/large/20250128055954129777_18.png" group-title="📺 TVB",TVBS歡樂臺
-https://stream1.freetv.fun/7f0be498217cfbb7ce263b3df477195208ad73b0c64cafc1198819906a738af6.ctv
-# speed: N/A
-#EXTINF:-1 tvg-name="TVBS精采臺" tvg-logo="https://epg.pw/media/images/channel/2021/01/11/large/20210111214029367376_50.png" group-title="📺 TVB",TVBS精采臺
-https://stream1.freetv.fun/678c7d57713c21f0c425ea02b8ab2a10abe31bdec85ef76c0d38750c7896b67f.ctv
 
-#EXTGRP:📺 ViuTV (3)
+#EXTGRP:📺 ViuTV (4)
 # speed: N/A
 #EXTINF:-1 tvg-name="ViuTV" tvg-logo="https://epg.112114.xyz/logo/ViuTV.png" group-title="📺 ViuTV",ViuTV
 http://r.jdshipin.com/vSJvl
@@ -268,6 +265,9 @@ http://api.kkitv.itv888.vip:8080/streams/i76tznm59xp/index.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="Viu6" tvg-logo="https://gitee.com/suxuang/logo/raw/master/mylogo/Viu6.png" group-title="📺 ViuTV",Viu6
 http://api.kkitv.itv888.vip:8080/streams/bvdslcl5cts/index.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="ViuTVsix" tvg-logo="https://epg.112114.xyz/logo/ViuTV.png" group-title="📺 ViuTV",ViuTVsix
+https://t.freetv.fun/live/viutvsix-1.m3u8
 
 #EXTGRP:📺 RTHK (9)
 # speed: N/A
@@ -315,7 +315,7 @@ https://hoytv-live-stream.hoy.tv/ch76/index-fhd.m3u8
 #EXTINF:-1 tvg-name="HOY TV[Geo-blocked]" tvg-logo="https://epg.112114.xyz/logo/HOY%20TV.png" group-title="📺 HOY TV",HOY TV[Geo-blocked]
 https://hoytv-live-stream.hoy.tv/ch77/index.m3u8
 
-#EXTGRP:📺 Now TV (9)
+#EXTGRP:📺 Now TV (11)
 # speed: N/A
 #EXTINF:-1 tvg-name="Now TVNEWS" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TVNEWS
 http://cdn.163189.xyz/163189/now
@@ -343,13 +343,19 @@ https://videostream.jpbgdigital.com/CHNWTV.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="Now TV102.3FMEdmonton" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TV102.3FMEdmonton
 https://videostream.jpbgdigital.com/NOWTV.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="now财经臺" tvg-logo="https://epg.112114.xyz/logo/NOW%20%E8%B4%8F%E7%BB%8F.png" group-title="📺 Now TV",now财经臺
+https://t.freetv.fun/live/nowcai-jing.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="now直播台" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",now直播台
+https://t.freetv.fun/live/nowzhi-bo.m3u8
 
 #EXTGRP:📺 有线电视 (1)
 # speed: N/A
 #EXTINF:-1 tvg-name="有线电视 新闻台" tvg-logo="https://epg.112114.xyz/logo/有线电视.png" group-title="📺 有线电视",有线电视 新闻台
 http://iptv.4666888.xyz/iptv2A.php?id=31
 
-#EXTGRP:🇹🇼 台湾 (23)
+#EXTGRP:🇹🇼 台湾 (18)
 # speed: N/A
 #EXTINF:-1 tvg-name="台视新闻" tvg-logo="https://epg.112114.xyz/logo/台视%E6%96%B0%E8%81%9E.png" group-title="🇹🇼 台湾",台视新闻
 http://ali.hlspull.yximgs.com/live/tboxproncqqtqqudtqlqcvbcvntqqqsfwetqfvcbcxvdqbqfflvcqtsxw.flv
@@ -404,21 +410,6 @@ https://stream1.freetv.fun/zhong-shi-jing-dian-1.ctv
 # speed: N/A
 #EXTINF:-1 tvg-name="公视戏剧" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/公视戏剧.png" group-title="🇹🇼 台湾",公视戏剧
 https://t.freetv.fun/live/gong-shi-xi-ju.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="中视 新闻台臺" tvg-logo="https://epg.112114.xyz/logo/中视.png" group-title="🇹🇼 台湾",中视 新闻台臺
-https://stream1.freetv.fun/3a583495eeab7f54152b8e8dd24fec83f7834083a2b7e2a5260f66dc4bde5860.ctv
-# speed: N/A
-#EXTINF:-1 tvg-name="民视影劇臺" tvg-logo="https://epg.pw/media/images/channel/2022/02/10/large/20220210223252835797_79.png" group-title="🇹🇼 台湾",民视影劇臺
-https://stream1.freetv.fun/bb905decbdfde44a3f5d4f02bcb401896c501939ce58fbfe8ecbf3141de03b74.ctv
-# speed: N/A
-#EXTINF:-1 tvg-name="民视第一臺" tvg-logo="https://epg.pw/media/images/channel/2022/03/23/large/20220323172047199293_67.png" group-title="🇹🇼 台湾",民视第一臺
-https://stream1.freetv.fun/e4fcbe774413a4dcbd6e0f4cfd4c39b4f9a1989e27df620d654a015cfaf70c93.ctv
-# speed: N/A
-#EXTINF:-1 tvg-name="民视综艺臺" tvg-logo="https://epg.pw/media/images/channel/2022/02/10/large/20220210223807030725_31.png" group-title="🇹🇼 台湾",民视综艺臺
-https://stream1.freetv.fun/9d95571983b3b3ce310d018451035834ef2a5f12e9b81cbd195d322a32942fbf.ctv
-# speed: N/A
-#EXTINF:-1 tvg-name="民视臺灣台" tvg-logo="https://epg.pw/media/images/channel/2023/07/24/large/20230724151611469778_92.png" group-title="🇹🇼 台湾",民视臺灣台
-https://stream1.freetv.fun/b286ff34dd322612e61a537c948a1267509a2fea4a5ebd338b3c9683333d8e9f.ctv
 
 #EXTGRP:🇲🇴 澳门 (10)
 # speed: N/A
