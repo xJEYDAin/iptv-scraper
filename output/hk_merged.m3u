@@ -2,8 +2,8 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-#PLAYLIST:HK & TW IPTV 2026-06-29
-# Total: 144 channels, 10 categories, min speed: 30 KB/s
+#PLAYLIST:HK & TW IPTV 2026-06-30
+# Total: 143 channels, 10 categories, min speed: 30 KB/s
 
 #EXTGRP:📡 卫视频道 (7)
 # speed: N/A
@@ -23,12 +23,12 @@ http://litv.zapi.us.kg/?id=4gtv-4gtv052
 http://novapress.ro:2022/live/nova/playlist.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="凤凰卫视中文" tvg-logo="https://epg.pw/media/images/channel/2025/01/28/large/20250128061049622730_55.png" group-title="📡 卫视频道",凤凰卫视中文
-https://t.freetv.fun/live/feng-huang-zhong-wen.php
+https://t.freetv.fun/live/feng-huang-wei-shi-zhong-wen-1.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="凤凰卫视香港" group-title="📡 卫视频道",凤凰卫视香港
 https://stream1.freetv.fun/b0d788f53809f59ca776e28fc7ec4f8e2618c6e7120298fbfb1f9fb9ab99621e.m3u8
 
-#EXTGRP:📺 TVB (76)
+#EXTGRP:📺 TVB (75)
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB 翡翠台" tvg-logo="https://gitee.com/suxuang/logo/raw/master/mylogo/翡翠台.png" group-title="📺 TVB",TVB 翡翠台
 http://r.jdshipin.com/qClQf
@@ -75,9 +75,6 @@ http://php.jdshipin.com/TVOD/iptv.php?id=tvbsh
 #EXTINF:-1 tvg-name="TVB娱乐新闻台" tvg-logo="https://live.fanmingming.cn/tv/TVB娱乐新闻台.png" group-title="📺 TVB",TVB娱乐新闻台
 http://php.jdshipin.com/TVOD/iptv.php?id=tvbylxw
 # speed: N/A
-#EXTINF:-1 tvg-name="CTVBarranquilla" tvg-logo="https://i.imgur.com/w35ICn7.png" group-title="📺 TVB",CTVBarranquilla
-https://live.ctvbarranquilla.com/live/ctv-4ad31c89f3764bf0980e642bc12fd00a.m3u8
-# speed: N/A
 #EXTINF:-1 tvg-name="EbonyTVbyLionsgate" tvg-logo="https://provider-static.plex.tv/epg/cms/production/234d5377-ab07-41bf-acd6-34c17c1c051a/EbonyTV_Plex_Logo_Light_1500x1000.png" group-title="📺 TVB",EbonyTVbyLionsgate
 https://aegis-cloudfront-1.tubi.video/a0ad4b53-ab3a-48dd-be12-bc7f533c372c/playlist.m3u8
 # speed: N/A
@@ -93,7 +90,7 @@ http://122.248.43.242:1935/JAWAPOSTVBALI/_definst_/myStream/playlist.m3u8
 #EXTINF:-1 tvg-name="KTVBangla" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/channel/2f8e3b371c660faa2f43a7f0942948a4.png" group-title="📺 TVB",KTVBangla
 https://server.livelegitpro.in:9899/tribetv/tribetv/index.m3u8
 # speed: N/A
-#EXTINF:-1 tvg-name="MTVBiggestPop" tvg-logo="https://i.imgur.com/AOaZmlS.png" group-title="📺 TVB",MTVBiggestPop
+#EXTINF:-1 tvg-name="MTVBiggestPop" tvg-logo="https://images.pluto.tv/channels/6047fbdbbb776a0007e7f2ff/colorLogoPNG.png" group-title="📺 TVB",MTVBiggestPop
 https://jmp2.uk/plu-6047fbdbbb776a0007e7f2ff.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="NKTVBangla" tvg-logo="https://www.nktvbangla.com/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-12-at-2.59.18-PM.jpg" group-title="📺 TVB",NKTVBangla
@@ -129,7 +126,7 @@ https://jmp2.uk/plu-638e11951177840007fdd6b2.m3u8
 #EXTINF:-1 tvg-name="PlutoTVBrittiskCrime&Drama" tvg-logo="https://images.pluto.tv/channels/65b91b53dc10a40008d54777/colorLogoPNG.png" group-title="📺 TVB",PlutoTVBrittiskCrime&Drama
 https://jmp2.uk/plu-65b91b53dc10a40008d54777.m3u8
 # speed: N/A
-#EXTINF:-1 tvg-name="PlutoTVBud&Terence" group-title="📺 TVB",PlutoTVBud&Terence
+#EXTINF:-1 tvg-name="PlutoTVBud&Terence" tvg-logo="https://images.pluto.tv/channels/64be7398e4391c0008cdedfe/colorLogoPNG_1776936976930.png" group-title="📺 TVB",PlutoTVBud&Terence
 https://jmp2.uk/plu-64be7398e4391c0008cdedfe.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="PlutoTVBuskis" tvg-logo="https://images.pluto.tv/channels/660d5f2a635c75000828855f/colorLogoPNG.png" group-title="📺 TVB",PlutoTVBuskis
@@ -255,8 +252,8 @@ https://stream1.freetv.fun/5bf2b1b6e25985960785ccef6dc0acddc7424b6fc178ba1530817
 #EXTINF:-1 tvg-name="TVB J2" tvg-logo="https://epg.112114.xyz/logo/J2.png" group-title="📺 TVB",TVB J2
 https://stream1.freetv.fun/8be534f8e9fd65158d8caee0104146164383687d3a6aa3b0721edd031ddb6279.ctv
 # speed: N/A
-#EXTINF:-1 tvg-name="Fashion TVBiH" tvg-logo="https://epg.pw/media/uploads/tmp_logo/2014/09/19/20140919034234983587_72.jpg" group-title="📺 TVB",Fashion TVBiH
-https://t.freetv.fun/live/ftv-1.m3u8
+#EXTINF:-1 tvg-name="CTVBarranquilla" tvg-logo="https://i.imgur.com/w35ICn7.png" group-title="📺 TVB",CTVBarranquilla
+https://live.ctvbarranquilla.com/live/ctv-4ad31c89f3764bf0980e642bc12fd00a.m3u8
 
 #EXTGRP:📺 ViuTV (4)
 # speed: N/A
