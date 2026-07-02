@@ -2,10 +2,10 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-#PLAYLIST:HK & TW IPTV 2026-07-01
-# Total: 146 channels, 10 categories, min speed: 30 KB/s
+#PLAYLIST:HK & TW IPTV 2026-07-02
+# Total: 147 channels, 10 categories, min speed: 30 KB/s
 
-#EXTGRP:📡 卫视频道 (7)
+#EXTGRP:📡 卫视频道 (8)
 # speed: N/A
 #EXTINF:-1 tvg-name="凤凰卫视" tvg-logo="https://epg.112114.xyz/logo/凤凰卫视.png" group-title="📡 卫视频道",凤凰卫视
 http://r.jdshipin.com/0Rp07
@@ -21,6 +21,9 @@ http://litv.zapi.us.kg/?id=4gtv-4gtv052
 # speed: N/A
 #EXTINF:-1 tvg-name="NovaTVBrasov[Not24/7]" tvg-logo="https://i.imgur.com/33Vn0Ij.png" group-title="📡 卫视频道",NovaTVBrasov[Not24/7]
 http://novapress.ro:2022/live/nova/playlist.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="DeltaTVBulgaria" tvg-logo="https://epg.pw/media/" group-title="📡 卫视频道",DeltaTVBulgaria
+https://t.freetv.fun/live/delta-tv-3.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="凤凰卫视中文" tvg-logo="https://epg.pw/media/images/channel/2025/01/28/large/20250128061049622730_55.png" group-title="📡 卫视频道",凤凰卫视中文
 https://t.freetv.fun/live/feng-huang-wei-shi-zhong-wen-1.m3u8
