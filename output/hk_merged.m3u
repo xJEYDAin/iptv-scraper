@@ -2,8 +2,8 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-#PLAYLIST:HK & TW IPTV 2026-07-21
-# Total: 150 channels, 10 categories, min speed: 30 KB/s
+#PLAYLIST:HK & TW IPTV 2026-07-22
+# Total: 153 channels, 10 categories, min speed: 30 KB/s
 
 #EXTGRP:📡 卫视频道 (8)
 # speed: N/A
@@ -26,7 +26,7 @@ http://novapress.ro:2022/live/nova/playlist.m3u8
 https://t.freetv.fun/live/delta-tv-3.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="凤凰卫视中文" tvg-logo="https://epg.pw/media/images/channel/2025/01/28/large/20250128061049622730_55.png" group-title="📡 卫视频道",凤凰卫视中文
-https://t.freetv.fun/live/feng-huang-zhong-wen.m3u8
+https://t.freetv.fun/live/feng-huang-zhong-wen-1.php
 # speed: N/A
 #EXTINF:-1 tvg-name="凤凰卫视香港" group-title="📡 卫视频道",凤凰卫视香港
 https://stream1.freetv.fun/b0d788f53809f59ca776e28fc7ec4f8e2618c6e7120298fbfb1f9fb9ab99621e.m3u8
@@ -243,8 +243,14 @@ https://t.freetv.fun/live/tv-brics.m3u8
 #EXTINF:-1 tvg-name="TVB亚洲武俠" tvg-logo="https://epg.pw/media/images/channel/2024/11/11/large/20241111010034135563_37.png" group-title="📺 TVB",TVB亚洲武俠
 https://t.freetv.fun/live/asian.m3u8
 # speed: N/A
+#EXTINF:-1 tvg-name="TVB1" tvg-logo="https://epg.pw/media/images/channel/2020/01/17/large/20200117010821425787_54.jpg" group-title="📺 TVB",TVB1
+https://t.freetv.fun/live/tvb1.php
+# speed: N/A
 #EXTINF:-1 tvg-name="TVBSNews" tvg-logo="https://epg.pw/media/images/channel/2023/09/22/large/20230922145019289857_16.png" group-title="📺 TVB",TVBSNews
 https://t.freetv.fun/live/tvbs-news.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="TVBS歡樂臺" tvg-logo="https://epg.pw/media/images/channel/2025/01/28/large/20250128055954129777_18.png" group-title="📺 TVB",TVBS歡樂臺
+https://t.freetv.fun/live/tvbshuan-le.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="TVBS精采臺" tvg-logo="https://epg.pw/media/images/channel/2021/01/11/large/20210111214029367376_50.png" group-title="📺 TVB",TVBS精采臺
 https://t.freetv.fun/live/tvbsjing-cai.php
@@ -263,12 +269,6 @@ https://stream1.freetv.fun/5bf2b1b6e25985960785ccef6dc0acddc7424b6fc178ba1530817
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB J2" tvg-logo="https://epg.112114.xyz/logo/J2.png" group-title="📺 TVB",TVB J2
 https://stream1.freetv.fun/8be534f8e9fd65158d8caee0104146164383687d3a6aa3b0721edd031ddb6279.ctv
-# speed: N/A
-#EXTINF:-1 tvg-name="TVBDrama" tvg-logo="https://epg.pw/media/images/channel/2022/07/03/large/20220703210750136803_43.jpg" group-title="📺 TVB",TVBDrama
-https://t.freetv.fun/live/tvb-drama.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="TVBS精采台" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/TVBS精采台.png" group-title="📺 TVB",TVBS精采台
-https://ha.msbot.dpdns.org/4gtv_api.php?id=227
 
 #EXTGRP:📺 ViuTV (3)
 # speed: N/A
@@ -327,7 +327,7 @@ https://hoytv-live-stream.hoy.tv/ch76/index-fhd.m3u8
 #EXTINF:-1 tvg-name="HOY TV[Geo-blocked]" tvg-logo="https://epg.112114.xyz/logo/HOY%20TV.png" group-title="📺 HOY TV",HOY TV[Geo-blocked]
 https://hoytv-live-stream.hoy.tv/ch77/index.m3u8
 
-#EXTGRP:📺 Now TV (8)
+#EXTGRP:📺 Now TV (11)
 # speed: N/A
 #EXTINF:-1 tvg-name="Now TVNEWS" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TVNEWS
 http://cdn.163189.xyz/163189/now
@@ -344,6 +344,9 @@ https://lightning-now80s-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-lightning
 #EXTINF:-1 tvg-name="Now TV90s00s" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TV90s00s
 https://amg01076-amg01076c19-rakuten-gb-8653.playouts.now.amagi.tv/playlist/amg01076-lightning-now90s00s-rakutengb/playlist.m3u8
 # speed: N/A
+#EXTINF:-1 tvg-name="Now TVNewsGlobal" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TVNewsGlobal
+https://nowhls.wns.live/hls/stream.m3u8
+# speed: N/A
 #EXTINF:-1 tvg-name="Now TVRock" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TVRock
 https://lightning-now90s-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-lightning-now90s-rakuten/CDN/playlist.m3u8
 # speed: N/A
@@ -352,6 +355,12 @@ https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="Now TV102.3FMEdmonton" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TV102.3FMEdmonton
 https://videostream.jpbgdigital.com/NOWTV.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Now TV星影臺" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TV星影臺
+https://t.freetv.fun/live/nowxing-ying.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Now TV爆谷台" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TV爆谷台
+https://t.freetv.fun/live/nowbao-gu.m3u8
 
 #EXTGRP:📺 有线电视 (1)
 # speed: N/A
@@ -405,38 +414,38 @@ https://pulltv3.wanfudaluye.com/live/tv3.m3u8
 #EXTINF:-1 tvg-name="民视 新闻台" tvg-logo="https://epg.112114.xyz/logo/民视.png" group-title="🇹🇼 台湾",民视 新闻台
 https://raw.githubusercontent.com/ChiSheng9/iptv/master/TV17.m3u8
 # speed: N/A
+#EXTINF:-1 tvg-name="中视 新闻台臺" tvg-logo="https://epg.112114.xyz/logo/中视.png" group-title="🇹🇼 台湾",中视 新闻台臺
+https://t.freetv.fun/live/zhong-shi-xin-wen.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="中视经典" tvg-logo="https://epg.pw/media/images/channel/2023/07/11/large/20230711221628321961_26.jpg" group-title="🇹🇼 台湾",中视经典
+https://t.freetv.fun/live/zhong-shi-jing-dian.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="中视菁采臺" tvg-logo="https://epg.pw/media/images/channel/2021/12/28/large/20211228171426835864_33.png" group-title="🇹🇼 台湾",中视菁采臺
+https://t.freetv.fun/live/zhong-shi-jing-cai.m3u8
+# speed: N/A
 #EXTINF:-1 tvg-name="公视" tvg-logo="https://epg.112114.xyz/logo/公视.png" group-title="🇹🇼 台湾",公视
 https://t.freetv.fun/live/gong-shi.ts
 # speed: N/A
 #EXTINF:-1 tvg-name="公视戏剧" tvg-logo="https://epg.pw/media/images/channel/2021/01/11/large/20210111204548266167_97.png" group-title="🇹🇼 台湾",公视戏剧
 https://t.freetv.fun/live/gong-shi-xi-ju.m3u8
 # speed: N/A
+#EXTINF:-1 tvg-name="大爱二臺" tvg-logo="https://epg.pw/media/uploads/tmp_logo/2016/11/22/20161122132027545644_22.png" group-title="🇹🇼 台湾",大爱二臺
+https://t.freetv.fun/live/da-ai-er.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="大爱电视臺" tvg-logo="https://epg.pw/media/uploads/tmp_logo/2016/11/22/20161122130613801542_95.jpg" group-title="🇹🇼 台湾",大爱电视臺
+https://t.freetv.fun/live/da-ai-dian-shi.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="民视第一臺" tvg-logo="https://epg.pw/media/images/channel/2022/03/23/large/20220323172047199293_67.png" group-title="🇹🇼 台湾",民视第一臺
+https://t.freetv.fun/live/min-shi-di-yi.m3u8
+# speed: N/A
 #EXTINF:-1 tvg-name="民视综艺臺" tvg-logo="https://epg.pw/media/images/channel/2022/02/10/large/20220210223807030725_31.png" group-title="🇹🇼 台湾",民视综艺臺
 https://t.freetv.fun/live/min-shi-zong-yi.m3u8
 # speed: N/A
-#EXTINF:-1 tvg-name="中视经典" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/中视经典.png" group-title="🇹🇼 台湾",中视经典
-https://t.freetv.fun/live/zhong-shi-jing-dian.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="中视菁采台" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/中视菁采台.png" group-title="🇹🇼 台湾",中视菁采台
-https://t.freetv.fun/live/zhong-shi-jing-cai.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="台视财经台" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/台视财经台.png" group-title="🇹🇼 台湾",台视财经台
-https://t.freetv.fun/live/tai-shi-cai-jing.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="中视 新闻台臺" tvg-logo="https://epg.112114.xyz/logo/中视.png" group-title="🇹🇼 台湾",中视 新闻台臺
-https://t.freetv.fun/live/zhong-shi-xin-wen.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="中视菁采臺" tvg-logo="https://epg.pw/media/images/channel/2021/12/28/large/20211228171426835864_33.png" group-title="🇹🇼 台湾",中视菁采臺
-https://stream1.freetv.fun/945d6ebe5df77ba31ef60083a2a88189c26cdb2fee8da5b4e2d6e0e97873747c.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="民视第一臺" tvg-logo="https://epg.pw/media/images/channel/2022/03/23/large/20220323172047199293_67.png" group-title="🇹🇼 台湾",民视第一臺
-https://stream1.freetv.fun/c7315e13674997aeb8fd203c21bf1f388ee0b73acb5ec751865246a41f43352d.m3u8
-# speed: N/A
 #EXTINF:-1 tvg-name="民视臺灣臺" tvg-logo="https://epg.pw/media/images/channel/2022/11/26/large/20221126220034637848_50.jpg" group-title="🇹🇼 台湾",民视臺灣臺
-https://stream1.freetv.fun/fdfbd5211382c063979eb04a05dfd58d8041b812a13a351f3556885e482d4b71.m3u8
+https://t.freetv.fun/live/min-shi-tai-wan.m3u8
 # speed: N/A
-#EXTINF:-1 tvg-name="民视旅游台" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/民视旅游台.png" group-title="🇹🇼 台湾",民视旅游台
-https://ha.msbot.dpdns.org/4gtv_api.php?id=61
+#EXTINF:-1 tvg-name="台视 新闻台" tvg-logo="https://epg.112114.xyz/logo/台视.png" group-title="🇹🇼 台湾",台视 新闻台
+https://t.freetv.fun/live/tai-shi-xin-wen.m3u8
 
 #EXTGRP:🇲🇴 澳门 (10)
 # speed: N/A
