@@ -2,7 +2,7 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-#PLAYLIST:HK & TW IPTV 2026-08-08
+#PLAYLIST:HK & TW IPTV 2026-08-09
 # Total: 157 channels, 10 categories, min speed: 30 KB/s
 
 #EXTGRP:📡 卫视频道 (9)
@@ -435,9 +435,6 @@ https://t.freetv.fun/live/gong-shi.ts
 #EXTINF:-1 tvg-name="公视臺語臺" tvg-logo="https://epg.pw/media/images/channel/2023/07/24/large/20230724132459650801_84.png" group-title="🇹🇼 台湾",公视臺語臺
 https://t.freetv.fun/live/gong-shi-tai-yu.ts
 # speed: N/A
-#EXTINF:-1 tvg-name="民视影劇臺" tvg-logo="https://epg.pw/media/images/channel/2022/02/10/large/20220210223252835797_79.png" group-title="🇹🇼 台湾",民视影劇臺
-https://t.freetv.fun/live/min-shi-ying-ju-1.php
-# speed: N/A
 #EXTINF:-1 tvg-name="民视第一臺" tvg-logo="https://epg.pw/media/images/channel/2022/03/23/large/20220323172047199293_67.png" group-title="🇹🇼 台湾",民视第一臺
 https://t.freetv.fun/live/min-shi-di-yi.ts
 # speed: N/A
@@ -458,6 +455,9 @@ http://74.91.26.218:82/live/ptsty.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="公视戏剧" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/logo/公视戏剧.png" group-title="🇹🇼 台湾",公视戏剧
 https://ha.msbot.dpdns.org/4gtv_api.php?id=7
+# speed: N/A
+#EXTINF:-1 tvg-name="民视影劇臺" tvg-logo="https://epg.pw/media/images/channel/2022/02/10/large/20220210223252835797_79.png" group-title="🇹🇼 台湾",民视影劇臺
+https://t.freetv.fun/live/min-shi-ying-ju-1.php
 
 #EXTGRP:🇲🇴 澳门 (10)
 # speed: N/A
