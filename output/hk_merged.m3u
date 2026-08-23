@@ -2,8 +2,8 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-#PLAYLIST:HK & TW IPTV 2026-08-22
-# Total: 159 channels, 10 categories, min speed: 30 KB/s
+#PLAYLIST:HK & TW IPTV 2026-08-23
+# Total: 161 channels, 10 categories, min speed: 30 KB/s
 
 #EXTGRP:📡 卫视频道 (10)
 # speed: N/A
@@ -192,6 +192,9 @@ https://engbrics.mediacdn.ru/cdn/brics/english/playlist.m3u8
 #EXTINF:-1 tvg-name="TVBRICSPortuguese" tvg-logo="https://i.imgur.com/vLpm8tN.png" group-title="📺 TVB",TVBRICSPortuguese
 https://porbrics.mediacdn.ru/cdn/brics/portuguese/playlist.m3u8
 # speed: N/A
+#EXTINF:-1 tvg-name="TVBRICSRussian" tvg-logo="https://i.imgur.com/vLpm8tN.png" group-title="📺 TVB",TVBRICSRussian
+http://185.23.80.23:8080/TVBRICS/index.m3u8
+# speed: N/A
 #EXTINF:-1 tvg-name="TVBRICSSpanish" tvg-logo="https://i.imgur.com/vLpm8tN.png" group-title="📺 TVB",TVBRICSSpanish
 https://espbrics.mediacdn.ru/cdn/brics/spanish/playlist.m3u8
 # speed: N/A
@@ -250,7 +253,7 @@ https://t.freetv.fun/live/tvbs-news.m3u8
 https://t.freetv.fun/live/tvbsjing-cai.php
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB 明珠台臺" tvg-logo="https://epg.pw/media/images/channel/2024/12/26/large/20241226141312380293_76.png" group-title="📺 TVB",TVB 明珠台臺
-https://t.freetv.fun/live/ming-zhu-1.m3u8
+https://t.freetv.fun/live/ming-zhu-2.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="TVBPearl" tvg-logo="https://epg.112114.xyz/logo/明珠台.png" group-title="📺 TVB",TVBPearl
 http://php.jdshipin.com/TVOD/iptv.php?id=mzt
@@ -266,9 +269,6 @@ https://stream1.freetv.fun/5bf2b1b6e25985960785ccef6dc0acddc7424b6fc178ba1530817
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB J2" tvg-logo="https://epg.112114.xyz/logo/J2.png" group-title="📺 TVB",TVB J2
 https://stream1.freetv.fun/8be534f8e9fd65158d8caee0104146164383687d3a6aa3b0721edd031ddb6279.ctv
-# speed: N/A
-#EXTINF:-1 tvg-name="TVBRICSRussian" tvg-logo="https://i.imgur.com/vLpm8tN.png" group-title="📺 TVB",TVBRICSRussian
-https://rusbrics.mediacdn.ru/cdn/brics/russian/playlist.m3u8
 
 #EXTGRP:📺 ViuTV (3)
 # speed: N/A
@@ -327,7 +327,7 @@ https://hoytv-live-stream.hoy.tv/ch76/index-fhd.m3u8
 #EXTINF:-1 tvg-name="HOY TV[Geo-blocked]" tvg-logo="https://epg.112114.xyz/logo/HOY%20TV.png" group-title="📺 HOY TV",HOY TV[Geo-blocked]
 https://hoytv-live-stream.hoy.tv/ch77/index.m3u8
 
-#EXTGRP:📺 Now TV (13)
+#EXTGRP:📺 Now TV (15)
 # speed: N/A
 #EXTINF:-1 tvg-name="Now TVNEWS" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TVNEWS
 http://cdn.163189.xyz/163189/now
@@ -367,6 +367,12 @@ https://videostream.jpbgdigital.com/NOWTV.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="RightNowTV" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",RightNowTV
 https://a-cdn.klowdtv.com/live2/rightnowtv_720p/playlist.m3u8
+# speed: N/A
+#EXTINF:-1 tvg-name="Now TV星影臺" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TV星影臺
+https://t.freetv.fun/live/nowxing-ying.ts
+# speed: N/A
+#EXTINF:-1 tvg-name="Now TV爆谷台" tvg-logo="https://epg.112114.xyz/logo/NOW%20TV.png" group-title="📺 Now TV",Now TV爆谷台
+https://t.freetv.fun/live/nowbao-gu.ts
 
 #EXTGRP:📺 有线电视 (1)
 # speed: N/A
