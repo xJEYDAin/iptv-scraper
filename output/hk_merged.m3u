@@ -2,8 +2,8 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-#PLAYLIST:HK & TW IPTV 2026-10-20
-# Total: 152 channels, 10 categories, min speed: 30 KB/s
+#PLAYLIST:HK & TW IPTV 2026-10-21
+# Total: 151 channels, 10 categories, min speed: 30 KB/s
 
 #EXTGRP:📡 卫视频道 (11)
 # speed: N/A
@@ -40,7 +40,7 @@ https://t.freetv.fun/live/hua-shi-jiao-yu-ti-yu-wen-hua.ts
 #EXTINF:-1 tvg-name="华视新闻资讯" tvg-logo="https://epg.pw/media/images/channel/2023/07/18/large/20230718001309024626_13.jpg" group-title="📡 卫视频道",华视新闻资讯
 https://t.freetv.fun/live/hua-shi-xin-wen-zi-xun.ts
 
-#EXTGRP:📺 TVB (80)
+#EXTGRP:📺 TVB (79)
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB 翡翠台" tvg-logo="https://gitee.com/suxuang/logo/raw/master/mylogo/翡翠台.png" group-title="📺 TVB",TVB 翡翠台
 http://r.jdshipin.com/qClQf
@@ -278,9 +278,6 @@ https://t.freetv.fun/live/tvbsjing-cai.php
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB 明珠台臺" tvg-logo="https://epg.pw/media/images/channel/2024/12/26/large/20241226141312380293_76.png" group-title="📺 TVB",TVB 明珠台臺
 https://t.freetv.fun/live/ming-zhu-2.m3u8
-# speed: N/A
-#EXTINF:-1 tvg-name="MITVBurmese" tvg-logo="https://epg.pw/media/uploads/tmp_logo/2017/03/12/20170312021120503161_80.jpg" group-title="📺 TVB",MITVBurmese
-https://stream1.freetv.fun/f2464a319b602f1331fdf9594cb1a76c03e3a35883fadc35b3ea9d412431d296.m3u8
 
 #EXTGRP:📺 ViuTV (3)
 # speed: N/A
