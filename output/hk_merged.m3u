@@ -2,8 +2,8 @@
 #EXTVLCOPT:network-caching=1000
 #EXTVLCOPT:live-cache=1000
 #EXTVLCOPT:ttl=5
-#PLAYLIST:HK & TW IPTV 2026-10-23
-# Total: 151 channels, 10 categories, min speed: 30 KB/s
+#PLAYLIST:HK & TW IPTV 2026-10-24
+# Total: 150 channels, 10 categories, min speed: 30 KB/s
 
 #EXTGRP:📡 卫视频道 (11)
 # speed: N/A
@@ -40,7 +40,7 @@ https://t.freetv.fun/live/hua-shi-jiao-yu-ti-yu-wen-hua.ts
 #EXTINF:-1 tvg-name="华视新闻资讯" tvg-logo="https://epg.pw/media/images/channel/2023/07/18/large/20230718001309024626_13.jpg" group-title="📡 卫视频道",华视新闻资讯
 https://t.freetv.fun/live/hua-shi-xin-wen-zi-xun.ts
 
-#EXTGRP:📺 TVB (79)
+#EXTGRP:📺 TVB (78)
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB 翡翠台" tvg-logo="https://gitee.com/suxuang/logo/raw/master/mylogo/翡翠台.png" group-title="📺 TVB",TVB 翡翠台
 http://r.jdshipin.com/qClQf
@@ -257,9 +257,6 @@ https://stream1.freetv.fun/5bf2b1b6e25985960785ccef6dc0acddc7424b6fc178ba1530817
 # speed: N/A
 #EXTINF:-1 tvg-name="TVB J2" tvg-logo="https://epg.112114.xyz/logo/J2.png" group-title="📺 TVB",TVB J2
 https://stream1.freetv.fun/8be534f8e9fd65158d8caee0104146164383687d3a6aa3b0721edd031ddb6279.ctv
-# speed: N/A
-#EXTINF:-1 tvg-name="TVBreizh" tvg-logo="https://i.imgur.com/O8W4yhn.png" group-title="📺 TVB",TVBreizh
-http://145.239.5.177/318/index.m3u8
 # speed: N/A
 #EXTINF:-1 tvg-name="TVBrics" tvg-logo="https://epg.pw/media/images/channel/2023/01/15/large/20230115035835827206_81.jpg" group-title="📺 TVB",TVBrics
 https://t.freetv.fun/live/tv-brics-russian.m3u8
